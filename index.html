@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#07111f">
-    <meta name="description" content="El Sisy - حلول هندسية متكاملة في البنية التحتية والصرف الصحي والمياه والتشطيبات والتصميم والتنفيذ.">
+    <meta name="theme-color" content="#082743">
+    <meta name="description" content="El Sisy - حلول هندسية متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات والتصميم والتنفيذ.">
     <meta name="keywords" content="El Sisy, السيسي, بنية تحتية, صرف صحي, شبكات مياه, محطات مياه, محطات معالجة, استشارات هندسية, تشطيبات, تصميم وتنفيذ">
     <meta name="robots" content="index, follow">
     <title>El Sisy | حلول هندسية متكاملة</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="image/ChatGPT Image Sep 28, 2026, 01_52_24 AM.png">
+    <link rel="icon" href="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg">
 </head>
 <body>
-
-    <div class="page-noise"></div>
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
     <div class="scroll-progress" id="scroll-progress"></div>
-
     <div class="nav-overlay" id="nav-overlay"></div>
 
     <header class="navbar-container" id="site-header">
         <nav class="navbar">
             <a href="#home" class="nav-logo" aria-label="El Sisy">
-                <span class="logo-mark"><i class="fa-solid fa-compass-drafting"></i></span>
-                <span class="logo-copy">
+                <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo">
+                <span>
                     <strong>El SISY</strong>
                     <small data-i18n data-ar="للهندسة والمقاولات" data-en="Engineering & Contracting">للهندسة والمقاولات</small>
                 </span>
@@ -42,16 +40,14 @@
                 <li><a href="#partners" data-i18n data-ar="شركاؤنا" data-en="Partners">شركاؤنا</a></li>
                 <li><a href="#location" data-i18n data-ar="موقعنا" data-en="Location">موقعنا</a></li>
                 <li><a href="#book" data-i18n data-ar="استشارة" data-en="Consultation">استشارة</a></li>
-                <li><a href="#contact" data-i18n data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a></li>
+                <li><a href="#contact" data-i18n data-ar="تواصل" data-en="Contact">تواصل</a></li>
             </ul>
 
             <div class="nav-actions">
-                <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">
-                    <span class="lang-active">AR</span>
-                    <span class="lang-divider">/</span>
-                    <span>EN</span>
+                <button class="lang-toggle" id="lang-toggle" type="button">
+                    <strong>AR</strong><span>/</span><span>EN</span>
                 </button>
-                <button class="burger-menu" id="burger-menu" type="button" aria-label="Open menu" aria-expanded="false">
+                <button class="burger-menu" id="burger-menu" type="button" aria-label="Menu" aria-expanded="false">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -59,367 +55,268 @@
     </header>
 
     <main>
-        <!-- HERO -->
-        <section id="home" class="hero-section">
-            <div class="hero-grid-lines"></div>
-            <div class="hero-orb hero-orb-one"></div>
-            <div class="hero-orb hero-orb-two"></div>
+        <section id="home" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-pattern"></div>
 
             <div class="hero-content reveal reveal-up">
-                <span class="eyebrow">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span data-i18n data-ar="هندسة • تصميم • تنفيذ" data-en="Engineering • Design • Execution">هندسة • تصميم • تنفيذ</span>
-                </span>
+                <div class="hero-logo-wrap">
+                    <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo" class="hero-logo">
+                </div>
 
-                <h1 data-i18n data-ar="نبني البنية التحتية التي يعتمد عليها المستقبل." data-en="Building the infrastructure that tomorrow depends on.">
-                    نبني البنية التحتية التي يعتمد عليها المستقبل.
+                <span class="hero-kicker" data-i18n data-ar="هندسة • تصميم • تنفيذ" data-en="Engineering • Design • Execution">هندسة • تصميم • تنفيذ</span>
+
+                <h1 data-i18n
+                    data-ar="حلول هندسية تبني بنية تحتية أقوى للمستقبل."
+                    data-en="Engineering solutions for stronger infrastructure and a better future.">
+                    حلول هندسية تبني بنية تحتية أقوى للمستقبل.
                 </h1>
 
-                <p class="hero-description" data-i18n
-                   data-ar="El Sisy تقدم حلولًا هندسية متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات، من الفكرة والتصميم حتى التنفيذ والتسليم."
-                   data-en="El Sisy delivers integrated engineering solutions across infrastructure, wastewater, water networks, treatment plants and finishing — from concept and design to execution and handover.">
-                    El Sisy تقدم حلولًا هندسية متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات، من الفكرة والتصميم حتى التنفيذ والتسليم.
+                <p data-i18n
+                   data-ar="نقدم خدمات متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات، من الاستشارة والتصميم حتى التنفيذ والتسليم."
+                   data-en="We deliver integrated solutions in infrastructure, wastewater, water networks, treatment plants and finishing — from consulting and design to execution and handover.">
+                    نقدم خدمات متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات، من الاستشارة والتصميم حتى التنفيذ والتسليم.
                 </p>
 
                 <div class="hero-actions">
-                    <a href="#services" class="btn btn-primary">
-                        <span data-i18n data-ar="اكتشف خدماتنا" data-en="Explore Services">اكتشف خدماتنا</span>
+                    <a href="#services" class="main-btn">
+                        <span data-i18n data-ar="استكشف خدماتنا" data-en="Explore our services">استكشف خدماتنا</span>
                         <i class="fa-solid fa-arrow-left arrow-icon"></i>
                     </a>
-                    <a href="#book" class="btn btn-ghost">
-                        <span data-i18n data-ar="اطلب استشارة" data-en="Request Consultation">اطلب استشارة</span>
-                    </a>
+                    <a href="#book" class="outline-btn" data-i18n data-ar="اطلب استشارة" data-en="Request consultation">اطلب استشارة</a>
                 </div>
 
-                <div class="hero-trust">
-                    <div class="trust-item">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                        <span data-i18n data-ar="تنفيذ احترافي" data-en="Professional execution">تنفيذ احترافي</span>
-                    </div>
-                    <div class="trust-item">
-                        <i class="fa-solid fa-route"></i>
-                        <span data-i18n data-ar="حلول متكاملة" data-en="Integrated solutions">حلول متكاملة</span>
-                    </div>
-                    <div class="trust-item">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <span data-i18n data-ar="جودة والتزام" data-en="Quality & commitment">جودة والتزام</span>
-                    </div>
+                <div class="hero-highlights">
+                    <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="حلول متكاملة" data-en="Integrated solutions">حلول متكاملة</span></div>
+                    <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="تنفيذ منظم" data-en="Structured execution">تنفيذ منظم</span></div>
+                    <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="جودة واهتمام بالتفاصيل" data-en="Quality & detail">جودة واهتمام بالتفاصيل</span></div>
                 </div>
             </div>
 
-            <div class="hero-visual reveal reveal-scale">
-                <div class="hero-card-stack">
-                    <div class="hero-main-card">
-                        <div class="card-topline">
-                            <span class="pulse-dot"></span>
-                            <span data-i18n data-ar="حلول بنية تحتية" data-en="Infrastructure solutions">حلول بنية تحتية</span>
-                        </div>
-                        <div class="engineering-scene">
-                            <div class="scene-sky"></div>
-                            <div class="scene-ground"></div>
-                            <div class="scene-road"></div>
-                            <div class="pipe pipe-one"></div>
-                            <div class="pipe pipe-two"></div>
-                            <div class="plant-tank"></div>
-                            <div class="plant-tower"></div>
-                            <div class="tower-light"></div>
-                            <div class="scene-grid"></div>
-                        </div>
-                        <div class="hero-mini-stats">
-                            <div>
-                                <strong>8+</strong>
-                                <span data-i18n data-ar="مجالات خدمات" data-en="Service areas">مجالات خدمات</span>
-                            </div>
-                            <div>
-                                <strong>360°</strong>
-                                <span data-i18n data-ar="من التصميم للتنفيذ" data-en="Design to execution">من التصميم للتنفيذ</span>
-                            </div>
-                            <div>
-                                <strong>24/7</strong>
-                                <span data-i18n data-ar="اهتمام ودعم" data-en="Support mindset">اهتمام ودعم</span>
-                            </div>
-                        </div>
+            <div class="hero-side reveal reveal-scale">
+                <div class="hero-orbit orbit-one"></div>
+                <div class="hero-orbit orbit-two"></div>
+
+                <div class="hero-card">
+                    <div class="hero-card-head">
+                        <span class="live-dot"></span>
+                        <span data-i18n data-ar="حلول البنية التحتية" data-en="Infrastructure solutions">حلول البنية التحتية</span>
                     </div>
 
-                    <div class="floating-chip chip-one">
-                        <i class="fa-solid fa-water"></i>
-                        <span data-i18n data-ar="شبكات ومحطات مياه" data-en="Water networks & plants">شبكات ومحطات مياه</span>
+                    <div class="water-visual">
+                        <div class="water-sun"></div>
+                        <div class="water-horizon"></div>
+                        <div class="water-ring water-ring-one"></div>
+                        <div class="water-ring water-ring-two"></div>
+                        <div class="water-tower"></div>
+                        <div class="water-pipe water-pipe-one"></div>
+                        <div class="water-pipe water-pipe-two"></div>
+                        <div class="water-grid"></div>
                     </div>
-                    <div class="floating-chip chip-two">
-                        <i class="fa-solid fa-droplet"></i>
-                        <span data-i18n data-ar="صرف ومعالجة" data-en="Wastewater & treatment">صرف ومعالجة</span>
+
+                    <div class="hero-card-footer">
+                        <div>
+                            <strong>8+</strong>
+                            <span data-i18n data-ar="مجالات خدمات" data-en="Service areas">مجالات خدمات</span>
+                        </div>
+                        <div>
+                            <strong>360°</strong>
+                            <span data-i18n data-ar="من التصميم للتنفيذ" data-en="Design to execution">من التصميم للتنفيذ</span>
+                        </div>
+                        <div>
+                            <strong>24/7</strong>
+                            <span data-i18n data-ar="عقلية دعم ومتابعة" data-en="Support mindset">عقلية دعم ومتابعة</span>
+                        </div>
                     </div>
                 </div>
+
+                <div class="hero-tag tag-one"><i class="fa-solid fa-droplet"></i><span data-i18n data-ar="شبكات ومحطات مياه" data-en="Water networks & plants">شبكات ومحطات مياه</span></div>
+                <div class="hero-tag tag-two"><i class="fa-solid fa-recycle"></i><span data-i18n data-ar="صرف ومعالجة" data-en="Wastewater & treatment">صرف ومعالجة</span></div>
             </div>
         </section>
 
-        <!-- SERVICES -->
-        <section id="services" class="section section-dark">
+        <section id="services" class="section services-section">
             <div class="section-heading reveal reveal-up">
-                <span class="section-kicker" data-i18n data-ar="ماذا نقدم" data-en="What we deliver">ماذا نقدم</span>
-                <h2 data-i18n data-ar="خدمات هندسية مصممة للمشروعات الحقيقية." data-en="Engineering services designed for real projects.">خدمات هندسية مصممة للمشروعات الحقيقية.</h2>
-                <p data-i18n data-ar="نغطي دورة المشروع كاملة بخدمات واضحة، عملية، وقابلة للتنفيذ." data-en="We cover the full project cycle with clear, practical and execution-ready services.">نغطي دورة المشروع كاملة بخدمات واضحة، عملية، وقابلة للتنفيذ.</p>
+                <div>
+                    <span class="section-kicker" data-i18n data-ar="خدماتنا" data-en="Our services">خدماتنا</span>
+                    <h2 data-i18n data-ar="كل ما يحتاجه مشروعك في مكان واحد." data-en="Everything your project needs, in one place.">كل ما يحتاجه مشروعك في مكان واحد.</h2>
+                </div>
+                <p data-i18n data-ar="نركز على الخدمات التي تمثل نشاط El Sisy فعليًا، مع تصميم وتنفيذ منظم يناسب طبيعة كل مشروع." data-en="We focus on the services that represent El Sisy's core activity, with organized design and execution for every project.">نركز على الخدمات التي تمثل نشاط El Sisy فعليًا، مع تصميم وتنفيذ منظم يناسب طبيعة كل مشروع.</p>
             </div>
 
             <div class="services-grid">
-                <article class="service-card reveal reveal-up" style="--delay:.02s">
-                    <div class="service-icon"><i class="fa-solid fa-compass-drafting"></i></div>
-                    <span class="service-number">01</span>
-                    <h3 data-i18n data-ar="الاستشارات الهندسية" data-en="Engineering Consulting">الاستشارات الهندسية</h3>
-                    <p data-i18n data-ar="دراسات واستشارات فنية تساعد على اختيار الحل المناسب، رفع كفاءة التنفيذ، وتقليل المخاطر والتكلفة." data-en="Technical studies and consulting to choose the right solution, improve execution efficiency and reduce risks and cost.">دراسات واستشارات فنية تساعد على اختيار الحل المناسب، رفع كفاءة التنفيذ، وتقليل المخاطر والتكلفة.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="consulting">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-consulting"><i class="fa-solid fa-compass-drafting"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">01</span>
+                        <h3 data-i18n data-ar="الاستشارات الهندسية" data-en="Engineering Consulting">الاستشارات الهندسية</h3>
+                        <p data-i18n data-ar="حلول فنية ودراسات تساعدك على اختيار أفضل مسار للمشروع قبل التنفيذ." data-en="Technical studies and guidance to choose the right project path before execution.">حلول فنية ودراسات تساعدك على اختيار أفضل مسار للمشروع قبل التنفيذ.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="consulting"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
 
-                <article class="service-card reveal reveal-up" style="--delay:.08s">
-                    <div class="service-icon"><i class="fa-solid fa-pen-ruler"></i></div>
-                    <span class="service-number">02</span>
-                    <h3 data-i18n data-ar="التصميم والتنفيذ" data-en="Design & Construction">التصميم والتنفيذ</h3>
-                    <p data-i18n data-ar="تنسيق التصميمات والحلول التنفيذية وإدارة الأعمال للوصول إلى نتيجة دقيقة ومتكاملة في الموقع." data-en="Coordinated designs, execution solutions and site delivery for accurate, integrated project outcomes.">تنسيق التصميمات والحلول التنفيذية وإدارة الأعمال للوصول إلى نتيجة دقيقة ومتكاملة في الموقع.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="design-build">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-design"><i class="fa-solid fa-pen-ruler"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">02</span>
+                        <h3 data-i18n data-ar="التصميم والتنفيذ" data-en="Design & Construction">التصميم والتنفيذ</h3>
+                        <p data-i18n data-ar="تنسيق التصميم والحلول التنفيذية وإدارة مراحل العمل للوصول لنتيجة متكاملة." data-en="Coordinated design, execution solutions and delivery management for complete results.">تنسيق التصميم والحلول التنفيذية وإدارة مراحل العمل للوصول لنتيجة متكاملة.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="design-build"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
 
-                <article class="service-card reveal reveal-up" style="--delay:.14s">
-                    <div class="service-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
-                    <span class="service-number">03</span>
-                    <h3 data-i18n data-ar="أعمال التشطيب" data-en="Finishing Works">أعمال التشطيب</h3>
-                    <p data-i18n data-ar="تشطيبات متكاملة تجمع بين جودة التنفيذ، دقة التفاصيل، وتسليم منظم يناسب الاستخدام النهائي للمشروع." data-en="Integrated finishing works combining quality execution, attention to detail and organized handover for the final use.">تشطيبات متكاملة تجمع بين جودة التنفيذ، دقة التفاصيل، وتسليم منظم يناسب الاستخدام النهائي للمشروع.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="finishing">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-finish"><i class="fa-solid fa-house-chimney-window"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">03</span>
+                        <h3 data-i18n data-ar="أعمال التشطيب" data-en="Finishing Works">أعمال التشطيب</h3>
+                        <p data-i18n data-ar="تشطيبات متكاملة تجمع بين الدقة في التفاصيل والتنفيذ المنظم وجودة التسليم." data-en="Integrated finishing works with detail, organized execution and quality handover.">تشطيبات متكاملة تجمع بين الدقة في التفاصيل والتنفيذ المنظم وجودة التسليم.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="finishing"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
 
-                <article class="service-card reveal reveal-up" style="--delay:.20s">
-                    <div class="service-icon"><i class="fa-solid fa-faucet-drip"></i></div>
-                    <span class="service-number">04</span>
-                    <h3 data-i18n data-ar="شبكات مياه الشرب" data-en="Potable Water Networks">شبكات مياه الشرب</h3>
-                    <p data-i18n data-ar="تصميم وتنفيذ شبكات نقل وتوزيع مياه الشرب وفق مسارات وحلول تشغيلية مناسبة للموقع." data-en="Design and implementation of drinking water transmission and distribution networks with practical routing and operational solutions.">تصميم وتنفيذ شبكات نقل وتوزيع مياه الشرب وفق مسارات وحلول تشغيلية مناسبة للموقع.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="water-networks">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-water"><i class="fa-solid fa-faucet-drip"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">04</span>
+                        <h3 data-i18n data-ar="شبكات مياه الشرب" data-en="Potable Water Networks">شبكات مياه الشرب</h3>
+                        <p data-i18n data-ar="تصميم وتنفيذ شبكات نقل وتوزيع مياه الشرب بما يناسب الموقع ومتطلبات التشغيل." data-en="Design and execution of potable water transmission and distribution networks.">تصميم وتنفيذ شبكات نقل وتوزيع مياه الشرب بما يناسب الموقع ومتطلبات التشغيل.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="water-networks"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
 
-                <article class="service-card reveal reveal-up" style="--delay:.26s">
-                    <div class="service-icon"><i class="fa-solid fa-fan"></i></div>
-                    <span class="service-number">05</span>
-                    <h3 data-i18n data-ar="شبكات الصرف الصحي" data-en="Wastewater Networks">شبكات الصرف الصحي</h3>
-                    <p data-i18n data-ar="أعمال تصميم وتنفيذ خطوط وشبكات الصرف بما يحقق سهولة التشغيل والصيانة واستدامة الأداء." data-en="Wastewater network design and execution focused on reliable operation, maintainability and long-term performance.">أعمال تصميم وتنفيذ خطوط وشبكات الصرف بما يحقق سهولة التشغيل والصيانة واستدامة الأداء.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="wastewater-networks">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-waste"><i class="fa-solid fa-water"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">05</span>
+                        <h3 data-i18n data-ar="شبكات الصرف الصحي" data-en="Wastewater Networks">شبكات الصرف الصحي</h3>
+                        <p data-i18n data-ar="تنفيذ حلول شبكات الصرف مع مراعاة سهولة التشغيل والصيانة واستدامة الأداء." data-en="Wastewater network execution focused on operation, maintenance and long-term performance.">تنفيذ حلول شبكات الصرف مع مراعاة سهولة التشغيل والصيانة واستدامة الأداء.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="wastewater-networks"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
 
-                <article class="service-card reveal reveal-up" style="--delay:.32s">
-                    <div class="service-icon"><i class="fa-solid fa-industry"></i></div>
-                    <span class="service-number">06</span>
-                    <h3 data-i18n data-ar="محطات مياه الشرب" data-en="Drinking Water Plants">محطات مياه الشرب</h3>
-                    <p data-i18n data-ar="حلول متكاملة لأعمال تصميم وتنفيذ محطات مياه الشرب وربطها بالأنظمة والشبكات." data-en="Integrated design and execution solutions for drinking water plants and their connection to networks and systems.">حلول متكاملة لأعمال تصميم وتنفيذ محطات مياه الشرب وربطها بالأنظمة والشبكات.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="water-plants">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-plant"><i class="fa-solid fa-industry"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">06</span>
+                        <h3 data-i18n data-ar="محطات مياه الشرب" data-en="Drinking Water Plants">محطات مياه الشرب</h3>
+                        <p data-i18n data-ar="حلول تصميم وتنفيذ للمحطات وربطها بالشبكات والأنظمة اللازمة للتشغيل." data-en="Plant design and execution solutions with required network and system integration.">حلول تصميم وتنفيذ للمحطات وربطها بالشبكات والأنظمة اللازمة للتشغيل.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="water-plants"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
 
-                <article class="service-card reveal reveal-up" style="--delay:.38s">
-                    <div class="service-icon"><i class="fa-solid fa-filter-circle-dollar"></i></div>
-                    <span class="service-number">07</span>
-                    <h3 data-i18n data-ar="محطات الصرف والمعالجة" data-en="Wastewater & Treatment Plants">محطات الصرف والمعالجة</h3>
-                    <p data-i18n data-ar="تنفيذ حلول محطات الصرف ومعالجة المياه مع مراعاة متطلبات الموقع والتشغيل والكفاءة." data-en="Wastewater and treatment plant solutions with attention to site requirements, operation and efficiency.">تنفيذ حلول محطات الصرف ومعالجة المياه مع مراعاة متطلبات الموقع والتشغيل والكفاءة.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="treatment-plants">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-treatment"><i class="fa-solid fa-filter-circle-dollar"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">07</span>
+                        <h3 data-i18n data-ar="محطات الصرف والمعالجة" data-en="Wastewater & Treatment Plants">محطات الصرف والمعالجة</h3>
+                        <p data-i18n data-ar="تنفيذ حلول محطات الصرف والمعالجة بما يناسب متطلبات الموقع وكفاءة التشغيل." data-en="Wastewater and treatment plant solutions adapted to site needs and operational efficiency.">تنفيذ حلول محطات الصرف والمعالجة بما يناسب متطلبات الموقع وكفاءة التشغيل.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="treatment-plants"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
 
-                <article class="service-card reveal reveal-up" style="--delay:.44s">
-                    <div class="service-icon"><i class="fa-solid fa-road"></i></div>
-                    <span class="service-number">08</span>
-                    <h3 data-i18n data-ar="أعمال البنية التحتية" data-en="Infrastructure Works">أعمال البنية التحتية</h3>
-                    <p data-i18n data-ar="تنسيق وتنفيذ أعمال البنية التحتية المرتبطة بالمرافق، الطرق والخدمات للمشروعات الجديدة والقائمة." data-en="Coordinated infrastructure execution for utilities, roads and services across new and existing projects.">تنسيق وتنفيذ أعمال البنية التحتية المرتبطة بالمرافق، الطرق والخدمات للمشروعات الجديدة والقائمة.</p>
-                    <a href="#book" class="service-link btn-request" data-service-key="infrastructure">
-                        <span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-infra"><i class="fa-solid fa-road"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">08</span>
+                        <h3 data-i18n data-ar="أعمال البنية التحتية" data-en="Infrastructure Works">أعمال البنية التحتية</h3>
+                        <p data-i18n data-ar="تنفيذ أعمال المرافق والخدمات المرتبطة بالبنية التحتية للمشروعات الجديدة والقائمة." data-en="Infrastructure, utility and service works for new and existing projects.">تنفيذ أعمال المرافق والخدمات المرتبطة بالبنية التحتية للمشروعات الجديدة والقائمة.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="infrastructure"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
                 </article>
             </div>
         </section>
 
-        <!-- PROCESS -->
         <section class="section process-section">
             <div class="section-heading centered reveal reveal-up">
-                <span class="section-kicker" data-i18n data-ar="أسلوب العمل" data-en="Our workflow">أسلوب العمل</span>
-                <h2 data-i18n data-ar="من أول فكرة لحد التسليم." data-en="From first idea to handover.">من أول فكرة لحد التسليم.</h2>
-                <p data-i18n data-ar="طريقة عمل بسيطة وواضحة تقلل التعقيد وتحافظ على جودة التنفيذ." data-en="A simple, clear workflow that reduces complexity and protects execution quality.">طريقة عمل بسيطة وواضحة تقلل التعقيد وتحافظ على جودة التنفيذ.</p>
+                <span class="section-kicker" data-i18n data-ar="طريقة العمل" data-en="Our process">طريقة العمل</span>
+                <h2 data-i18n data-ar="شغل منظم من أول خطوة لحد التسليم." data-en="A clear process from first step to handover.">شغل منظم من أول خطوة لحد التسليم.</h2>
             </div>
-
             <div class="process-grid">
-                <div class="process-step reveal reveal-up">
-                    <span>01</span>
-                    <i class="fa-solid fa-comments"></i>
-                    <h3 data-i18n data-ar="فهم الاحتياج" data-en="Understand">فهم الاحتياج</h3>
-                    <p data-i18n data-ar="نبدأ بفهم هدف المشروع ومتطلباته." data-en="We start by understanding the project goal and requirements.">نبدأ بفهم هدف المشروع ومتطلباته.</p>
-                </div>
-                <div class="process-step reveal reveal-up">
-                    <span>02</span>
-                    <i class="fa-solid fa-drafting-compass"></i>
-                    <h3 data-i18n data-ar="التصميم والحلول" data-en="Design">التصميم والحلول</h3>
-                    <p data-i18n data-ar="نضع الحل الهندسي وخطة العمل المناسبة." data-en="We define the engineering solution and practical work plan.">نضع الحل الهندسي وخطة العمل المناسبة.</p>
-                </div>
-                <div class="process-step reveal reveal-up">
-                    <span>03</span>
-                    <i class="fa-solid fa-helmet-safety"></i>
-                    <h3 data-i18n data-ar="التنفيذ" data-en="Execute">التنفيذ</h3>
-                    <p data-i18n data-ar="تنفيذ منظم ومتابعة دقيقة للمراحل." data-en="Structured execution and close stage-by-stage follow-up.">تنفيذ منظم ومتابعة دقيقة للمراحل.</p>
-                </div>
-                <div class="process-step reveal reveal-up">
-                    <span>04</span>
-                    <i class="fa-solid fa-flag-checkered"></i>
-                    <h3 data-i18n data-ar="التسليم" data-en="Handover">التسليم</h3>
-                    <p data-i18n data-ar="مراجعة الأعمال وتسليم المشروع بصورة منظمة." data-en="Review, verify and hand over the project in an organized way.">مراجعة الأعمال وتسليم المشروع بصورة منظمة.</p>
-                </div>
+                <div class="process-item reveal reveal-up"><span>01</span><i class="fa-solid fa-comments"></i><h3 data-i18n data-ar="نفهم احتياجك" data-en="Understand">نفهم احتياجك</h3><p data-i18n data-ar="نحدد هدف المشروع ومتطلباته." data-en="We define the project goal and needs.">نحدد هدف المشروع ومتطلباته.</p></div>
+                <div class="process-item reveal reveal-up"><span>02</span><i class="fa-solid fa-drafting-compass"></i><h3 data-i18n data-ar="نصمم الحل" data-en="Design">نصمم الحل</h3><p data-i18n data-ar="نختار الحل الهندسي المناسب." data-en="We shape the right engineering solution.">نختار الحل الهندسي المناسب.</p></div>
+                <div class="process-item reveal reveal-up"><span>03</span><i class="fa-solid fa-helmet-safety"></i><h3 data-i18n data-ar="ننـفذ ونتابع" data-en="Execute">ننـفذ ونتابع</h3><p data-i18n data-ar="تنفيذ منظم ومتابعة للمراحل." data-en="Organized execution and close follow-up.">تنفيذ منظم ومتابعة للمراحل.</p></div>
+                <div class="process-item reveal reveal-up"><span>04</span><i class="fa-solid fa-circle-check"></i><h3 data-i18n data-ar="نسلم بجودة" data-en="Handover">نسلم بجودة</h3><p data-i18n data-ar="مراجعة الأعمال وتسليم منظم." data-en="Review and organized handover.">مراجعة الأعمال وتسليم منظم.</p></div>
             </div>
         </section>
 
-        <!-- PROJECTS -->
-        <section id="projects" class="section section-soft">
-            <div class="section-heading reveal reveal-up">
-                <span class="section-kicker" data-i18n data-ar="نماذج من الأعمال" data-en="Selected work">نماذج من الأعمال</span>
-                <h2 data-i18n data-ar="مشروعات تترجم الفكرة إلى واقع." data-en="Projects that turn ideas into reality.">مشروعات تترجم الفكرة إلى واقع.</h2>
-                <p data-i18n data-ar="نماذج المشاريع المعروضة هنا من المحتوى الحالي للموقع، مع الحفاظ على بياناتها أثناء إعادة التصميم." data-en="The projects shown here are retained from the site's existing content while the visual experience is redesigned.">نماذج المشاريع المعروضة هنا من المحتوى الحالي للموقع، مع الحفاظ على بياناتها أثناء إعادة التصميم.</p>
+        <section id="projects" class="section projects-section">
+            <div class="section-heading centered reveal reveal-up">
+                <span class="section-kicker" data-i18n data-ar="مشروعاتنا" data-en="Our projects">مشروعاتنا</span>
+                <h2 data-i18n data-ar="نماذج من الأعمال الحالية." data-en="Selected projects from the current portfolio.">نماذج من الأعمال الحالية.</h2>
             </div>
 
             <div class="projects-grid">
-                <article class="project-card reveal reveal-left">
-                    <div class="project-visual visual-factory">
-                        <span class="visual-label">01</span>
-                        <i class="fa-solid fa-industry visual-icon"></i>
-                        <div class="visual-lines"></div>
-                    </div>
-                    <div class="project-content">
+                <article class="project-card reveal reveal-up">
+                    <div class="project-visual project-factory"><div class="project-number">01</div><i class="fa-solid fa-industry"></i><div class="project-grid"></div></div>
+                    <div class="project-details">
                         <span class="project-meta" data-i18n data-ar="مصنع • العين السخنة" data-en="Factory • Ain Sokhna">مصنع • العين السخنة</span>
                         <h3>Pivot Factory</h3>
-                        <p data-i18n data-ar="مشروع صناعي مدرج ضمن الأعمال الحالية للموقع." data-en="An industrial project listed among the site's current portfolio.">مشروع صناعي مدرج ضمن الأعمال الحالية للموقع.</p>
+                        <p data-i18n data-ar="مشروع صناعي مدرج ضمن الأعمال الحالية للموقع." data-en="An industrial project listed in the current website portfolio.">مشروع صناعي مدرج ضمن الأعمال الحالية للموقع.</p>
                         <span class="year-pill">2023</span>
                     </div>
                 </article>
 
                 <article class="project-card reveal reveal-up">
-                    <div class="project-visual visual-water">
-                        <span class="visual-label">02</span>
-                        <i class="fa-solid fa-water visual-icon"></i>
-                        <div class="visual-lines"></div>
-                    </div>
-                    <div class="project-content">
+                    <div class="project-visual project-water"><div class="project-number">02</div><i class="fa-solid fa-water"></i><div class="project-grid"></div></div>
+                    <div class="project-details">
                         <span class="project-meta" data-i18n data-ar="مرافق • كوم أمبو" data-en="Utilities • Kom Ombo">مرافق • كوم أمبو</span>
                         <h3>Kom Ombo — Aswan</h3>
-                        <p data-i18n data-ar="مشروع مدرج ضمن الأعمال الحالية مع تصميم بصري جديد أكثر وضوحًا." data-en="A listed project presented with a cleaner, more modern visual treatment.">مشروع مدرج ضمن الأعمال الحالية مع تصميم بصري جديد أكثر وضوحًا.</p>
+                        <p data-i18n data-ar="مشروع مرافق مدرج ضمن بيانات الموقع الحالية." data-en="A utilities project retained from the current site data.">مشروع مرافق مدرج ضمن بيانات الموقع الحالية.</p>
                         <span class="year-pill">2024</span>
                     </div>
                 </article>
 
-                <article class="project-card reveal reveal-right">
-                    <div class="project-visual visual-residential">
-                        <span class="visual-label">03</span>
-                        <i class="fa-solid fa-building visual-icon"></i>
-                        <div class="visual-lines"></div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-meta" data-i18n data-ar="سكني • أعمال مباني" data-en="Residential • Buildings">سكني • أعمال مباني</span>
+                <article class="project-card reveal reveal-up">
+                    <div class="project-visual project-res"><div class="project-number">03</div><i class="fa-solid fa-building"></i><div class="project-grid"></div></div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="سكني • مباني" data-en="Residential • Buildings">سكني • مباني</span>
                         <h3>Residential Apartments</h3>
-                        <p data-i18n data-ar="مشروع سكني موجود ضمن البيانات السابقة للموقع." data-en="A residential project retained from the site's previous project data.">مشروع سكني موجود ضمن البيانات السابقة للموقع.</p>
+                        <p data-i18n data-ar="مشروع سكني موجود ضمن البيانات السابقة للموقع." data-en="A residential project retained from the previous website data.">مشروع سكني موجود ضمن البيانات السابقة للموقع.</p>
                         <span class="year-pill">2020</span>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- ABOUT -->
         <section id="about" class="section about-section">
             <div class="about-grid">
-                <div class="about-copy reveal reveal-right">
-                    <span class="section-kicker" data-i18n data-ar="عن El Sisy" data-en="About El Sisy">عن El Sisy</span>
-                    <h2 data-i18n data-ar="شركة هندسية تفكر في الحل قبل التنفيذ." data-en="An engineering company that thinks about the solution before execution.">شركة هندسية تفكر في الحل قبل التنفيذ.</h2>
-                    <p data-i18n data-ar="نؤمن أن نجاح أي مشروع يبدأ من فهمه جيدًا. لذلك نجمع بين التفكير الهندسي، وضوح التصميم، وجودة التنفيذ لنقدم حلولًا مناسبة لطبيعة كل مشروع." data-en="We believe every successful project starts with understanding it properly. We combine engineering thinking, clear design and quality execution to fit each project's needs.">
-                        نؤمن أن نجاح أي مشروع يبدأ من فهمه جيدًا. لذلك نجمع بين التفكير الهندسي، وضوح التصميم، وجودة التنفيذ لنقدم حلولًا مناسبة لطبيعة كل مشروع.
-                    </p>
+                <div class="about-brand reveal reveal-right">
+                    <div class="about-logo-box"><img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo"></div>
+                    <div class="about-brand-name">El SISY</div>
+                    <span data-i18n data-ar="Engineering • Infrastructure • Water" data-en="Engineering • Infrastructure • Water">Engineering • Infrastructure • Water</span>
+                </div>
+
+                <div class="about-copy reveal reveal-left">
+                    <span class="section-kicker" data-i18n data-ar="عن الشركة" data-en="About the company">عن الشركة</span>
+                    <h2 data-i18n data-ar="هندسة عملية، تنفيذ واضح، ونتيجة تفتخر بيها." data-en="Practical engineering, clear execution and results you can be proud of.">هندسة عملية، تنفيذ واضح، ونتيجة تفتخر بيها.</h2>
+                    <p data-i18n data-ar="في El Sisy نركز على فهم المشروع بشكل صحيح قبل التنفيذ، ثم تحويل الاحتياج إلى حل هندسي قابل للتطبيق، مع اهتمام بالتفاصيل وجودة التسليم." data-en="At El Sisy, we focus on understanding the project first, then turning its needs into practical engineering solutions with attention to detail and quality handover.">في El Sisy نركز على فهم المشروع بشكل صحيح قبل التنفيذ، ثم تحويل الاحتياج إلى حل هندسي قابل للتطبيق، مع اهتمام بالتفاصيل وجودة التسليم.</p>
 
                     <div class="about-points">
-                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="حلول عملية قابلة للتنفيذ" data-en="Practical execution-ready solutions">حلول عملية قابلة للتنفيذ</span></div>
-                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="تنسيق واضح بين التصميم والتنفيذ" data-en="Clear design-to-execution coordination">تنسيق واضح بين التصميم والتنفيذ</span></div>
-                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="اهتمام بالجودة والتفاصيل" data-en="Attention to quality and detail">اهتمام بالجودة والتفاصيل</span></div>
+                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="حلول عملية قابلة للتنفيذ" data-en="Practical, execution-ready solutions">حلول عملية قابلة للتنفيذ</span></div>
+                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="تنسيق بين التصميم والتنفيذ" data-en="Design-to-execution coordination">تنسيق بين التصميم والتنفيذ</span></div>
+                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="تركيز على الجودة والتفاصيل" data-en="Quality and detail focused">تركيز على الجودة والتفاصيل</span></div>
                     </div>
 
-                    <a href="#contact" class="btn btn-primary">
-                        <span data-i18n data-ar="تواصل مع الفريق" data-en="Talk to our team">تواصل مع الفريق</span>
-                        <i class="fa-solid fa-arrow-left arrow-icon"></i>
-                    </a>
-                </div>
-
-                <div class="about-visual reveal reveal-scale">
-                    <div class="about-panel">
-                        <div class="about-panel-glow"></div>
-                        <div class="about-logo">
-                            <i class="fa-solid fa-bridge-water"></i>
-                        </div>
-                        <strong>El SISY</strong>
-                        <span data-i18n data-ar="Engineering • Infrastructure • Water" data-en="Engineering • Infrastructure • Water">Engineering • Infrastructure • Water</span>
-                    </div>
-
-                    <div class="about-mini-card">
-                        <i class="fa-solid fa-layer-group"></i>
-                        <div>
-                            <strong data-i18n data-ar="حلول من البداية للنهاية" data-en="End-to-end solutions">حلول من البداية للنهاية</strong>
-                            <span data-i18n data-ar="استشارات، تصميم، تنفيذ ومتابعة." data-en="Consulting, design, execution and follow-up.">استشارات، تصميم، تنفيذ ومتابعة.</span>
-                        </div>
-                    </div>
+                    <a href="#contact" class="main-btn inline-btn"><span data-i18n data-ar="تواصل مع الفريق" data-en="Talk to the team">تواصل مع الفريق</span><i class="fa-solid fa-arrow-left arrow-icon"></i></a>
                 </div>
             </div>
 
-            <div class="advantages-grid section-width">
-                <div class="advantage-card reveal reveal-up">
-                    <i class="fa-solid fa-award"></i>
-                    <h3 data-i18n data-ar="جودة" data-en="Quality">جودة</h3>
-                    <p data-i18n data-ar="نهتم بالتفاصيل التي تصنع الفرق." data-en="We care about the details that make the difference.">نهتم بالتفاصيل التي تصنع الفرق.</p>
-                </div>
-                <div class="advantage-card reveal reveal-up">
-                    <i class="fa-solid fa-clock"></i>
-                    <h3 data-i18n data-ar="التزام" data-en="Commitment">التزام</h3>
-                    <p data-i18n data-ar="تنظيم واضح للمراحل والمتطلبات." data-en="Clear organization for stages and requirements.">تنظيم واضح للمراحل والمتطلبات.</p>
-                </div>
-                <div class="advantage-card reveal reveal-up">
-                    <i class="fa-solid fa-user-gear"></i>
-                    <h3 data-i18n data-ar="خبرة عملية" data-en="Practical expertise">خبرة عملية</h3>
-                    <p data-i18n data-ar="تركيز على ما يمكن تنفيذه على أرض الواقع." data-en="Focused on what can actually be built and delivered.">تركيز على ما يمكن تنفيذه على أرض الواقع.</p>
-                </div>
-                <div class="advantage-card reveal reveal-up">
-                    <i class="fa-solid fa-lightbulb"></i>
-                    <h3 data-i18n data-ar="حلول ذكية" data-en="Smart solutions">حلول ذكية</h3>
-                    <p data-i18n data-ar="اختيارات هندسية توازن بين الجودة والكفاءة." data-en="Engineering choices that balance quality and efficiency.">اختيارات هندسية توازن quality والكفاءة.</p>
-                </div>
+            <div class="advantages-grid">
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-award"></i><h3 data-i18n data-ar="جودة" data-en="Quality">جودة</h3><p data-i18n data-ar="اهتمام بالتفاصيل التي تصنع الفرق." data-en="Attention to the details that matter.">اهتمام بالتفاصيل التي تصنع الفرق.</p></div>
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-clock"></i><h3 data-i18n data-ar="التزام" data-en="Commitment">التزام</h3><p data-i18n data-ar="تنظيم واضح للمراحل والمتطلبات." data-en="Clear organization across stages and needs.">تنظيم واضح للمراحل والمتطلبات.</p></div>
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-user-gear"></i><h3 data-i18n data-ar="خبرة عملية" data-en="Practical expertise">خبرة عملية</h3><p data-i18n data-ar="تركيز على الحلول القابلة للتنفيذ فعليًا." data-en="Focused on solutions that can actually be delivered.">تركيز على الحلول القابلة للتنفيذ فعليًا.</p></div>
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-lightbulb"></i><h3 data-i18n data-ar="حلول ذكية" data-en="Smart solutions">حلول ذكية</h3><p data-i18n data-ar="اختيارات توازن بين الجودة والكفاءة." data-en="Choices that balance quality and efficiency.">اختيارات توازن بين الجودة والكفاءة.</p></div>
             </div>
         </section>
 
-        <!-- PARTNERS -->
-        <section id="partners" class="section section-dark partners-section">
+        <section id="partners" class="section partners-section">
             <div class="section-heading centered reveal reveal-up">
-                <span class="section-kicker" data-i18n data-ar="ثقة وشراكات" data-en="Trust & partnerships">ثقة وشراكات</span>
-                <h2 data-i18n data-ar="نعمل وسط منظومة تنفيذية واسعة." data-en="Working within a broad delivery ecosystem.">نعمل وسط منظومة تنفيذية واسعة.</h2>
-                <p data-i18n data-ar="أسماء الشركاء المعروضة هنا مأخوذة من النسخة الحالية للموقع." data-en="The partner names below are retained from the current website version.">أسماء الشركاء المعروضة هنا مأخوذة من النسخة الحالية للموقع.</p>
+                <span class="section-kicker" data-i18n data-ar="شركاؤنا" data-en="Partners">شركاؤنا</span>
+                <h2 data-i18n data-ar="شراكات تدعم التنفيذ." data-en="Partnerships that support delivery.">شراكات تدعم التنفيذ.</h2>
+                <p data-i18n data-ar="الأسماء التالية محفوظة من النسخة الأصلية للموقع." data-en="The names below are retained from the original website version.">الأسماء التالية محفوظة من النسخة الأصلية للموقع.</p>
             </div>
-            <div class="partners-track" aria-label="Partners">
-                <div class="partner-pill">ElSewedy</div>
-                <div class="partner-pill">Madkour</div>
-                <div class="partner-pill">Arab Contractors</div>
-                <div class="partner-pill">Orascom</div>
-                <div class="partner-pill">Colas Rail</div>
+            <div class="partners-row">
                 <div class="partner-pill">ElSewedy</div>
                 <div class="partner-pill">Madkour</div>
                 <div class="partner-pill">Arab Contractors</div>
@@ -428,63 +325,36 @@
             </div>
         </section>
 
-        <!-- LOCATION -->
-        <section id="location" class="section section-soft">
+        <section id="location" class="section location-section">
             <div class="section-heading centered reveal reveal-up">
                 <span class="section-kicker" data-i18n data-ar="موقعنا" data-en="Our location">موقعنا</span>
-                <h2 data-i18n data-ar="قريبين منك، وجاهزين نبدأ." data-en="Close to you and ready to start.">قريبين منك، وجاهزين نبدأ.</h2>
+                <h2 data-i18n data-ar="جاهزين نبدأ من مكان قريب منك." data-en="Ready to start from a location close to you.">جاهزين نبدأ من مكان قريب منك.</h2>
             </div>
-
             <div class="location-card reveal reveal-scale">
-                <div class="location-copy">
-                    <span class="location-icon"><i class="fa-solid fa-location-dot"></i></span>
+                <div class="location-info">
+                    <div class="location-icon"><i class="fa-solid fa-location-dot"></i></div>
                     <h3 data-i18n data-ar="موقع الشركة" data-en="Company location">موقع الشركة</h3>
                     <p dir="ltr">18 Teraat Al Ismailiah, Arab Al Hoson, Shubra El Kheima 2, Al-Qalyubia Governorate</p>
-                    <a class="text-link" href="https://www.google.com/maps/search/?api=1&query=18+Teraat+Al+Ismailiah+Arab+Al+Hoson+Shubra+El+Kheima" target="_blank" rel="noopener">
-                        <span data-i18n data-ar="فتح الموقع على الخريطة" data-en="Open in Google Maps">فتح الموقع على الخريطة</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
+                    <a class="text-link" href="https://www.google.com/maps/search/?api=1&query=18+Teraat+Al+Ismailiah+Arab+Al+Hoson+Shubra+El+Kheima" target="_blank" rel="noopener"><span data-i18n data-ar="فتح الموقع على الخريطة" data-en="Open in Google Maps">فتح الموقع على الخريطة</span><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 </div>
-                <div class="map-container">
-                    <iframe data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3450.2875422122374!2d31.293435199999998!3d30.143194100000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145814e27a1d370d%3A0x4a9ef6121dfbc8e3!2s18%20Teraat%20Al%20Ismailiah%2C%20Arab%20Al%20Hoson%2C%20Shubra%20El%20Kheima%202%2C%20Al-Qalyubia%20Governorate%206227044!5e0!3m2!1sen!2seg!4v1785872475902!5m2!1sen!2seg"
-                            width="600" height="450" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="El Sisy location map"></iframe>
-                </div>
+                <div class="map-container"><iframe data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3450.2875422122374!2d31.293435199999998!3d30.143194100000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145814e27a1d370d%3A0x4a9ef6121dfbc8e3!2s18%20Teraat%20Al%20Ismailiah%2C%20Arab%20Al%20Hoson%2C%20Shubra%20El%20Kheima%202%2C%20Al-Qalyubia%20Governorate%206227044!5e0!3m2!1sen!2seg!4v1785872475902!5m2!1sen!2seg" loading="lazy" title="El Sisy map"></iframe></div>
             </div>
         </section>
 
-        <!-- BOOKING -->
-        <section id="book" class="section booking-wrap">
+        <section id="book" class="section booking-section">
             <div class="booking-card reveal reveal-up">
                 <div class="booking-copy">
                     <span class="section-kicker" data-i18n data-ar="ابدأ مشروعك" data-en="Start your project">ابدأ مشروعك</span>
                     <h2 data-i18n data-ar="خلينا نتكلم عن مشروعك." data-en="Let's talk about your project.">خلينا نتكلم عن مشروعك.</h2>
-                    <p data-i18n data-ar="ابعت بياناتك الأساسية، وفريقنا يراجع طلبك للتواصل معك." data-en="Send your basic details and our team will review your request and contact you.">ابعت بياناتك الأساسية، وفريقنا يراجع طلبك للتواصل معك.</p>
-
-                    <div class="booking-highlights">
-                        <span><i class="fa-solid fa-circle-check"></i><span data-i18n data-ar="استشارة مبدئية" data-en="Initial consultation">استشارة مبدئية</span></span>
-                        <span><i class="fa-solid fa-circle-check"></i><span data-i18n data-ar="فهم احتياجات المشروع" data-en="Project needs review">فهم احتياجات المشروع</span></span>
-                        <span><i class="fa-solid fa-circle-check"></i><span data-i18n data-ar="تحديد الخطوة التالية" data-en="Define next step">تحديد الخطوة التالية</span></span>
-                    </div>
+                    <p data-i18n data-ar="ابعت بياناتك الأساسية وفريقنا يراجع طلبك للتواصل معك." data-en="Send your basic details and our team will review your request and contact you.">ابعت بياناتك الأساسية وفريقنا يراجع طلبك للتواصل معك.</p>
+                    <div class="booking-note"><i class="fa-solid fa-circle-check"></i><span data-i18n data-ar="استشارة مبدئية + فهم الاحتياج + تحديد الخطوة التالية" data-en="Initial consultation + needs review + next step">استشارة مبدئية + فهم الاحتياج + تحديد الخطوة التالية</span></div>
                 </div>
 
                 <form class="booking-form" id="booking-form">
-                    <label class="form-field">
-                        <span data-i18n data-ar="الاسم بالكامل" data-en="Full name">الاسم بالكامل</span>
-                        <input type="text" id="user_name" placeholder="الاسم بالكامل" data-placeholder-ar="الاسم بالكامل" data-placeholder-en="Full name" required>
-                    </label>
-
-                    <label class="form-field">
-                        <span data-i18n data-ar="رقم الهاتف" data-en="Phone number">رقم الهاتف</span>
-                        <input type="tel" id="user_phone" placeholder="رقم الهاتف" data-placeholder-ar="رقم الهاتف" data-placeholder-en="Phone number" required>
-                    </label>
-
-                    <label class="form-field">
-                        <span data-i18n data-ar="العنوان" data-en="Address">العنوان</span>
-                        <input type="text" id="user_address" placeholder="العنوان" data-placeholder-ar="العنوان" data-placeholder-en="Address" required>
-                    </label>
-
-                    <label class="form-field">
-                        <span data-i18n data-ar="الخدمة المطلوبة" data-en="Requested service">الخدمة المطلوبة</span>
+                    <label class="form-field"><span data-i18n data-ar="الاسم بالكامل" data-en="Full name">الاسم بالكامل</span><input type="text" id="user_name" placeholder="الاسم بالكامل" data-placeholder-ar="الاسم بالكامل" data-placeholder-en="Full name" required></label>
+                    <label class="form-field"><span data-i18n data-ar="رقم الهاتف" data-en="Phone number">رقم الهاتف</span><input type="tel" id="user_phone" placeholder="رقم الهاتف" data-placeholder-ar="رقم الهاتف" data-placeholder-en="Phone number" required></label>
+                    <label class="form-field full"><span data-i18n data-ar="العنوان" data-en="Address">العنوان</span><input type="text" id="user_address" placeholder="العنوان" data-placeholder-ar="العنوان" data-placeholder-en="Address" required></label>
+                    <label class="form-field full"><span data-i18n data-ar="الخدمة المطلوبة" data-en="Requested service">الخدمة المطلوبة</span>
                         <select id="user_service" required>
                             <option value="" disabled selected data-ar="اختر الخدمة المطلوبة" data-en="Choose a service">اختر الخدمة المطلوبة</option>
                             <option value="consulting" data-ar="الاستشارات الهندسية" data-en="Engineering Consulting">الاستشارات الهندسية</option>
@@ -497,77 +367,37 @@
                             <option value="infrastructure" data-ar="أعمال البنية التحتية" data-en="Infrastructure Works">أعمال البنية التحتية</option>
                         </select>
                     </label>
-
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        <span data-i18n data-ar="إرسال الطلب" data-en="Send request">إرسال الطلب</span>
-                        <i class="fa-solid fa-arrow-left arrow-icon"></i>
-                    </button>
-                    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                    <button type="submit" class="main-btn full btn-submit"><span data-i18n data-ar="إرسال الطلب" data-en="Send request">إرسال الطلب</span><i class="fa-solid fa-arrow-left arrow-icon"></i></button>
+                    <p class="form-status full" id="form-status" aria-live="polite"></p>
                 </form>
             </div>
         </section>
 
-        <!-- CONTACT -->
         <section id="contact" class="section contact-section">
             <div class="section-heading centered reveal reveal-up">
-                <span class="section-kicker" data-i18n data-ar="تواصل معنا" data-en="Get in touch">تواصل معنا</span>
-                <h2 data-i18n data-ar="جاهزين نسمع فكرتك." data-en="We are ready to hear your idea.">جاهزين نسمع فكرتك.</h2>
+                <span class="section-kicker" data-i18n data-ar="تواصل معنا" data-en="Contact us">تواصل معنا</span>
+                <h2 data-i18n data-ar="جاهزين نسمع فكرتك." data-en="Ready to hear your idea.">جاهزين نسمع فكرتك.</h2>
             </div>
 
             <div class="contact-grid">
-                <a class="contact-card reveal reveal-up" href="tel:+201211354624">
-                    <span class="contact-icon"><i class="fa-solid fa-phone"></i></span>
-                    <div>
-                        <small data-i18n data-ar="اتصل بنا" data-en="Call us">اتصل بنا</small>
-                        <strong dir="ltr">+20 121 135 4624</strong>
-                    </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square contact-arrow"></i>
-                </a>
-
-                <a class="contact-card reveal reveal-up" href="https://wa.me/201211354624" target="_blank" rel="noopener">
-                    <span class="contact-icon whatsapp-icon"><i class="fa-brands fa-whatsapp"></i></span>
-                    <div>
-                        <small data-i18n data-ar="واتساب" data-en="WhatsApp">واتساب</small>
-                        <strong dir="ltr">+20 121 135 4624</strong>
-                    </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square contact-arrow"></i>
-                </a>
-
-                <a class="contact-card reveal reveal-up" href="tel:+201062797463">
-                    <span class="contact-icon"><i class="fa-solid fa-phone"></i></span>
-                    <div>
-                        <small data-i18n data-ar="اتصل بنا" data-en="Call us">اتصل بنا</small>
-                        <strong dir="ltr">+20 106 279 7463</strong>
-                    </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square contact-arrow"></i>
-                </a>
-
-                <a class="contact-card reveal reveal-up" href="https://wa.me/201062797463" target="_blank" rel="noopener">
-                    <span class="contact-icon whatsapp-icon"><i class="fa-brands fa-whatsapp"></i></span>
-                    <div>
-                        <small data-i18n data-ar="واتساب" data-en="WhatsApp">واتساب</small>
-                        <strong dir="ltr">+20 106 279 7463</strong>
-                    </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square contact-arrow"></i>
-                </a>
+                <a class="contact-card reveal reveal-up" href="tel:+201211354624"><span class="contact-icon"><i class="fa-solid fa-phone"></i></span><div><small data-i18n data-ar="هاتف" data-en="Phone">هاتف</small><strong dir="ltr">+20 121 135 4624</strong></div></a>
+                <a class="contact-card reveal reveal-up" href="https://wa.me/201211354624" target="_blank" rel="noopener"><span class="contact-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></span><div><small data-i18n data-ar="واتساب" data-en="WhatsApp">واتساب</small><strong dir="ltr">+20 121 135 4624</strong></div></a>
+                <a class="contact-card reveal reveal-up" href="tel:+201062797463"><span class="contact-icon"><i class="fa-solid fa-phone"></i></span><div><small data-i18n data-ar="هاتف" data-en="Phone">هاتف</small><strong dir="ltr">+20 106 279 7463</strong></div></a>
+                <a class="contact-card reveal reveal-up" href="https://wa.me/201062797463" target="_blank" rel="noopener"><span class="contact-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></span><div><small data-i18n data-ar="واتساب" data-en="WhatsApp">واتساب</small><strong dir="ltr">+20 106 279 7463</strong></div></a>
             </div>
         </section>
     </main>
 
     <div class="floating-actions">
-        <a href="https://wa.me/201211354624" target="_blank" rel="noopener" class="float-btn float-whatsapp" aria-label="WhatsApp">
-            <i class="fa-brands fa-whatsapp"></i>
-        </a>
-        <a href="tel:+201211354624" class="float-btn float-phone" aria-label="Call">
-            <i class="fa-solid fa-phone"></i>
-        </a>
+        <a href="https://wa.me/201211354624" target="_blank" rel="noopener" class="float-btn float-whatsapp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="tel:+201211354624" class="float-btn float-phone" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
     </div>
 
     <footer class="site-footer">
         <div class="footer-inner">
-            <div>
-                <strong>El SISY</strong>
-                <p data-i18n data-ar="حلول هندسية متكاملة للبنية التحتية والمياه والصرف والتشطيبات." data-en="Integrated engineering solutions for infrastructure, water, wastewater and finishing.">حلول هندسية متكاملة للبنية التحتية والمياه والصرف والتشطيبات.</p>
+            <div class="footer-brand">
+                <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo">
+                <div><strong>El SISY</strong><p data-i18n data-ar="حلول هندسية متكاملة للبنية التحتية والمياه والصرف والتشطيبات." data-en="Integrated engineering solutions for infrastructure, water, wastewater and finishing.">حلول هندسية متكاملة للبنية التحتية والمياه والصرف والتشطيبات.</p></div>
             </div>
             <span data-i18n data-ar="جميع الحقوق محفوظة © 2026 El Sisy" data-en="All rights reserved © 2026 El Sisy">جميع الحقوق محفوظة © 2026 El Sisy</span>
         </div>
