@@ -33,8 +33,13 @@ img{max-width:100%;display:block}
 .navbar-container{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(1160px,calc(100% - 28px));z-index:2000;transition:.4s var(--ease)}
 .navbar-container.scrolled{top:9px}
 .navbar{
-    min-height:70px;background:rgba(255,255,255,.93);border:1px solid rgba(8,39,67,.10);border-radius:20px;
-    box-shadow:0 12px 35px rgba(8,39,67,.10);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    min-height:70px;
+    background:linear-gradient(135deg,rgba(255,255,255,.76),rgba(255,255,255,.56));
+    border:1px solid rgba(255,255,255,.42);
+    border-radius:20px;
+    box-shadow:0 14px 36px rgba(4,24,42,.13),inset 0 1px 0 rgba(255,255,255,.62);
+    backdrop-filter:blur(18px) saturate(125%);
+    -webkit-backdrop-filter:blur(18px) saturate(125%);
     padding:9px 12px 9px 18px;display:flex;align-items:center;gap:18px
 }
 .nav-logo{display:flex;align-items:center;gap:10px;min-width:max-content}
@@ -92,8 +97,7 @@ img{max-width:100%;display:block}
 .hero-highlights i{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:rgba(100,212,223,.12);color:var(--cyan);font-size:.55rem}
 
 .hero-side{position:relative;z-index:2;min-height:550px;display:grid;place-items:center}
-.hero-orbit{position:absolute;border:1px solid rgba(255,255,255,.09);border-radius:50%;animation:orbitSpin 22s linear infinite}
-.orbit-one{width:520px;height:520px}.orbit-two{width:410px;height:410px;animation-direction:reverse;animation-duration:28s}
+.hero-orbit{display:none}.orbit-one,.orbit-two{display:none}
 .hero-card{
     width:min(490px,100%);position:relative;z-index:3;background:rgba(255,255,255,.095);border:1px solid rgba(255,255,255,.16);
     border-radius:30px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.28);backdrop-filter:blur(12px);animation:cardFloat 7s ease-in-out infinite
@@ -103,14 +107,35 @@ img{max-width:100%;display:block}
 .water-visual{height:315px;position:relative;overflow:hidden;background:linear-gradient(180deg,#164b67,#0b2539)}
 .water-sun{position:absolute;width:145px;height:145px;border-radius:50%;top:-70px;right:50px;background:radial-gradient(circle,rgba(199,162,91,.42),transparent 66%)}
 .water-horizon{position:absolute;inset:auto 0 0;height:120px;background:linear-gradient(175deg,transparent 0 28%,rgba(3,15,25,.70) 29% 100%)}
-.water-ring{position:absolute;border:1px solid rgba(100,212,223,.16);border-radius:50%}
-.water-ring-one{width:380px;height:170px;right:-80px;bottom:0;transform:rotate(-7deg)}
-.water-ring-two{width:300px;height:120px;left:-100px;bottom:25px;transform:rotate(8deg)}
-.water-tower{position:absolute;width:30px;height:160px;right:150px;bottom:95px;background:repeating-linear-gradient(135deg,#a3bbc4 0 4px,transparent 4px 15px);opacity:.82}
+.water-ring{display:none}
+.plant-building{
+    position:absolute;right:64px;bottom:72px;width:158px;height:94px;
+    border:1px solid rgba(195,225,232,.34);border-bottom:4px solid #89b4bf;
+    background:linear-gradient(180deg,rgba(132,182,195,.18),rgba(7,27,42,.48));
+    border-radius:7px 7px 2px 2px;box-shadow:0 15px 25px rgba(0,0,0,.14)
+}
+.plant-building:before,.plant-building:after{content:"";position:absolute;bottom:0;width:8px;height:45px;background:#8eb6bf}
+.plant-building:before{left:18px}.plant-building:after{right:18px}
+.plant-window{
+    position:absolute;top:16px;width:28px;height:20px;border:1px solid rgba(190,230,237,.35);
+    background:linear-gradient(135deg,rgba(100,212,223,.18),rgba(255,255,255,.03))
+}
+.window-one{right:27px}.window-two{left:27px}.plant-door{position:absolute;bottom:0;left:calc(50% - 14px);width:28px;height:40px;border:1px solid rgba(190,230,237,.26);background:rgba(4,20,33,.40)}
+.water-tank-large{
+    position:absolute;right:255px;bottom:101px;width:75px;height:83px;border:7px solid #92b0ba;
+    border-bottom-width:5px;border-radius:38px 38px 7px 7px;background:linear-gradient(180deg,rgba(100,212,223,.20),rgba(5,24,38,.38))
+}
+.water-tank-large:after{content:"";position:absolute;left:50%;bottom:-27px;width:6px;height:28px;background:#89aab5;transform:translateX(-50%)}
+.water-tower{position:absolute;width:25px;height:155px;right:300px;bottom:90px;background:repeating-linear-gradient(135deg,#9bb8c0 0 3px,transparent 3px 13px);opacity:.75}
 .water-tower:before{content:"";position:absolute;top:-35px;left:-28px;width:86px;height:40px;border:7px solid #b9ced5;border-bottom:0;border-radius:60px 60px 0 0;background:rgba(100,212,223,.10)}
 .water-pipe{position:absolute;height:12px;border-radius:99px;background:linear-gradient(90deg,#6f8e9e,#d2dfe2,#587381);box-shadow:0 0 20px rgba(100,212,223,.08)}
-.water-pipe-one{width:250px;left:15px;bottom:112px;transform:rotate(10deg)}.water-pipe-two{width:230px;right:0;bottom:72px;transform:rotate(-10deg)}
-.water-grid{position:absolute;left:0;right:0;bottom:-5px;height:140px;background-image:linear-gradient(rgba(100,212,223,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(100,212,223,.14) 1px,transparent 1px);background-size:30px 30px;transform:perspective(220px) rotateX(58deg);transform-origin:bottom}
+.water-pipe-one{width:210px;left:10px;bottom:111px;transform:rotate(9deg)}
+.water-pipe-two{width:190px;right:12px;bottom:78px;transform:rotate(-9deg)}
+.water-pipe-three{width:115px;right:190px;bottom:118px;transform:rotate(90deg);transform-origin:center}
+.water-flow{position:absolute;height:4px;border-radius:99px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.75;filter:drop-shadow(0 0 7px rgba(100,212,223,.35))}
+.flow-one{width:90px;left:83px;bottom:104px;animation:flowMove 2.2s linear infinite}
+.flow-two{width:75px;right:40px;bottom:76px;animation:flowMove 2.5s linear infinite reverse}
+.water-grid{position:absolute;left:0;right:0;bottom:-5px;height:95px;background-image:linear-gradient(rgba(100,212,223,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(100,212,223,.10) 1px,transparent 1px);background-size:30px 30px;transform:perspective(220px) rotateX(58deg);transform-origin:bottom}
 .hero-card-footer{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;min-height:92px;align-items:center}
 .hero-card-footer div+div{border-inline-start:1px solid rgba(255,255,255,.08)}
 .hero-card-footer strong{display:block;color:#fff;font-size:1.05rem}.hero-card-footer span{display:block;color:#9db4c1;font-size:.58rem;margin-top:3px}
@@ -206,7 +231,7 @@ img{max-width:100%;display:block}
 
 .reveal{opacity:0;will-change:opacity,transform;transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--delay,0s)}.reveal-up{transform:translate3d(0,32px,0)}.reveal-right{transform:translate3d(40px,0,0)}.reveal-left{transform:translate3d(-40px,0,0)}.reveal-scale{transform:scale(.93)}.reveal.is-visible{opacity:1;transform:none}[dir="ltr"] .reveal-right{transform:translate3d(-40px,0,0)}[dir="ltr"] .reveal-left{transform:translate3d(40px,0,0)}[dir="ltr"] .reveal.is-visible{transform:none}
 
-@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}@keyframes tagFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes projectFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes pulse{0%,100%{box-shadow:0 0 0 5px rgba(85,220,150,.10)}50%{box-shadow:0 0 0 10px rgba(85,220,150,0)}}@keyframes orbitSpin{to{transform:rotate(360deg)}}@keyframes floatPulse{0%{transform:scale(1);opacity:.32}70%,100%{transform:scale(1.45);opacity:0}}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}@keyframes flowMove{0%{transform:translateX(-12px);opacity:.1}35%{opacity:.8}100%{transform:translateX(28px);opacity:0}}@keyframes tagFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes projectFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes pulse{0%,100%{box-shadow:0 0 0 5px rgba(85,220,150,.10)}50%{box-shadow:0 0 0 10px rgba(85,220,150,0)}}@keyframes orbitSpin{to{transform:rotate(360deg)}}@keyframes floatPulse{0%{transform:scale(1);opacity:.32}70%,100%{transform:scale(1.45);opacity:0}}
 
 @media(max-width:1100px){
     .nav-links a{padding-inline:7px;font-size:.69rem}.services-grid{grid-template-columns:repeat(2,1fr)}.contact-grid{grid-template-columns:repeat(2,1fr)}
