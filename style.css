@@ -208,10 +208,46 @@ img{max-width:100%;display:block}
 .advantage-card{padding:23px 20px;background:#fff;border:1px solid rgba(8,39,67,.10);border-radius:19px;box-shadow:0 12px 28px rgba(8,39,67,.08),0 3px 8px rgba(8,39,67,.04);transition:.4s var(--ease)}
 .advantage-card:hover{transform:translateY(-7px);box-shadow:var(--shadow);border-color:#c6dce5}.advantage-card i{color:var(--blue);font-size:1.3rem;margin-bottom:14px}.advantage-card h3{color:var(--navy);font-size:.9rem;margin-bottom:6px}.advantage-card p{color:var(--muted);font-size:.68rem}
 
-.partners-section{background:#fff;overflow:hidden}
+.partners-section{
+    background:
+        radial-gradient(circle at 12% 20%, rgba(22,170,194,.09), transparent 24%),
+        radial-gradient(circle at 88% 75%, rgba(199,162,91,.08), transparent 22%),
+        linear-gradient(180deg,#eef5f8 0%,#e7f0f4 100%);
+    overflow:hidden;
+    position:relative
+}
 .partners-row{max-width:1100px;margin:auto;display:flex;justify-content:center;gap:13px;flex-wrap:wrap}
-.partner-pill{min-width:205px;flex:1 1 205px;max-width:280px;min-height:78px;padding:16px 18px;text-align:center;background:#f8fbfc;border:1px solid var(--line);border-radius:16px;color:#506879;font-size:.7rem;font-weight:900;transition:.4s;display:flex;align-items:center;justify-content:center}.partner-pill strong{display:block;line-height:1.7}
-.partner-pill:hover{transform:translateY(-5px);color:var(--navy);border-color:#b7d9df;box-shadow:0 12px 30px rgba(8,39,67,.08)}
+.partner-pill{
+    min-width:205px;
+    flex:1 1 205px;
+    max-width:280px;
+    min-height:82px;
+    padding:16px 18px;
+    text-align:center;
+    background:rgba(255,255,255,.96);
+    border:1px solid rgba(8,39,67,.12);
+    border-radius:17px;
+    color:var(--navy);
+    font-size:.73rem;
+    font-weight:900;
+    letter-spacing:.05px;
+    box-shadow:0 14px 30px rgba(8,39,67,.10),0 3px 8px rgba(8,39,67,.05);
+    transition:.4s var(--ease);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}.partner-pill strong{
+    display:block;
+    line-height:1.75;
+    font-weight:800;
+    color:var(--navy)
+}
+.partner-pill:hover{
+    transform:translateY(-7px);
+    color:var(--navy);
+    border-color:#afd6df;
+    box-shadow:0 22px 42px rgba(8,39,67,.14),0 5px 12px rgba(8,39,67,.06)
+}
 
 .location-section{background:#f7fafc}
 .location-card{max-width:1180px;margin:auto;display:grid;grid-template-columns:.8fr 1.2fr;overflow:hidden;border:1px solid rgba(8,39,67,.11);background:#fff;border-radius:27px;box-shadow:0 20px 45px rgba(8,39,67,.12),0 5px 12px rgba(8,39,67,.05)}
