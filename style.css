@@ -210,7 +210,7 @@ img{max-width:100%;display:block}
 
 .partners-section{background:#fff;overflow:hidden}
 .partners-row{max-width:1100px;margin:auto;display:flex;justify-content:center;gap:13px;flex-wrap:wrap}
-.partner-pill{min-width:170px;padding:18px 22px;text-align:center;background:#f8fbfc;border:1px solid var(--line);border-radius:16px;color:#506879;font-size:.73rem;font-weight:900;transition:.4s}
+.partner-pill{min-width:205px;flex:1 1 205px;max-width:280px;min-height:78px;padding:16px 18px;text-align:center;background:#f8fbfc;border:1px solid var(--line);border-radius:16px;color:#506879;font-size:.7rem;font-weight:900;transition:.4s;display:flex;align-items:center;justify-content:center}.partner-pill strong{display:block;line-height:1.7}
 .partner-pill:hover{transform:translateY(-5px);color:var(--navy);border-color:#b7d9df;box-shadow:0 12px 30px rgba(8,39,67,.08)}
 
 .location-section{background:#f7fafc}
