@@ -291,20 +291,7 @@ function escapeHtml_(value) {
 }
 
 function renderResponse_(payload) {
-  const serialized = JSON.stringify(payload).replace(/</g, "\\u003c");
-  const fallbackMessage = payload.messageAr || payload.messageEn || "Request processed.";
-  const html =
-    '<!doctype html><html><head><meta charset="utf-8">' +
-    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>El Sisy request status</title>' +
-    '<style>body{font-family:Arial,sans-serif;padding:18px;color:#082743}p{line-height:1.7}</style></head>' +
-    '<body><p>' + escapeHtml_(fallbackMessage) + '</p>' +
-    '<script>' +
-    'var result=' + serialized + ';' +
-    'try{window.parent.postMessage({type:"EL_SISY_FORM_RESULT",requestId:result.requestId,ok:result.ok,emailSent:result.emailSent,messageAr:result.messageAr,messageEn:result.messageEn},"*");}catch(e){}' +
-    '</script></body></html>';
-
-  return HtmlService.createHtmlOutput(html)
-    .setTitle("El Sisy request status")
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  return ContentService
+    .createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
 }
