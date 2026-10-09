@@ -27,7 +27,7 @@ Requests are written into the tab **طلبات العملاء** in that spreadsh
 3. Confirm a notification email arrives at **ahmedkartamo@gmail.com** (also check Spam).
 4. Check the final column, **حالة إشعار البريد**, to see whether the email notification was sent.
 
-The website now waits for a response correlated with the exact request ID. It should not display the normal success message merely because a network request was started. If it cannot verify the Apps Script response, it displays a timeout warning.
+The website verifies the result returned by the Vercel API. Google Apps Script ContentService can occasionally return an HTML error page after redirecting, even when the script may already have run. The Vercel API retries up to three times using the same request ID; Apps Script deduplicates that ID so it should not append a second row or resend the email for an already-recorded request. If Google still fails to return valid JSON, the site shows a warning and retains the same request ID for retries with unchanged form details.
 
 ## Troubleshooting
 
