@@ -11,7 +11,7 @@ Requests are written into the tab **طلبات العملاء** in that spreadsh
 ## Required setup
 
 1. Open the Google Apps Script project that owns the Web App URL currently used by the site. The current URL in `app.js` is:
-   `https://script.google.com/macros/s/AKfycbyWSrDBZVp06uhp37oW8uI6QCl-0yN4F1TrFQ-XPsOmwsMi1nMpK_cycAy4hCQsUTOw_w/exec`
+   `https://script.google.com/macros/s/AKfycbwg6ad-R5W3eqY0fi4nLHlDSlD_5gQNjwVE_cCuGyAywIN5x42rpHqkbiK9p_GeUni7/exec`
 2. Replace the project's `Code.gs` with the version in this repository: [google-apps-script/Code.gs](./Code.gs).
 3. In the function selector, choose `setupElSisy` and click **Run**. Authorize access to Google Sheets and email. This function uses the spreadsheet ID above; it does **not** create a different spreadsheet. It creates or prepares the `طلبات العملاء` tab and adds the expected column headers.
 4. Open **Deploy → Manage deployments**. Edit the Web App deployment used by the website, choose **New version**, and deploy it.
@@ -42,9 +42,9 @@ The website verifies the result returned by the Vercel API. Google Apps Script C
 The website now posts the form to `/api/submit` on the same Vercel deployment. This avoids relying on a cross-origin `postMessage` callback from a hidden Google iframe, which can cause the form to wait until timeout even when the script ran.
 
 Files involved:
-- `api/submit.js`: Vercel serverless function that forwards the request to the Apps Script Web App and checks the returned JSON.
+- `api/submit.js`: Vercel serverless function that forwards the request to the Apps Script Web App and reads its JSON or embedded HTML result.
 - `app.js`: sends the form to `/api/submit`.
-- `google-apps-script/Code.gs`: returns JSON from `doPost`.
+- `google-apps-script/Code.gs`: returns an HTML response with a machine-readable result to avoid the ContentService redirect.
 
 After pulling the latest `main` into the Vercel project, wait for the deployment to complete. Then update the Apps Script project with the latest `Code.gs` and deploy it as a **new version**. Test the live Vercel URL, not only localhost.
 
