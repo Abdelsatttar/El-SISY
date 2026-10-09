@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbys1vEgsmxOqgQZ6iBzxEZYcUl0zgB9Rrg1k5Bxe2aMeDAFGx6h4lSTzdzBnTJM-raV/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbAi1W2D3SGryuVMA_2Yg_J29KTLv1Z8e7mb4SWxQNQprlqLwW9ZZZHMLCYapvRyb2/exec";
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
