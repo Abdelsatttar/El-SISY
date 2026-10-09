@@ -126,11 +126,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     
-    // Google Apps Script web-app endpoint. If a new Apps Script project is deployed,
-    // replace this URL with its deployed /exec URL.
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg6ad-R5W3eqY0fi4nLHlDSlD_5gQNjwVE_cCuGyAywIN5x42rpHqkbiK9p_GeUni7/exec";
-    const responseFrameName = "el-sisy-form-response-frame";
-    let pendingSubmission = null;
+    // Same-origin Vercel function. It forwards the request server-side to Apps Script,
+    // avoiding browser CORS and cross-frame postMessage problems.
+    const FORM_API_URL = "/api/submit";
+    let submissionInProgress = false;
 
     function setFormStatus(message) {
         if (formStatus) formStatus.textContent = message || "";
@@ -149,50 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function finishSubmission(result) {
-        if (!pendingSubmission || result.requestId !== pendingSubmission.requestId) return;
-
-        window.clearTimeout(pendingSubmission.timeoutId);
-        pendingSubmission = null;
-
-        const message = currentLang === "ar" ? result.messageAr : result.messageEn;
-        setFormStatus(message || (currentLang === "ar"
-            ? "تم استلام نتيجة الطلب."
-            : "The request result was received."));
-
-        if (result.ok) {
-            // The request was saved. Clear the form even if the email notification failed,
-            // to reduce accidental duplicate submissions.
-            bookingForm.reset();
-        }
-
-        setSubmitBusy(false);
-    }
-
-    // Apps Script replies from its HTML response using postMessage. Validate the origin,
-    // message type and request ID before trusting the response.
-    window.addEventListener("message", (event) => {
-        let hostname = "";
-        try {
-            hostname = new URL(event.origin).hostname;
-        } catch (error) {
-            return;
-        }
-
-        const trustedOrigin =
-            hostname === "script.google.com" ||
-            hostname.endsWith("script.googleusercontent.com") ||
-            hostname === "googleusercontent.com" ||
-            hostname.endsWith(".googleusercontent.com");
-
-        if (!trustedOrigin || !event.data || event.data.type !== "EL_SISY_FORM_RESULT") return;
-        finishSubmission(event.data);
-    });
-
     if (bookingForm) {
-        bookingForm.addEventListener("submit", (event) => {
+        bookingForm.addEventListener("submit", async (event) => {
             event.preventDefault();
-            if (pendingSubmission) return;
+            if (submissionInProgress) return;
 
             const name = document.getElementById("user_name")?.value.trim();
             const phone = document.getElementById("user_phone")?.value.trim();
@@ -206,36 +165,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.endsWith("/exec")) {
-                setFormStatus(currentLang === "ar"
-                    ? "خدمة استقبال الطلبات غير مُعدة بعد. تواصل معنا مباشرة."
-                    : "The request service is not configured yet. Please contact us directly.");
-                return;
-            }
-
-            let responseFrame = document.querySelector(`iframe[name="${responseFrameName}"]`);
-            if (!responseFrame) {
-                responseFrame = document.createElement("iframe");
-                responseFrame.name = responseFrameName;
-                responseFrame.title = "Request submission response";
-                responseFrame.setAttribute("aria-hidden", "true");
-                responseFrame.tabIndex = -1;
-                responseFrame.style.cssText = "position:absolute;width:1px;height:1px;left:-10000px;border:0;visibility:hidden;";
-                document.body.appendChild(responseFrame);
-            }
-
             const requestId = (window.crypto && typeof window.crypto.randomUUID === "function")
                 ? window.crypto.randomUUID().replace(/-/g, "")
                 : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
 
-            const postForm = document.createElement("form");
-            postForm.method = "POST";
-            postForm.action = APPS_SCRIPT_URL;
-            postForm.target = responseFrameName;
-            postForm.acceptCharset = "UTF-8";
-            postForm.style.display = "none";
-
-            const values = {
+            const payload = {
                 requestId,
                 name,
                 phone,
@@ -245,43 +179,59 @@ document.addEventListener("DOMContentLoaded", () => {
                 website: ""
             };
 
-            Object.entries(values).forEach(([key, value]) => {
-                const input = document.createElement("input");
-                input.type = "hidden";
-                input.name = key;
-                input.value = value;
-                postForm.appendChild(input);
-            });
-
-            setFormStatus(currentLang === "ar"
-                ? "جاري إرسال الطلب والتحقق من حفظه..."
-                : "Sending the request and verifying that it is saved...");
+            submissionInProgress = true;
             setSubmitBusy(true);
+            setFormStatus(currentLang === "ar"
+                ? "جاري إرسال الطلب..."
+                : "Sending your request...");
 
-            const timeoutId = window.setTimeout(() => {
-                if (!pendingSubmission || pendingSubmission.requestId !== requestId) return;
-                pendingSubmission = null;
-                setFormStatus(currentLang === "ar"
-                    ? "لم نتمكن من تأكيد استلام الرد. قد يكون الطلب وصل؛ راجع الشركة قبل إعادة الإرسال."
-                    : "We could not verify the response. The request may have arrived; check with the company before resubmitting.");
-                setSubmitBusy(false);
-            }, 25000);
-
-            pendingSubmission = { requestId, timeoutId };
+            const controller = new AbortController();
+            const timeoutId = window.setTimeout(() => controller.abort(), 30000);
 
             try {
-                document.body.appendChild(postForm);
-                postForm.submit();
-            } catch (error) {
-                console.error("Booking submission error:", error);
-                window.clearTimeout(timeoutId);
-                pendingSubmission = null;
+                const response = await fetch(FORM_API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal,
+                    cache: "no-store",
+                    credentials: "same-origin"
+                });
+
+                const result = await response.json().catch(() => null);
+                if (!response.ok || !result) {
+                    const detail = result?.messageAr || result?.messageEn;
+                    throw new Error(detail || (currentLang === "ar"
+                        ? "خدمة استقبال الطلبات لم ترجع ردًا صالحًا."
+                        : "The request service returned an invalid response."));
+                }
+
+                if (result.ok !== true) {
+                    setFormStatus(currentLang === "ar"
+                        ? (result.messageAr || "لم يتم حفظ الطلب. حاول مرة أخرى.")
+                        : (result.messageEn || "The request was not saved. Please try again."));
+                    return;
+                }
+
+                bookingForm.reset();
                 setFormStatus(currentLang === "ar"
-                    ? "تعذر إرسال الطلب. حاول مرة أخرى أو تواصل معنا مباشرة."
-                    : "The request could not be submitted. Please try again or contact us directly.");
-                setSubmitBusy(false);
+                    ? (result.messageAr || "تم حفظ طلبك بنجاح.")
+                    : (result.messageEn || "Your request was saved successfully."));
+            } catch (error) {
+                console.error("Booking submission failed:", error);
+                if (error.name === "AbortError") {
+                    setFormStatus(currentLang === "ar"
+                        ? "استغرق الاتصال وقتًا أطول من المتوقع. لم نتمكن من تأكيد الحفظ؛ راجع الشيت قبل إعادة الإرسال."
+                        : "The request timed out. We could not confirm it was saved; check the sheet before resubmitting.");
+                } else {
+                    setFormStatus(currentLang === "ar"
+                        ? "تعذر إرسال الطلب. تأكد من نشر خدمة الاستقبال على Vercel ومن تحديث Google Apps Script."
+                        : "Could not submit the request. Check the Vercel API deployment and the Google Apps Script version.");
+                }
             } finally {
-                postForm.remove();
+                window.clearTimeout(timeoutId);
+                submissionInProgress = false;
+                setSubmitBusy(false);
             }
         });
     }
