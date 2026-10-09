@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookingForm = document.getElementById("booking-form");
     const serviceSelect = document.getElementById("user_service");
     const formStatus = document.getElementById("form-status");
+    let toastElement = null;
+    let toastState = null;
+    let toastTimer = null;
+    let toastHiddenTimer = null;
+    let buttonFeedbackTimer = null;
 
     const serviceNames = {
         ar: {
@@ -61,6 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.title = lang === "ar"
             ? "El Sisy | حلول هندسية متكاملة"
             : "El Sisy | Integrated Engineering Solutions";
+
+        // If a toast is visible, switch its title and message immediately too.
+        renderToast();
     }
 
     updateLanguage(currentLang);
@@ -127,12 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     // Keep status notifications bilingual and synchronized with the language toggle.
-    let toastElement = null;
-    let toastState = null;
-    let toastTimer = null;
-    let toastHiddenTimer = null;
-    let buttonFeedbackTimer = null;
-
     function ensureToast() {
         if (toastElement) return toastElement;
 
