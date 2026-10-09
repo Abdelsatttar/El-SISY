@@ -54,8 +54,44 @@ function parseAppsScriptResult_(text) {
 
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
+  if (req.method === "GET") {
+    // Safe diagnostic endpoint: checks Google Apps Script reachability without
+    // creating a request row or sending an email.
+    try {
+      const upstream = await fetch(SCRIPT_URL, {
+        method: "GET",
+        redirect: "follow",
+        cache: "no-store",
+        signal: AbortSignal.timeout(10000)
+      });
+      const html = await upstream.text();
+      const reachable = upstream.ok && /The endpoint is online|El Sisy request service/i.test(html);
+      let finalHost = "unknown";
+      try { finalHost = new URL(upstream.url).hostname; } catch {}
+
+      return res.status(reachable ? 200 : 502).json({
+        ok: reachable,
+        api: "online",
+        appsScript: reachable ? "reachable" : "not-confirmed",
+        upstreamStatus: upstream.status,
+        upstreamHost: finalHost,
+        messageEn: reachable
+          ? "Vercel API and Apps Script are reachable. This diagnostic does not submit a form."
+          : "Vercel API is online, but Apps Script did not return its health message. Check the Web App deployment and access settings."
+      });
+    } catch (error) {
+      console.error("Apps Script health check failed:", String(error));
+      return res.status(502).json({
+        ok: false,
+        api: "online",
+        appsScript: "unreachable",
+        messageEn: "Vercel API is online but could not reach Apps Script."
+      });
+    }
+  }
+
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+    res.setHeader("Allow", "GET, POST");
     return res.status(405).json({ ok: false, messageAr: "الطريقة غير مسموحة.", messageEn: "Method not allowed." });
   }
 
