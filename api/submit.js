@@ -156,14 +156,14 @@ module.exports = async (req, res) => {
       lastDiagnostic = "Apps Script attempt " + attempt + " failed: " + String(error);
       console.error(lastDiagnostic);
       // Do not waste more time retrying a deployment that redirects to Google sign-in.
-      if (/accounts\\.google\\.com/i.test(safeFinalUrl)) break;
+      if (/accounts\.google\.com/i.test(safeFinalUrl)) break;
     }
 
     if (attempt < 2) await wait(250 * attempt);
   }
 
   console.error("Apps Script response failed after retries. " + lastDiagnostic);
-  const signInRedirect = /accounts\\.google\\.com/i.test(lastDiagnostic);
+  const signInRedirect = /accounts\.google\.com/i.test(lastDiagnostic);
   return res.status(502).json({
     ok: false,
     retryable: true,
