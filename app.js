@@ -413,9 +413,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                bookingForm.reset();
-                reusableRequest = null;
-
                 if (result.emailSent !== true) {
                     outcome = "warning";
                     const message = withRequestReference({
@@ -429,6 +426,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         8500
                     );
                 } else {
+                    bookingForm.reset();
+                    reusableRequest = null;
                     outcome = "success";
                     const message = withRequestReference({
                         ar: result.messageAr || "تم إرسال طلبك إلى بريد الشركة بنجاح. هنتواصل معاك قريبًا.",
