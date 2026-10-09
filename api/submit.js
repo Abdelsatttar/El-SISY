@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbAi1W2D3SGryuVMA_2Yg_J29KTLv1Z8e7mb4SWxQNQprlqLwW9ZZZHMLCYapvRyb2/exec";
+const SCRIPT_URL = process.env.APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbys1vEgsmxOqgQZ6iBzxEZYcUl0zgB9Rrg1/exec";
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -120,7 +120,7 @@ module.exports = async (req, res) => {
 
   // Use the same request ID for every retry; Apps Script deduplicates it.
   let lastDiagnostic = "";
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
     try {
       const upstream = await fetch(SCRIPT_URL, {
         method: "POST",
@@ -128,7 +128,7 @@ module.exports = async (req, res) => {
         body: params.toString(),
         redirect: "follow",
         cache: "no-store",
-        signal: AbortSignal.timeout(12000)
+        signal: AbortSignal.timeout(9000)
       });
 
       const responseText = await upstream.text();
@@ -155,17 +155,24 @@ module.exports = async (req, res) => {
     } catch (error) {
       lastDiagnostic = "Apps Script attempt " + attempt + " failed: " + String(error);
       console.error(lastDiagnostic);
+      // Do not waste more time retrying a deployment that redirects to Google sign-in.
+      if (/accounts\\.google\\.com/i.test(safeFinalUrl)) break;
     }
 
-    if (attempt < 3) await wait(350 * attempt);
+    if (attempt < 2) await wait(250 * attempt);
   }
 
   console.error("Apps Script response failed after retries. " + lastDiagnostic);
+  const signInRedirect = /accounts\\.google\\.com/i.test(lastDiagnostic);
   return res.status(502).json({
     ok: false,
     retryable: true,
     requestId: String(data.requestId),
-    messageAr: "تعذر الحصول على تأكيد صالح من Google بعد محاولات قصيرة. لم أستطع تأكيد الحفظ. راجع الشيت قبل إرسال طلب جديد.",
-    messageEn: "Google did not return a valid confirmation after short retries. Saving could not be confirmed; check the spreadsheet before sending a new request."
+    messageAr: signInRedirect
+      ? "رابط استقبال الطلبات يفتح صفحة تسجيل دخول Google بدل الخدمة. تأكد أن نشر Apps Script مضبوط على التنفيذ باسمك وإمكانية الوصول لأي شخص."
+      : "لم نتمكن من تأكيد تسجيل الطلب مع Google. لم نظهر رسالة نجاح غير مؤكدة؛ راجع الشيت باستخدام رقم الطلب قبل إعادة الإرسال.",
+    messageEn: signInRedirect
+      ? "The request endpoint redirected to Google sign-in. Deploy the Apps Script web app to execute as you and allow access to anyone."
+      : "We could not confirm that Google recorded the request. We will not show a false success message; check the spreadsheet using the request ID before retrying."
   });
 };
