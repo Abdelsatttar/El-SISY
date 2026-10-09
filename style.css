@@ -431,3 +431,20 @@ img{max-width:100%;display:block}
     .site-toast, .btn-submit { transition: none !important; }
     .toast-progress > span { animation: none !important; }
 }
+
+
+/* Clear, language-aware feedback beneath the request form */
+.form-status {
+    overflow-wrap: anywhere;
+    transition: color .22s ease, opacity .22s ease;
+}
+.form-status.is-loading { color: #9fe4ed; }
+.form-status.is-success { color: #8ff0bb; }
+.form-status.is-warning { color: #ffd98b; }
+.form-status.is-error { color: #ffabb1; }
+.btn-submit:focus-visible,
+.toast-close:focus-visible {
+    outline: 3px solid rgba(100, 212, 223, .85);
+    outline-offset: 3px;
+}
+.site-toast .toast-message { overflow-wrap: anywhere; }
