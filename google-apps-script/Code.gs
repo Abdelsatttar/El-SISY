@@ -10,21 +10,15 @@
 const CONFIG = {
   recipientEmail: "ahmedkartamo@gmail.com",
   spreadsheetProperty: "EL_SISY_REQUESTS_SPREADSHEET_ID",
+  spreadsheetId: "1m8Bl21ob2XnxknEyMcgOxkwN10kqn3Odo_2RFz2xZX8",
   sheetName: "طلبات العملاء"
 };
 
 function setupElSisy() {
   const properties = PropertiesService.getScriptProperties();
-  let spreadsheetId = properties.getProperty(CONFIG.spreadsheetProperty);
-  let spreadsheet;
-
-  if (spreadsheetId) {
-    spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-  } else {
-    spreadsheet = SpreadsheetApp.create("El Sisy - Website Requests");
-    spreadsheetId = spreadsheet.getId();
-    properties.setProperty(CONFIG.spreadsheetProperty, spreadsheetId);
-  }
+  const spreadsheetId = CONFIG.spreadsheetId;
+  properties.setProperty(CONFIG.spreadsheetProperty, spreadsheetId);
+  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
 
   let sheet = spreadsheet.getSheetByName(CONFIG.sheetName);
   if (!sheet) {
@@ -67,7 +61,7 @@ function setupElSisy() {
   sheet.setColumnWidth(6, 240);
   sheet.setColumnWidth(8, 200);
 
-  Logger.log("El Sisy requests sheet: " + spreadsheet.getUrl());
+  Logger.log("Using the configured El Sisy spreadsheet: " + spreadsheet.getUrl());
   Logger.log("Notification recipient: " + CONFIG.recipientEmail);
   return spreadsheet.getUrl();
 }
