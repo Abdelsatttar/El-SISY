@@ -1,4 +1,4 @@
-const SCRIPT_URL = process.env.APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbys1vEgsmxOqgQZ6iBzxEZYcUl0zgB9Rrg1/exec";
+const SCRIPT_URL = process.env.APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbzpg_Mkmg3xrRm-6WP_wH36ieLJc8vY1SN2hHTDlBpolHB28Hduu5bx5iV1MhXDz0TJ/exec";
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
