@@ -126,10 +126,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     
-    // Same-origin Vercel function. It forwards the request server-side to Apps Script,
-    // avoiding browser CORS and cross-frame postMessage problems.
+    // Same-origin Vercel function proxies form requests to Apps Script.
     const FORM_API_URL = "/api/submit";
     let submissionInProgress = false;
+    let reusableRequest = null;
 
     function setFormStatus(message) {
         if (formStatus) formStatus.textContent = message || "";
@@ -146,6 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? (currentLang === "ar" ? "جاري إرسال الطلب..." : "Sending request...")
                 : (currentLang === "ar" ? "إرسال الطلب" : "Send request");
         }
+    }
+
+    function createRequestId() {
+        return (window.crypto && typeof window.crypto.randomUUID === "function")
+            ? window.crypto.randomUUID().replace(/-/g, "")
+            : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
     }
 
     if (bookingForm) {
@@ -165,12 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const requestId = (window.crypto && typeof window.crypto.randomUUID === "function")
-                ? window.crypto.randomUUID().replace(/-/g, "")
-                : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
-
-            const payload = {
-                requestId,
+            const values = {
                 name,
                 phone,
                 address,
@@ -178,6 +179,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 language: currentLang,
                 website: ""
             };
+            const signature = JSON.stringify(values);
+
+            // Reuse the same ID when retrying identical form data. Apps Script uses this
+            // ID to deduplicate requests if Google loses the response after saving it.
+            if (!reusableRequest || reusableRequest.signature !== signature) {
+                reusableRequest = {
+                    signature,
+                    requestId: createRequestId()
+                };
+            }
+
+            const payload = { ...values, requestId: reusableRequest.requestId };
 
             submissionInProgress = true;
             setSubmitBusy(true);
@@ -186,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "Sending your request...");
 
             const controller = new AbortController();
-            const timeoutId = window.setTimeout(() => controller.abort(), 30000);
+            const timeoutId = window.setTimeout(() => controller.abort(), 35000);
 
             try {
                 const response = await fetch(FORM_API_URL, {
@@ -200,10 +213,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const result = await response.json().catch(() => null);
                 if (!response.ok || !result) {
-                    const detail = result?.messageAr || result?.messageEn;
-                    throw new Error(detail || (currentLang === "ar"
-                        ? "خدمة استقبال الطلبات لم ترجع ردًا صالحًا."
-                        : "The request service returned an invalid response."));
+                    const detail = currentLang === "ar"
+                        ? (result?.messageAr || "خدمة استقبال الطلبات لم ترجع استجابة صحيحة.")
+                        : (result?.messageEn || "The request service returned an invalid response.");
+                    throw new Error(detail);
                 }
 
                 if (result.ok !== true) {
@@ -214,6 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 bookingForm.reset();
+                reusableRequest = null;
                 setFormStatus(currentLang === "ar"
                     ? (result.messageAr || "تم حفظ طلبك بنجاح.")
                     : (result.messageEn || "Your request was saved successfully."));
@@ -221,12 +235,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Booking submission failed:", error);
                 if (error.name === "AbortError") {
                     setFormStatus(currentLang === "ar"
-                        ? "استغرق الاتصال وقتًا أطول من المتوقع. لم نتمكن من تأكيد الحفظ؛ راجع الشيت قبل إعادة الإرسال."
-                        : "The request timed out. We could not confirm it was saved; check the sheet before resubmitting.");
+                        ? "استغرق الاتصال وقتًا أطول من المتوقع. لم نتمكن من تأكيد الحفظ؛ راجع الشيت قبل إعادة الإرسال. إعادة المحاولة بنفس البيانات ستستخدم رقم الطلب نفسه."
+                        : "The request timed out. Check the sheet before resubmitting; retrying the same details will reuse the same request ID.");
                 } else {
-                    setFormStatus(currentLang === "ar"
-                        ? "تعذر إرسال الطلب. تأكد من نشر خدمة الاستقبال على Vercel ومن تحديث Google Apps Script."
-                        : "Could not submit the request. Check the Vercel API deployment and the Google Apps Script version.");
+                    setFormStatus(error.message || (currentLang === "ar"
+                        ? "تعذر إرسال الطلب. حاول مرة أخرى."
+                        : "Could not submit the request. Please try again."));
                 }
             } finally {
                 window.clearTimeout(timeoutId);
