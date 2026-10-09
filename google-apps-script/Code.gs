@@ -136,14 +136,22 @@ function doPost(e) {
     const lastRow = sheet.getLastRow();
     if (lastRow > 1) {
       const ids = sheet.getRange(2, 2, lastRow - 1, 1).getDisplayValues().flat();
-      if (ids.indexOf(requestId) !== -1) {
+      const existingIndex = ids.indexOf(requestId);
+      if (existingIndex !== -1) {
+        const existingRow = existingIndex + 2;
+        const previousEmailStatus = sheet.getRange(existingRow, 8).getDisplayValue();
+        const previousEmailSent = previousEmailStatus === "تم إرسال الإشعار";
         return renderResponse_({
           requestId: requestId,
           ok: true,
-          emailSent: true,
+          emailSent: previousEmailSent,
           language: language,
-          messageAr: "تم تسجيل هذا الطلب بالفعل.",
-          messageEn: "This request has already been recorded."
+          messageAr: previousEmailSent
+            ? "تم تسجيل هذا الطلب بالفعل وتم إرسال إشعار الشركة."
+            : "تم تسجيل هذا الطلب بالفعل، لكن حالة إشعار البريد لم تؤكد الإرسال.",
+          messageEn: previousEmailSent
+            ? "This request has already been recorded and the company was notified."
+            : "This request has already been recorded, but email notification is not confirmed."
         });
       }
     }
