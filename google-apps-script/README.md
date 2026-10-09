@@ -1,39 +1,37 @@
 # El Sisy — Google Sheets + Email notifications
 
-The website is a static GitHub Pages site. This Apps Script receives the form request, saves it to a Google Sheet, and emails **ahmedkartamo@gmail.com**.
+The website sends booking requests to the Apps Script Web App URL already configured in `app.js`. The script must be deployed and configured separately; editing `Code.gs` on GitHub does not automatically update a live Apps Script deployment.
 
-## One-time setup
+The request handler is configured to use this exact spreadsheet:
 
-1. Sign in to the Google account that should own the sheet and send notifications.
-2. Open [Google Apps Script](https://script.google.com/home) and create a project named **El Sisy Requests**.
-3. Replace the default contents of `Code.gs` with the code in this folder's `Code.gs`.
-4. In the function selector, choose `setupElSisy`, then click **Run**.
-5. Approve the requested Google Sheets and email permissions. Open **Execution log** to find the created spreadsheet URL. The sheet is named **El Sisy - Website Requests**, with a tab named **طلبات العملاء**.
-6. Click **Deploy → New deployment → Web app**:
+`1m8Bl21ob2XnxknEyMcgOxkwN10kqn3Odo_2RFz2xZX8`
+
+Requests are written into the tab **طلبات العملاء** in that spreadsheet, and email notifications are sent to **ahmedkartamo@gmail.com**.
+
+## Required setup
+
+1. Open the Google Apps Script project that owns the Web App URL currently used by the site. The current URL in `app.js` is:
+   `https://script.google.com/macros/s/AKfycbyWSrDBZVp06uhp37oW8uI6QCl-0yN4F1TrFQ-XPsOmwsMi1nMpK_cycAy4hCQsUTOw_w/exec`
+2. Replace the project's `Code.gs` with the version in this repository: [google-apps-script/Code.gs](./Code.gs).
+3. In the function selector, choose `setupElSisy` and click **Run**. Authorize access to Google Sheets and email. This function uses the spreadsheet ID above; it does **not** create a different spreadsheet. It creates or prepares the `طلبات العملاء` tab and adds the expected column headers.
+4. Open **Deploy → Manage deployments**. Edit the Web App deployment used by the website, choose **New version**, and deploy it.
+5. Confirm the deployment settings:
    - **Execute as:** Me
    - **Who has access:** Anyone
-7. Click **Deploy**, approve any additional permissions, then copy the URL that ends in `/exec`.
+6. Keep the Web App's deployed `/exec` URL the same as the one configured in `app.js`. If you created a new Apps Script project or a new deployment with a different URL, replace `APPS_SCRIPT_URL` in `app.js` with that new `/exec` URL and publish the website.
 
-## Connect the website
+## Test the complete flow
 
-The current website code has a `APPS_SCRIPT_URL` constant in `app.js`.
+1. Open the published site and send a test request with sample details.
+2. Confirm a new row appears in **طلبات العملاء** in the spreadsheet linked above.
+3. Confirm a notification email arrives at **ahmedkartamo@gmail.com** (also check Spam).
+4. Check the final column, **حالة إشعار البريد**, to see whether the email notification was sent.
 
-- If you can edit the Apps Script deployment currently used by the site, paste this `Code.gs` into that project and update its existing deployment to a new version. This preserves the current URL used by the website.
-- If you created a new Apps Script project, replace the current `APPS_SCRIPT_URL` value in `app.js` with the new `/exec` URL from step 7, then commit the change to `main`.
+The website now waits for a response correlated with the exact request ID. It should not display the normal success message merely because a network request was started. If it cannot verify the Apps Script response, it displays a timeout warning.
 
-The website submits the form through a hidden iframe to avoid browser cross-origin restrictions. This script returns a correlated status message to the page, so the form does not show success simply because a network request was started.
+## Troubleshooting
 
-## Test it
-
-1. Submit a test request on the published website using your own test details.
-2. Confirm that a row is added to **طلبات العملاء**.
-3. Confirm that an email arrives at **ahmedkartamo@gmail.com**. Check Spam if needed.
-4. The last column in the sheet records whether the email notification was sent.
-
-## Important notes
-
-- Requests are saved even if email delivery fails; the website displays a different message and the sheet records the email status.
-- The Apps Script runs under the Google account that deployed it. That account must authorize spreadsheet access and email sending.
-- The web app must be accessible to **Anyone**, because website visitors are not signed into your Google account.
-- Do not share the spreadsheet publicly; only share it with the people who need to manage incoming requests.
-- Apps Script and Google Mail quotas/Google account restrictions may affect how many notifications can be sent per day.
+- **No row appears:** most often, the live Apps Script deployment was not updated to the current `Code.gs`, the site is still using a different deployment URL, or the Google account running the script cannot edit the provided spreadsheet.
+- **Row appears but no email:** check the final status column, authorize email sending by running `setupElSisy` and accepting all permission prompts, and check Gmail Spam/quotas.
+- **Permission error:** the Google account that runs the web app must have Editor access to the spreadsheet and must authorize the Apps Script.
+- Do not make the spreadsheet public. Only share it with the people who manage requests.
