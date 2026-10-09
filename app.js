@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Google Apps Script web-app endpoint. If a new Apps Script project is deployed,
     // replace this URL with its deployed /exec URL.
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWSrDBZVp06uhp37oW8uI6QCl-0yN4F1TrFQ-XPsOmwsMi1nMpK_cycAy4hCQsUTOw_w/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg6ad-R5W3eqY0fi4nLHlDSlD_5gQNjwVE_cCuGyAywIN5x42rpHqkbiK9p_GeUni7/exec";
     const responseFrameName = "el-sisy-form-response-frame";
     let pendingSubmission = null;
 
