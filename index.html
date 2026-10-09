@@ -3,421 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="شركة المكتب الفني للمقاولات والتوريدات العمومية (TOC) - حلول هندسية وفنية متكاملة تشمل التشطيبات، الأعمال الكهروميكانيكية MEP، الكهرباء، والسباكة بأعلى معايير الجودة.">
-    <meta name="keywords" content="شركة المكتب الفني, مقاولات, توريدات عمومية, تشطيبات, MEP, أعمال الكهرباء, سباكة, رخام, دهانات, TOC">
+    <meta name="theme-color" content="#082743">
+    <meta name="description" content="El Sisy - حلول هندسية متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات والتصميم والتنفيذ.">
+    <meta name="keywords" content="El Sisy, السيسي, بنية تحتية, صرف صحي, شبكات مياه, محطات مياه, محطات معالجة, استشارات هندسية, تشطيبات, تصميم وتنفيذ">
     <meta name="robots" content="index, follow">
-    <title>El Sisy</title>
+    <title>El Sisy | حلول هندسية متكاملة</title>
 
-    <!-- Resource Preconnects for Faster Font & Asset Delivery -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin>
-
-    <!-- Critical CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google Fonts (Cairo for Arabic) - Asynchronous Non-Blocking -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
-    </noscript>
-
-    <!-- Adding Icon -->
-    <link rel="Icon" href="image/ChatGPT Image Sep 28, 2026, 01_52_24 AM.png">
+    <link rel="icon" href="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg">
 </head>
 <body>
-
-    <!-- OVERLAY FOR MOBILE MENU -->
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
+    <div class="scroll-progress" id="scroll-progress"></div>
     <div class="nav-overlay" id="nav-overlay"></div>
 
-    <!-- 1. NAVIGATION BAR -->
-    <div class="navbar-container">
+    <header class="navbar-container" id="site-header">
         <nav class="navbar">
-            <div class="burger-menu" id="burger-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <a href="#home" class="nav-logo" aria-label="El Sisy">
+                <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo">
+                <span>
+                    <strong>El SISY</strong>
+                    <small data-i18n data-ar="للهندسة والمقاولات" data-en="Engineering & Contracting">للهندسة والمقاولات</small>
+                </span>
+            </a>
+
             <ul class="nav-links" id="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#services">الخدمات</a></li>
-                <li><a href="#projects">المشاريع</a></li>
-                <li><a href="#about">عن الشركة</a></li>
-                <li><a href="#partners">شركاؤنا</a></li>
-                <li><a href="#location">موقعنا</a></li>
-                <li><a href="#book">حجز جلسة</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="#home" data-i18n data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                <li><a href="#services" data-i18n data-ar="الخدمات" data-en="Services">الخدمات</a></li>
+                <li><a href="#projects" data-i18n data-ar="المشاريع" data-en="Projects">المشاريع</a></li>
+                <li><a href="#about" data-i18n data-ar="عن الشركة" data-en="About">عن الشركة</a></li>
+                <li><a href="#partners" data-i18n data-ar="شركاؤنا" data-en="Partners">شركاؤنا</a></li>
+                <li><a href="#location" data-i18n data-ar="موقعنا" data-en="Location">موقعنا</a></li>
+                <li><a href="#book" data-i18n data-ar="استشارة" data-en="Consultation">استشارة</a></li>
+                <li><a href="#contact" data-i18n data-ar="تواصل" data-en="Contact">تواصل</a></li>
             </ul>
-            <a href="#home" class="nav-logo">
-                <span>El SISY</span>
-                <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="TOC Logo" width="30" height="30" decoding="async">
-            </a>
+
+            <div class="nav-actions">
+                <button class="lang-toggle" id="lang-toggle" type="button">
+                    <strong>AR</strong><span>/</span><span>EN</span>
+                </button>
+                <button class="burger-menu" id="burger-menu" type="button" aria-label="Menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-pattern"></div>
+
+            <div class="hero-content reveal reveal-up">
+                <div class="hero-logo-wrap">
+                    <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo" class="hero-logo">
+                </div>
+
+                <span class="hero-kicker" data-i18n data-ar="هندسة • تصميم • تنفيذ" data-en="Engineering • Design • Execution">هندسة • تصميم • تنفيذ</span>
+
+                <h1 data-i18n
+                    data-ar="حلول هندسية تبني بنية تحتية أقوى للمستقبل."
+                    data-en="Engineering solutions for stronger infrastructure and a better future.">
+                    حلول هندسية تبني بنية تحتية أقوى للمستقبل.
+                </h1>
+
+                <p data-i18n
+                   data-ar="نقدم خدمات متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات، من الاستشارة والتصميم حتى التنفيذ والتسليم."
+                   data-en="We deliver integrated solutions in infrastructure, wastewater, water networks, treatment plants and finishing — from consulting and design to execution and handover.">
+                    نقدم خدمات متكاملة في البنية التحتية والصرف الصحي وشبكات المياه والمحطات والتشطيبات، من الاستشارة والتصميم حتى التنفيذ والتسليم.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#services" class="main-btn">
+                        <span data-i18n data-ar="استكشف خدماتنا" data-en="Explore our services">استكشف خدماتنا</span>
+                        <i class="fa-solid fa-arrow-left arrow-icon"></i>
+                    </a>
+                    <a href="#book" class="outline-btn" data-i18n data-ar="اطلب استشارة" data-en="Request consultation">اطلب استشارة</a>
+                </div>
+
+                <div class="hero-highlights">
+                    <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="حلول متكاملة" data-en="Integrated solutions">حلول متكاملة</span></div>
+                    <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="تنفيذ منظم" data-en="Structured execution">تنفيذ منظم</span></div>
+                    <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="جودة واهتمام بالتفاصيل" data-en="Quality & detail">جودة واهتمام بالتفاصيل</span></div>
+                </div>
+            </div>
+
+            <div class="hero-side reveal reveal-scale">
+                <div class="hero-orbit orbit-one"></div>
+                <div class="hero-orbit orbit-two"></div>
+
+                <div class="hero-card">
+                    <div class="hero-card-head">
+                        <span class="live-dot"></span>
+                        <span data-i18n data-ar="حلول البنية التحتية" data-en="Infrastructure solutions">حلول البنية التحتية</span>
+                    </div>
+
+                    <div class="water-visual">
+                        <img src="image/hero.jpg" alt="El Sisy infrastructure project" class="hero-project-image">
+                        <div class="hero-image-overlay"></div>
+                        <div class="hero-image-caption">
+                            <i class="fa-solid fa-building"></i>
+                            <span data-i18n data-ar="مشروعات وحلول هندسية" data-en="Engineering projects & solutions">مشروعات وحلول هندسية</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-card-footer">
+                        <div>
+                            <strong>8+</strong>
+                            <span data-i18n data-ar="مجالات خدمات" data-en="Service areas">مجالات خدمات</span>
+                        </div>
+                        <div>
+                            <strong>360°</strong>
+                            <span data-i18n data-ar="من التصميم للتنفيذ" data-en="Design to execution">من التصميم للتنفيذ</span>
+                        </div>
+                        <div>
+                            <strong>24/7</strong>
+                            <span data-i18n data-ar="عقلية دعم ومتابعة" data-en="Support mindset">عقلية دعم ومتابعة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-tag tag-one"><i class="fa-solid fa-droplet"></i><span data-i18n data-ar="شبكات ومحطات مياه" data-en="Water networks & plants">شبكات ومحطات مياه</span></div>
+                <div class="hero-tag tag-two"><i class="fa-solid fa-recycle"></i><span data-i18n data-ar="صرف ومعالجة" data-en="Wastewater & treatment">صرف ومعالجة</span></div>
+            </div>
+        </section>
+
+        <section id="services" class="section services-section">
+            <div class="section-heading reveal reveal-up">
+                <div>
+                    <span class="section-kicker" data-i18n data-ar="خدماتنا" data-en="Our services">خدماتنا</span>
+                    <h2 data-i18n data-ar="كل ما يحتاجه مشروعك في مكان واحد." data-en="Everything your project needs, in one place.">كل ما يحتاجه مشروعك في مكان واحد.</h2>
+                </div>
+                <p data-i18n data-ar="نركز على الخدمات التي تمثل نشاط El Sisy فعليًا، مع تصميم وتنفيذ منظم يناسب طبيعة كل مشروع." data-en="We focus on the services that represent El Sisy's core activity, with organized design and execution for every project.">نركز على الخدمات التي تمثل نشاط El Sisy فعليًا، مع تصميم وتنفيذ منظم يناسب طبيعة كل مشروع.</p>
+            </div>
+
+            <div class="services-grid">
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-consulting"><i class="fa-solid fa-compass-drafting"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">01</span>
+                        <h3 data-i18n data-ar="الاستشارات الهندسية" data-en="Engineering Consulting">الاستشارات الهندسية</h3>
+                        <p data-i18n data-ar="حلول فنية ودراسات تساعدك على اختيار أفضل مسار للمشروع قبل التنفيذ." data-en="Technical studies and guidance to choose the right project path before execution.">حلول فنية ودراسات تساعدك على اختيار أفضل مسار للمشروع قبل التنفيذ.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="consulting"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-design"><i class="fa-solid fa-pen-ruler"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">02</span>
+                        <h3 data-i18n data-ar="التصميم والتنفيذ" data-en="Design & Construction">التصميم والتنفيذ</h3>
+                        <p data-i18n data-ar="تنسيق التصميم والحلول التنفيذية وإدارة مراحل العمل للوصول لنتيجة متكاملة." data-en="Coordinated design, execution solutions and delivery management for complete results.">تنسيق التصميم والحلول التنفيذية وإدارة مراحل العمل للوصول لنتيجة متكاملة.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="design-build"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-finish"><i class="fa-solid fa-house-chimney-window"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">03</span>
+                        <h3 data-i18n data-ar="أعمال التشطيب" data-en="Finishing Works">أعمال التشطيب</h3>
+                        <p data-i18n data-ar="تشطيبات متكاملة تجمع بين الدقة في التفاصيل والتنفيذ المنظم وجودة التسليم." data-en="Integrated finishing works with detail, organized execution and quality handover.">تشطيبات متكاملة تجمع بين الدقة في التفاصيل والتنفيذ المنظم وجودة التسليم.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="finishing"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-water"><i class="fa-solid fa-faucet-drip"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">04</span>
+                        <h3 data-i18n data-ar="شبكات مياه الشرب" data-en="Potable Water Networks">شبكات مياه الشرب</h3>
+                        <p data-i18n data-ar="تصميم وتنفيذ شبكات نقل وتوزيع مياه الشرب بما يناسب الموقع ومتطلبات التشغيل." data-en="Design and execution of potable water transmission and distribution networks.">تصميم وتنفيذ شبكات نقل وتوزيع مياه الشرب بما يناسب الموقع ومتطلبات التشغيل.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="water-networks"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-waste"><i class="fa-solid fa-water"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">05</span>
+                        <h3 data-i18n data-ar="شبكات الصرف الصحي" data-en="Wastewater Networks">شبكات الصرف الصحي</h3>
+                        <p data-i18n data-ar="تنفيذ حلول شبكات الصرف مع مراعاة سهولة التشغيل والصيانة واستدامة الأداء." data-en="Wastewater network execution focused on operation, maintenance and long-term performance.">تنفيذ حلول شبكات الصرف مع مراعاة سهولة التشغيل والصيانة واستدامة الأداء.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="wastewater-networks"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-plant"><i class="fa-solid fa-industry"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">06</span>
+                        <h3 data-i18n data-ar="محطات مياه الشرب" data-en="Drinking Water Plants">محطات مياه الشرب</h3>
+                        <p data-i18n data-ar="حلول تصميم وتنفيذ للمحطات وربطها بالشبكات والأنظمة اللازمة للتشغيل." data-en="Plant design and execution solutions with required network and system integration.">حلول تصميم وتنفيذ للمحطات وربطها بالشبكات والأنظمة اللازمة للتشغيل.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="water-plants"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-treatment"><i class="fa-solid fa-filter-circle-dollar"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">07</span>
+                        <h3 data-i18n data-ar="محطات الصرف والمعالجة" data-en="Wastewater & Treatment Plants">محطات الصرف والمعالجة</h3>
+                        <p data-i18n data-ar="تنفيذ حلول محطات الصرف والمعالجة بما يناسب متطلبات الموقع وكفاءة التشغيل." data-en="Wastewater and treatment plant solutions adapted to site needs and operational efficiency.">تنفيذ حلول محطات الصرف والمعالجة بما يناسب متطلبات الموقع وكفاءة التشغيل.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="treatment-plants"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+
+                <article class="service-card reveal reveal-up">
+                    <div class="service-art art-infra"><i class="fa-solid fa-road"></i></div>
+                    <div class="service-body">
+                        <span class="service-no">08</span>
+                        <h3 data-i18n data-ar="أعمال البنية التحتية" data-en="Infrastructure Works">أعمال البنية التحتية</h3>
+                        <p data-i18n data-ar="تنفيذ أعمال المرافق والخدمات المرتبطة بالبنية التحتية للمشروعات الجديدة والقائمة." data-en="Infrastructure, utility and service works for new and existing projects.">تنفيذ أعمال المرافق والخدمات المرتبطة بالبنية التحتية للمشروعات الجديدة والقائمة.</p>
+                        <a href="#book" class="service-link btn-request" data-service-key="infrastructure"><span data-i18n data-ar="اطلب الخدمة" data-en="Request service">اطلب الخدمة</span><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section process-section">
+            <div class="section-heading centered reveal reveal-up">
+                <span class="section-kicker" data-i18n data-ar="طريقة العمل" data-en="Our process">طريقة العمل</span>
+                <h2 data-i18n data-ar="شغل منظم من أول خطوة لحد التسليم." data-en="A clear process from first step to handover.">شغل منظم من أول خطوة لحد التسليم.</h2>
+            </div>
+            <div class="process-grid">
+                <div class="process-item reveal reveal-up"><span>01</span><i class="fa-solid fa-comments"></i><h3 data-i18n data-ar="نفهم احتياجك" data-en="Understand">نفهم احتياجك</h3><p data-i18n data-ar="نحدد هدف المشروع ومتطلباته." data-en="We define the project goal and needs.">نحدد هدف المشروع ومتطلباته.</p></div>
+                <div class="process-item reveal reveal-up"><span>02</span><i class="fa-solid fa-drafting-compass"></i><h3 data-i18n data-ar="نصمم الحل" data-en="Design">نصمم الحل</h3><p data-i18n data-ar="نختار الحل الهندسي المناسب." data-en="We shape the right engineering solution.">نختار الحل الهندسي المناسب.</p></div>
+                <div class="process-item reveal reveal-up"><span>03</span><i class="fa-solid fa-helmet-safety"></i><h3 data-i18n data-ar="ننـفذ ونتابع" data-en="Execute">ننـفذ ونتابع</h3><p data-i18n data-ar="تنفيذ منظم ومتابعة للمراحل." data-en="Organized execution and close follow-up.">تنفيذ منظم ومتابعة للمراحل.</p></div>
+                <div class="process-item reveal reveal-up"><span>04</span><i class="fa-solid fa-circle-check"></i><h3 data-i18n data-ar="نسلم بجودة" data-en="Handover">نسلم بجودة</h3><p data-i18n data-ar="مراجعة الأعمال وتسليم منظم." data-en="Review and organized handover.">مراجعة الأعمال وتسليم منظم.</p></div>
+            </div>
+        </section>
+
+        <section id="projects" class="section projects-section">
+            <div class="section-heading centered reveal reveal-up">
+                <span class="section-kicker" data-i18n data-ar="مشروعاتنا" data-en="Our projects">مشروعاتنا</span>
+                <h2 data-i18n data-ar="نماذج من الأعمال الحالية." data-en="Selected projects from the current portfolio.">نماذج من الأعمال الحالية.</h2>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project-card reveal reveal-up">
+                    <div class="project-visual project-factory"><div class="project-number">01</div><i class="fa-solid fa-industry"></i><div class="project-grid"></div></div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="مصنع • العين السخنة" data-en="Factory • Ain Sokhna">مصنع • العين السخنة</span>
+                        <h3>Pivot Factory</h3>
+                        <p data-i18n data-ar="مشروع صناعي مدرج ضمن الأعمال الحالية للموقع." data-en="An industrial project listed in the current website portfolio.">مشروع صناعي مدرج ضمن الأعمال الحالية للموقع.</p>
+                        <span class="year-pill">2023</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal reveal-up">
+                    <div class="project-visual project-water"><div class="project-number">02</div><i class="fa-solid fa-water"></i><div class="project-grid"></div></div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="مرافق • كوم أمبو" data-en="Utilities • Kom Ombo">مرافق • كوم أمبو</span>
+                        <h3>Kom Ombo — Aswan</h3>
+                        <p data-i18n data-ar="مشروع مرافق مدرج ضمن بيانات الموقع الحالية." data-en="A utilities project retained from the current site data.">مشروع مرافق مدرج ضمن بيانات الموقع الحالية.</p>
+                        <span class="year-pill">2024</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal reveal-up">
+                    <div class="project-visual project-res"><div class="project-number">03</div><i class="fa-solid fa-building"></i><div class="project-grid"></div></div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="سكني • مباني" data-en="Residential • Buildings">سكني • مباني</span>
+                        <h3>Residential Apartments</h3>
+                        <p data-i18n data-ar="مشروع سكني موجود ضمن البيانات السابقة للموقع." data-en="A residential project retained from the previous website data.">مشروع سكني موجود ضمن البيانات السابقة للموقع.</p>
+                        <span class="year-pill">2020</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="about" class="section about-section">
+            <div class="about-grid">
+                <div class="about-brand reveal reveal-right">
+                    <div class="about-logo-box"><img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo"></div>
+                    <div class="about-brand-name">El SISY</div>
+                    <span data-i18n data-ar="Engineering • Infrastructure • Water" data-en="Engineering • Infrastructure • Water">Engineering • Infrastructure • Water</span>
+                </div>
+
+                <div class="about-copy reveal reveal-left">
+                    <span class="section-kicker" data-i18n data-ar="عن الشركة" data-en="About the company">عن الشركة</span>
+                    <h2 data-i18n data-ar="هندسة عملية، تنفيذ واضح، ونتيجة تفتخر بيها." data-en="Practical engineering, clear execution and results you can be proud of.">هندسة عملية، تنفيذ واضح، ونتيجة تفتخر بيها.</h2>
+                    <p data-i18n data-ar="في El Sisy نركز على فهم المشروع بشكل صحيح قبل التنفيذ، ثم تحويل الاحتياج إلى حل هندسي قابل للتطبيق، مع اهتمام بالتفاصيل وجودة التسليم." data-en="At El Sisy, we focus on understanding the project first, then turning its needs into practical engineering solutions with attention to detail and quality handover.">في El Sisy نركز على فهم المشروع بشكل صحيح قبل التنفيذ، ثم تحويل الاحتياج إلى حل هندسي قابل للتطبيق، مع اهتمام بالتفاصيل وجودة التسليم.</p>
+
+                    <div class="about-points">
+                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="حلول عملية قابلة للتنفيذ" data-en="Practical, execution-ready solutions">حلول عملية قابلة للتنفيذ</span></div>
+                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="تنسيق بين التصميم والتنفيذ" data-en="Design-to-execution coordination">تنسيق بين التصميم والتنفيذ</span></div>
+                        <div><i class="fa-solid fa-check"></i><span data-i18n data-ar="تركيز على الجودة والتفاصيل" data-en="Quality and detail focused">تركيز على الجودة والتفاصيل</span></div>
+                    </div>
+
+                    <a href="#contact" class="main-btn inline-btn"><span data-i18n data-ar="تواصل مع الفريق" data-en="Talk to the team">تواصل مع الفريق</span><i class="fa-solid fa-arrow-left arrow-icon"></i></a>
+                </div>
+            </div>
+
+            <div class="advantages-grid">
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-award"></i><h3 data-i18n data-ar="جودة" data-en="Quality">جودة</h3><p data-i18n data-ar="اهتمام بالتفاصيل التي تصنع الفرق." data-en="Attention to the details that matter.">اهتمام بالتفاصيل التي تصنع الفرق.</p></div>
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-clock"></i><h3 data-i18n data-ar="التزام" data-en="Commitment">التزام</h3><p data-i18n data-ar="تنظيم واضح للمراحل والمتطلبات." data-en="Clear organization across stages and needs.">تنظيم واضح للمراحل والمتطلبات.</p></div>
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-user-gear"></i><h3 data-i18n data-ar="خبرة عملية" data-en="Practical expertise">خبرة عملية</h3><p data-i18n data-ar="تركيز على الحلول القابلة للتنفيذ فعليًا." data-en="Focused on solutions that can actually be delivered.">تركيز على الحلول القابلة للتنفيذ فعليًا.</p></div>
+                <div class="advantage-card reveal reveal-up"><i class="fa-solid fa-lightbulb"></i><h3 data-i18n data-ar="حلول ذكية" data-en="Smart solutions">حلول ذكية</h3><p data-i18n data-ar="اختيارات توازن بين الجودة والكفاءة." data-en="Choices that balance quality and efficiency.">اختيارات توازن بين الجودة والكفاءة.</p></div>
+            </div>
+        </section>
+
+        <section id="partners" class="section partners-section">
+            <div class="section-heading centered reveal reveal-up">
+                <span class="section-kicker" data-i18n data-ar="شركاؤنا" data-en="Partners">شركاؤنا</span>
+                <h2 data-i18n data-ar="شراكات تدعم التنفيذ." data-en="Partnerships that support delivery.">شراكات تدعم التنفيذ.</h2>
+                <p data-i18n data-ar="الأسماء التالية محفوظة من النسخة الأصلية للموقع." data-en="The names below are retained from the original website version.">الأسماء التالية محفوظة من النسخة الأصلية للموقع.</p>
+            </div>
+            <div class="partners-row">
+                <div class="partner-pill">
+                    <strong data-i18n data-ar="شركة مياه الشرب والصرف الصحي بالمنوفية" data-en="Menoufia Water and Wastewater Company">شركة مياه الشرب والصرف الصحي بالمنوفية</strong>
+                </div>
+                <div class="partner-pill">
+                    <strong data-i18n data-ar="الجهاز التنفيذي لمحافظة المنوفية" data-en="Executive Agency of Menoufia Governorate">الجهاز التنفيذي لمحافظة المنوفية</strong>
+                </div>
+                <div class="partner-pill">
+                    <strong data-i18n data-ar="الجهاز التنفيذي لمحافظة أسيوط" data-en="Executive Agency of Assiut Governorate">الجهاز التنفيذي لمحافظة أسيوط</strong>
+                </div>
+                <div class="partner-pill">
+                    <strong data-i18n data-ar="الجهاز التنفيذي لمحافظة المنيا" data-en="Executive Agency of Minya Governorate">الجهاز التنفيذي لمحافظة المنيا</strong>
+                </div>
+                <div class="partner-pill">
+                    <strong data-i18n data-ar="الجهاز التنفيذي لمحافظة البحيرة" data-en="Executive Agency of Beheira Governorate">الجهاز التنفيذي لمحافظة البحيرة</strong>
+                </div>
+                <div class="partner-pill">
+                    <strong data-i18n data-ar="الهيئة القومية لمياه الشرب والصرف الصحي" data-en="National Organization for Potable Water and Sanitation">الهيئة القومية لمياه الشرب والصرف الصحي</strong>
+                </div>
+                <div class="partner-pill">
+                    <strong data-i18n data-ar="الهيئة العربية للتصنيع" data-en="Arab Organization for Industrialization">الهيئة العربية للتصنيع</strong>
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="section location-section">
+            <div class="section-heading centered reveal reveal-up">
+                <span class="section-kicker" data-i18n data-ar="موقعنا" data-en="Our location">موقعنا</span>
+                <h2 data-i18n data-ar="جاهزين نبدأ من مكان قريب منك." data-en="Ready to start from a location close to you.">جاهزين نبدأ من مكان قريب منك.</h2>
+            </div>
+            <div class="location-card reveal reveal-scale">
+                <div class="location-info">
+                    <div class="location-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3 data-i18n data-ar="موقع الشركة" data-en="Company location">موقع الشركة</h3>
+                    <p dir="ltr">3 Abu El-Soud St., off Joseph Tito St., behind Qabany for Furniture, El-Nozha El-Gedida, Heliopolis, Cairo, Egypt</p>
+                    <a class="text-link" href="https://maps.app.goo.gl/DkJSFnCgJsE2WN7q6?g_st=aw" target="_blank" rel="noopener"><span data-i18n data-ar="فتح الموقع على الخريطة" data-en="Open in Google Maps">فتح الموقع على الخريطة</span><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <div class="map-container"><iframe data-src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3450.8534056024123!2d31.37830300000001!3d30.127008000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzDCsDA3JzM3LjIiTiAzMcKwMjInNDEuOSJF!5e0!3m2!1sar!2seg!4v1791474510383!5m2!1sar!2seg" loading="lazy" title="El Sisy map"></iframe></div>
+            </div>
+
+        <section id="book" class="section booking-section">
+            <div class="booking-card reveal reveal-up">
+                <div class="booking-copy">
+                    <span class="section-kicker" data-i18n data-ar="ابدأ مشروعك" data-en="Start your project">ابدأ مشروعك</span>
+                    <h2 data-i18n data-ar="خلينا نتكلم عن مشروعك." data-en="Let's talk about your project.">خلينا نتكلم عن مشروعك.</h2>
+                    <p data-i18n data-ar="ابعت بياناتك الأساسية وفريقنا يراجع طلبك للتواصل معك." data-en="Send your basic details and our team will review your request and contact you.">ابعت بياناتك الأساسية وفريقنا يراجع طلبك للتواصل معك.</p>
+                    <div class="booking-note"><i class="fa-solid fa-circle-check"></i><span data-i18n data-ar="استشارة مبدئية + فهم الاحتياج + تحديد الخطوة التالية" data-en="Initial consultation + needs review + next step">استشارة مبدئية + فهم الاحتياج + تحديد الخطوة التالية</span></div>
+                </div>
+
+                <form class="booking-form" id="booking-form">
+                    <label class="form-field"><span data-i18n data-ar="الاسم بالكامل" data-en="Full name">الاسم بالكامل</span><input type="text" id="user_name" placeholder="الاسم بالكامل" data-placeholder-ar="الاسم بالكامل" data-placeholder-en="Full name" required></label>
+                    <label class="form-field"><span data-i18n data-ar="رقم الهاتف" data-en="Phone number">رقم الهاتف</span><input type="tel" id="user_phone" placeholder="رقم الهاتف" data-placeholder-ar="رقم الهاتف" data-placeholder-en="Phone number" required></label>
+                    <label class="form-field full"><span data-i18n data-ar="العنوان" data-en="Address">العنوان</span><input type="text" id="user_address" placeholder="العنوان" data-placeholder-ar="العنوان" data-placeholder-en="Address" required></label>
+                    <label class="form-field full"><span data-i18n data-ar="الخدمة المطلوبة" data-en="Requested service">الخدمة المطلوبة</span>
+                        <select id="user_service" required>
+                            <option value="" disabled selected data-ar="اختر الخدمة المطلوبة" data-en="Choose a service">اختر الخدمة المطلوبة</option>
+                            <option value="consulting" data-ar="الاستشارات الهندسية" data-en="Engineering Consulting">الاستشارات الهندسية</option>
+                            <option value="design-build" data-ar="التصميم والتنفيذ" data-en="Design & Construction">التصميم والتنفيذ</option>
+                            <option value="finishing" data-ar="أعمال التشطيب" data-en="Finishing Works">أعمال التشطيب</option>
+                            <option value="water-networks" data-ar="شبكات مياه الشرب" data-en="Potable Water Networks">شبكات مياه الشرب</option>
+                            <option value="wastewater-networks" data-ar="شبكات الصرف الصحي" data-en="Wastewater Networks">شبكات الصرف الصحي</option>
+                            <option value="water-plants" data-ar="محطات مياه الشرب" data-en="Drinking Water Plants">محطات مياه الشرب</option>
+                            <option value="treatment-plants" data-ar="محطات الصرف والمعالجة" data-en="Wastewater & Treatment Plants">محطات الصرف والمعالجة</option>
+                            <option value="infrastructure" data-ar="أعمال البنية التحتية" data-en="Infrastructure Works">أعمال البنية التحتية</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="main-btn full btn-submit"><span data-i18n data-ar="إرسال الطلب" data-en="Send request">إرسال الطلب</span><i class="fa-solid fa-arrow-left arrow-icon"></i></button>
+                    <p class="form-status full" id="form-status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+            <div class="section-heading centered reveal reveal-up">
+                <span class="section-kicker" data-i18n data-ar="تواصل معنا" data-en="Contact us">تواصل معنا</span>
+                <h2 data-i18n data-ar="جاهزين نسمع فكرتك." data-en="Ready to hear your idea.">جاهزين نسمع فكرتك.</h2>
+            </div>
+
+            <div class="contact-grid">
+                <a class="contact-card reveal reveal-up" href="tel:+201103032271"><span class="contact-icon"><i class="fa-solid fa-phone"></i></span><div><small data-i18n data-ar="هاتف" data-en="Phone">هاتف</small><strong dir="ltr">+20 110 303 2271</strong></div></a>
+                <a class="contact-card reveal reveal-up" href="https://wa.me/201103032271" target="_blank" rel="noopener"><span class="contact-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></span><div><small data-i18n data-ar="واتساب" data-en="WhatsApp">واتساب</small><strong dir="ltr">+20 110 303 2271</strong></div></a>
+                <a class="contact-card reveal reveal-up" href="tel:+201004776133"><span class="contact-icon"><i class="fa-solid fa-phone"></i></span><div><small data-i18n data-ar="هاتف" data-en="Phone">هاتف</small><strong dir="ltr">+20 100 477 6133</strong></div></a>
+                <a class="contact-card reveal reveal-up" href="https://wa.me/201004776133" target="_blank" rel="noopener"><span class="contact-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></span><div><small data-i18n data-ar="واتساب" data-en="WhatsApp">واتساب</small><strong dir="ltr">+20 100 477 6133</strong></div></a>
+            </div>
+        </section>
+    </main>
+
+    <div class="floating-actions">
+        <a href="https://wa.me/201103032271" target="_blank" rel="noopener" class="float-btn float-whatsapp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="tel:+201103032271" class="float-btn float-phone" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
     </div>
 
-    <!-- 2. HERO SECTION -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="TOC Logo" class="hero-logo-img" width="120" height="120" fetchpriority="high" decoding="async">
-            <h1>شركة السيسي لأعمال البنية التحتية والصرف الصحي </h1>
-            <p>حلول هندسية متكاملة تؤسس لشبكات الغد وترتقي بجودة الحياة.</p>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="image/WhatsApp Image 2026-09-27 at 7.24.30 PM.jpeg" alt="El Sisy Logo">
+                <div><strong>El SISY</strong><p data-i18n data-ar="حلول هندسية متكاملة للبنية التحتية والمياه والصرف والتشطيبات." data-en="Integrated engineering solutions for infrastructure, water, wastewater and finishing.">حلول هندسية متكاملة للبنية التحتية والمياه والصرف والتشطيبات.</p></div>
+            </div>
+            <span data-i18n data-ar="جميع الحقوق محفوظة © 2026 El Sisy" data-en="All rights reserved © 2026 El Sisy">جميع الحقوق محفوظة © 2026 El Sisy</span>
         </div>
-
-        <div class="stats-container">
-            <div class="stat-item">
-                <h3>+500</h3>
-                <p>عميل سعيد</p>
-            </div>
-            <div class="stat-item">
-                <h3>+7000</h3>
-                <p>مشروع مكتمل</p>
-            </div>
-            <div class="stat-item">
-                <h3>+15</h3>
-                <p>سنوات خبرة</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. SERVICES SECTION -->
-    <section id="services">
-        <div class="section-title" data-aos="fade-up">
-            <h2>خدماتنا</h2>
-        </div>
-        <div class="services-grid" id="services-container">
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/mep.png" alt="Mechanical Electrical Plumping (MEP)" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>Mechanical Electrical Plumping (MEP)</h3>
-                    <p>توفير الحلول الهندسية المتكاملة للأنظمة الكهروميكانيكية وتصميمها وتنفيذها وفق أعلى المعايير القياسية العالمية. نضمن كفاءة تشغيل المباني وتكامل البنية التحتية للمشاريع السكنية والتجارية والصناعية بأعلى مستويات الجودة والأمان.</p>
-                    <a href="#book" class="btn-request" data-service="Mechanical Electrical Plumping (MEP)">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/fully-finished.png" alt="تشطيب متكامل" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>تشطيب متكامل</h3>
-                    <p>نقدم لك خدمة التشطيب المتكاملة والشاملة التي تحوّل مساحتك من مجرد هيكل خرساني (على الطوب) إلى مسكن أحلامك الجاهز تماماً للاستخدام، وفق أعلى معايير الجودة الهندسيّة وأرقى التصميمات المعمارية</p>
-                    <a href="#book" class="btn-request" data-service="تشطيب متكامل">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/electricity.png" alt="أعمال الكهرباء" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أعمال الكهرباء</h3>
-                    <p>تنفيذ وتأسيس كامل الشبكات الكهربائية للمباني، بدءاً من مد الكابلات ولوحات توزيع الكهرباء الرئيسية والفرعية، وصولاً إلى تركيب أنظمة الإضاءة الحديثة وحماية الشبكات، مع الالتزام التام بمعايير السلامة والأمان الوقائي</p>
-                    <a href="#book" class="btn-request" data-service="أعمال الكهرباء">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/plastering.png" alt="أعمال المحارة" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أعمال المحارة</h3>
-                    <p>تقديم أعمال المحارة الداخلية والخارجية بأساليب هندسية دقيقة (استخدام البؤج والأوتار)، للحصول على أسطح مستوية تماماً وجاهزة لمراحل التشطيب النهائية، مع التركيز على استخدام أجود المواد لمنع التصدعات وتضمن استدامة المبنى</p>
-                    <a href="#book" class="btn-request" data-service="أعمال المحارة">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/plumping.png" alt="أعمال السباكة" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أعمال السباكة</h3>
-                    <p>تأسيس وتشطيب شبكات تغذية المياه والتغذية المركزية، بالإضافة إلى أنظمة الصرف الصحي الداخلية والخارجية. نعتمد على أحدث التقنيات والمواد المقاومة للتسريب والضغط لضمان عمر افتراضي طويل وسلاسة في الصيانة</p>
-                    <a href="#book" class="btn-request" data-service="أعمال السباكة">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/painting.png" alt="أعمال النقاشة" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أعمال النقاشة</h3>
-                    <p>تنفيذ كافة أعمال الدهانات الداخلية والخارجية والديكورات الحديثة بأعلى مستويات الاحترافية. نستخدم أجود أنواع الدهانات المعتمدة المقاومة للعوامل الجوية والرطوبة، مع الاهتمام بجميع مراحل التحضير والتجهيز لضمان مظهر جمالي يدوم.</p>
-                    <a href="#book" class="btn-request" data-service="أعمال النقاشة">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/flooring.png" alt="أعمال السيراميك" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أعمال السيراميك</h3>
-                    <p>تركيب وتوريد كافة أنواع السيراميك، البورسلين، والرخام للتقسيمات الداخلية والخارجية. نضمن التسوية الدقيقة للأسطح، وتناسق الفواصل، واستخدام المواد اللاصقة المعتمدة لضمان التماسك والمظهر المعماري الرفيع</p>
-                    <a href="#book" class="btn-request" data-service="أعمال السيراميك">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/marbling.png" alt="تركيب الرخام" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>تركيب الرخام</h3>
-                    <p>توريد وقص وتركيب أجود أنواع الرخام والجرانيت للأرضيات، الحوائط، المطابخ، والواجهات. نقدم حلول الجلي والترميم مع التركيز على الدقة في تركيب الفواصل والمحاذاة لإبراز الفخامة في المساحات</p>
-                    <a href="#book" class="btn-request" data-service="تركيب الرخام">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/carpentry.png" alt="أعمال النجارة" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أعمال النجارة</h3>
-                    <p>تصميم وتفصيل وتثبيت الأبواب، الشبابيك، التكسيات الخشبية، والديكورات الداخلية المصنوعة من أفضل أنواع الخشب المعالج. نهتم بالدقة في القياسات والتجميع والتشطيب النهائي ليناسب هوية المكان</p>
-                    <a href="#book" class="btn-request" data-service="أعمال النجارة">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/alumetal.png" alt="أعمال الألوميتال" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أعمال الألوميتال</h3>
-                    <p>تصميم وتثبيت قطاعات الألوميتال، الشبابيك، الأبواب، والواجهات الزجاجية (Curtain Walls & Structural Glazing) المقاومة للصوت والعوامل الجوية، والتي تمنح المبنى مظهراً عصرياً وتوفر العزل الحراري التام.</p>
-                    <a href="#book" class="btn-request" data-service="أعمال الألوميتال">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/camera.png" alt="أنظمة الأمان والمراقبة (Security and CCTV)" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>أنظمة الأمان والمراقبة (Security and CCTV)</h3>
-                    <p>توفير وتثبيت أحدث كيرات المراقبة (IP & Analog)، أنظمة التتبع، وأجهزة الإنذار المبكر. نضمن لك تغطية شاملة للموقع مع إمكانية المراقبة والتحكم عن بُعد لتوفير أقصى درجات حماية والأمان</p>
-                    <a href="#book" class="btn-request" data-service="أنظمة الأمان والمراقبة (Security and CCTV)">طلب الخدمة</a>
-                </div>
-            </div>
-            <div class="service-card" data-aos="fade-up">
-                <img src="images/DTS.png" alt="Data and Telephone Systems" width="400" height="180" loading="lazy" decoding="async">
-                <div class="service-card-body">
-                    <h3>Data and Telephone Systems</h3>
-                    <p>تأسيس البنية التحتية لشبكات الاتصالات، ومد كابلات الـ Data (Cat6/Cat7)، وتجميع كبائن الشبكات (Rack Cabinets)، بالإضافة إلى تركيب وتجهيز أنظمة البدالات وحلول الاتصال الداخلي (Intercom & IP Telephony) لضمان بيئة عمل متصلة وسريعة.</p>
-                    <a href="#book" class="btn-request" data-service="Data and Telephone Systems">طلب الخدمة</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. PROJECTS SECTION -->
-    <section id="projects">
-        <div class="section-title" data-aos="fade-up">
-            <h2>مشاريعنا</h2>
-        </div>
-        <div class="projects-grid" id="projects-container">
-            <div class="project-card" data-aos="fade-up">
-                <div class="slideshow-container" id="slideshow-0">
-                    <img src="images/pivot-factory1.jpg" alt="Pivot factory Ain-Elsokhna-Egypt" class="slide-img active" data-project="0" width="400" height="220" loading="lazy" decoding="async">
-                    <img src="images/pivot-factory2.jpg" alt="Pivot factory Ain-Elsokhna-Egypt" class="slide-img" data-project="0" width="400" height="220" loading="lazy" decoding="async">
-                    <img src="images/pivot-factory3.jpg" alt="Pivot factory Ain-Elsokhna-Egypt" class="slide-img" data-project="0" width="400" height="220" loading="lazy" decoding="async">
-                </div>
-                <div class="project-details">
-                    <h3>Pivot factory Ain-Elsokhna-Egypt</h3>
-                    <p></p>
-                    <span class="project-year">سنة التنفيذ: 2023</span>
-                </div>
-            </div>
-            <div class="project-card" data-aos="fade-up">
-                <div class="slideshow-container" id="slideshow-1">
-                    <img src="images/kom1.jpg" alt="Kom ombo-Aswan-Egypt" class="slide-img active" data-project="1" width="400" height="220" loading="lazy" decoding="async">
-                    <img src="images/kom2.jpg" alt="Kom ombo-Aswan-Egypt" class="slide-img" data-project="1" width="400" height="220" loading="lazy" decoding="async">
-                    <img src="images/kom3.jpg" alt="Kom ombo-Aswan-Egypt" class="slide-img" data-project="1" width="400" height="220" loading="lazy" decoding="async">
-                </div>
-                <div class="project-details">
-                    <h3>Kom ombo-Aswan-Egypt</h3>
-                    <p></p>
-                    <span class="project-year">سنة التنفيذ: 2024</span>
-                </div>
-            </div>
-            <div class="project-card" data-aos="fade-up">
-                <div class="slideshow-container" id="slideshow-2">
-                    <img src="images/res1.jpg" alt="Residential apartments" class="slide-img active" data-project="2" width="400" height="220" loading="lazy" decoding="async">
-                    <img src="images/res2.jpg" alt="Residential apartments" class="slide-img" data-project="2" width="400" height="220" loading="lazy" decoding="async">
-                    <img src="images/res3.jpg" alt="Residential apartments" class="slide-img" data-project="2" width="400" height="220" loading="lazy" decoding="async">
-                </div>
-                <div class="project-details">
-                    <h3>Residential apartments</h3>
-                    <p></p>
-                    <span class="project-year">سنة التنفيذ: 2020</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. ABOUT SECTION -->
-    <section id="about">
-        <div class="section-title" data-aos="fade-up">
-            <h2>عن الشركة</h2>
-        </div>
-        <div class="about-container">
-            <img src="images/Toc Logo white.png" alt="TOC Logo" class="about-logo" data-aos="zoom-in" width="180" height="180" loading="lazy" decoding="async">
-            
-            <div class="cards-wrapper">
-                <div class="about-card" data-aos="fade-right">
-                    <i class="fas fa-bulltarget"></i>
-                    <h3>رؤيتنا</h3>
-                    <p>أن نكون المكتب الفني الرائد والمفضل في تقديم الخدمات الهندسية والاستشارية بأعلى معايير الجودة والابتكار على مستوى المنطقة.</p>
-                </div>
-                <div class="about-card" data-aos="fade-left">
-                    <i class="fas fa-rocket"></i>
-                    <h3>رسالتنا</h3>
-                    <p>تقديم خدمات فنية وهندسية فائقة التميز تساهم في تحقيق تطلعات عملائنا بكفاءة عالية، من خلال فريق عمل محترف وتطبيقات تكنولوجية متطورة.</p>
-                </div>
-            </div>
-
-            <!-- "Why Choose Us?" Sub-section -->
-            <div class="why-us-wrapper" data-aos="fade-up">
-                <h3 class="why-us-title">لماذا تختارنا؟</h3>
-                <div class="advantages-grid">
-                    <div class="adv-card">
-                        <i class="fas fa-award"></i>
-                        <span>جودة عالية</span>
-                    </div>
-                    <div class="adv-card">
-                        <i class="fas fa-user-tie"></i>
-                        <span>خبرة واسعة</span>
-                    </div>
-                    <div class="adv-card">
-                        <i class="fas fa-clock"></i>
-                        <span>التزام بالمواعيد</span>
-                    </div>
-                    <div class="adv-card">
-                        <i class="fas fa-hand-holding-usd"></i>
-                        <span>أسعار تنافسية</span>
-                    </div>
-                    <div class="adv-card">
-                        <i class="fas fa-headset"></i>
-                        <span>دعم مستمر</span>
-                    </div>
-                    <div class="adv-card">
-                        <i class="fas fa-lightbulb"></i>
-                        <span>حلول مبتكرة</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. PARTNERS SECTION -->
-    <div id="partners" class="partners-section">
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <img src="images/elsweedy.png" alt="El Sweedy Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/madkour.png" alt="Madkour Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/makawloon.png" alt="Arab Contractors Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/orascom.png" alt="Orascom Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/colas rail.png" alt="Colas Rail Partner" width="150" height="100" loading="lazy" decoding="async">
-            </div>
-            <div class="marquee-content">
-                <img src="images/elsweedy.png" alt="El Sweedy Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/madkour.png" alt="Madkour Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/makawloon.png" alt="Arab Contractors Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/orascom.png" alt="Orascom Partner" width="150" height="100" loading="lazy" decoding="async">
-                <img src="images/colas rail.png" alt="Colas Rail Partner" width="150" height="100" loading="lazy" decoding="async">
-            </div>
-
-        </div>
-    </div>
-
-    <!-- 7. LOCATION SECTION -->
-    <section id="location">
-        <div class="section-title" data-aos="fade-up">
-            <h2>موقعنا</h2>
-        </div>
-        <div class="location-card" data-aos="zoom-in">
-            <div class="map-container">
-                <iframe data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3450.2875422122374!2d31.293435199999998!3d30.143194100000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145814e27a1d370d%3A0x4a9ef6121dfbc8e3!2s18%20Teraat%20Al%20Ismailiah%2C%20Arab%20Al%20Hoson%2C%20Shubra%20El%20Kheima%202%2C%20Al-Qalyubia%20Governorate%206227044!5e0!3m2!1sen!2seg!4v1785872475902!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="موقع شركة TOC على الخريطة"></iframe>
-            </div>
-            <div class="address-info">
-                <p><i class="fas fa-map-marker-alt"></i>18 Teraat Al Ismailiah, Arab Al Hoson, Shubra El Kheima 2, Al-Qalyubia Governorate 6227044</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. BOOK A SESSION SECTION -->
-    <section id="book">
-        <div class="booking-section" data-aos="fade-up">
-            <div class="section-title">
-                <h2>حجز جلسة استشارية</h2>
-            </div>
-            <form class="booking-form" id="booking-form">
-                <div class="form-group">
-                    <input type="text" id="user_name" placeholder="الاسم بالكامل" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" id="user_phone" placeholder="رقم الهاتف" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="user_address" placeholder="العنوان" required>
-                </div>
-                <div class="form-group">
-                    <select id="user_service" required>
-                        <option value="" disabled selected>اختر الخدمة المطلوبة</option>
-                        <option value="Mechanical Electrical Plumping (MEP)">Mechanical Electrical Plumping (MEP)</option>
-                        <option value="تشطيب متكامل">تشطيب متكامل</option>
-                        <option value="أعمال الكهرباء">أعمال الكهرباء</option>
-                        <option value="أعمال المحارة">أعمال المحارة</option>
-                        <option value="أعمال السباكة">أعمال السباكة</option>
-                        <option value="أعمال النقاشة">أعمال النقاشة</option>
-                        <option value="أعمال السيراميك">أعمال السيراميك</option>
-                        <option value="تركيب الرخام">تركيب الرخام</option>
-                        <option value="أعمال النجارة">أعمال النجارة</option>
-                        <option value="أعمال الألوميتال">أعمال الألوميتال</option>
-                        <option value="أنظمة الأمان والمراقبة (Security and CCTV)">أنظمة الأمان والمراقبة (Security and CCTV)</option>
-                        <option value="Data and Telephone Systems">Data and Telephone Systems</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-submit">إرسال الطلب</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- 9. CONTACT US SECTION -->
-    <section id="contact">
-        <div class="section-title" data-aos="fade-up">
-            <h2>تواصل معنا</h2>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-box" data-aos="fade-right">
-                <i class="fas fa-phone-alt"></i>
-                <div>
-                    <h4>الهاتف</h4>
-                    <p dir="ltr">+20 121 135 4624</p>
-                </div>
-            </div>
-            <a href="https://wa.me/+201211354624" class="whatsapp-card">
-                <div class="contact-box" data-aos="fade-left">
-                <i class="fab fa-whatsapp"></i>
-                <div>
-                    <h4>واتساب</h4>
-                    <p dir="ltr">+20 121 135 4624</p>
-                </div>
-            </div>
-            </a>
-
-            <div class="contact-box" data-aos="fade-right">
-                <i class="fas fa-phone-alt"></i>
-                <div>
-                    <h4>الهاتف</h4>
-                    <p dir="ltr">+20 106 279 7463</p>
-                </div>
-            </div>
-            <a href="https://wa.me/+201062797463" class="whatsapp-card">
-                <div class="contact-box" data-aos="fade-left">
-                <i class="fab fa-whatsapp"></i>
-                <div>
-                    <h4>واتساب</h4>
-                    <p dir="ltr">+20 106 279 7463</p>
-                </div>
-            </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- FLOATING BUTTONS -->
-    <a href="https://wa.me/+201211354624" target="_blank" class="float-btn float-whatsapp" title="تواصل عبر واتساب">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    <a href="mailto:islam_amin@toccorporation.com" class="float-btn float-email" title="أرسل بريد إلكتروني">
-        <i class="fas fa-envelope"></i>
-    </a>
-
-
-    <!-- MY AD  -->
-    <div class="ad">
-        <a  class="ad" href="https://wa.me/+201066571355">الإنشاء والتشغيل بواسطة كريم الدين للحلول البرمجية الذكية والمتكاملة</a>
-    </div>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 شركة المكتب الفني TOC</p>
     </footer>
-    
+
     <script src="app.js" defer></script>
 </body>
 </html>
