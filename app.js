@@ -125,9 +125,73 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Google Apps Script web-app endpoint. If a new Apps Script project is deployed,
+    // replace this URL with its deployed /exec URL.
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWSrDBZVp06uhp37oW8uI6QCl-0yN4F1TrFQ-XPsOmwsMi1nMpK_cycAy4hCQsUTOw_w/exec";
+    const responseFrameName = "el-sisy-form-response-frame";
+    let pendingSubmission = null;
+
+    function setFormStatus(message) {
+        if (formStatus) formStatus.textContent = message || "";
+    }
+
+    function setSubmitBusy(isBusy) {
+        const button = bookingForm?.querySelector(".btn-submit");
+        if (!button) return;
+        button.disabled = isBusy;
+        button.classList.toggle("is-submitting", isBusy);
+        const label = button.querySelector("span");
+        if (label) {
+            label.textContent = isBusy
+                ? (currentLang === "ar" ? "جاري إرسال الطلب..." : "Sending request...")
+                : (currentLang === "ar" ? "إرسال الطلب" : "Send request");
+        }
+    }
+
+    function finishSubmission(result) {
+        if (!pendingSubmission || result.requestId !== pendingSubmission.requestId) return;
+
+        window.clearTimeout(pendingSubmission.timeoutId);
+        pendingSubmission = null;
+
+        const message = currentLang === "ar" ? result.messageAr : result.messageEn;
+        setFormStatus(message || (currentLang === "ar"
+            ? "تم استلام نتيجة الطلب."
+            : "The request result was received."));
+
+        if (result.ok) {
+            // The request was saved. Clear the form even if the email notification failed,
+            // to reduce accidental duplicate submissions.
+            bookingForm.reset();
+        }
+
+        setSubmitBusy(false);
+    }
+
+    // Apps Script replies from its HTML response using postMessage. Validate the origin,
+    // message type and request ID before trusting the response.
+    window.addEventListener("message", (event) => {
+        let hostname = "";
+        try {
+            hostname = new URL(event.origin).hostname;
+        } catch (error) {
+            return;
+        }
+
+        const trustedOrigin =
+            hostname === "script.google.com" ||
+            hostname.endsWith("script.googleusercontent.com") ||
+            hostname === "googleusercontent.com" ||
+            hostname.endsWith(".googleusercontent.com");
+
+        if (!trustedOrigin || !event.data || event.data.type !== "EL_SISY_FORM_RESULT") return;
+        finishSubmission(event.data);
+    });
+
     if (bookingForm) {
-        bookingForm.addEventListener("submit", async (event) => {
+        bookingForm.addEventListener("submit", (event) => {
             event.preventDefault();
+            if (pendingSubmission) return;
 
             const name = document.getElementById("user_name")?.value.trim();
             const phone = document.getElementById("user_phone")?.value.trim();
@@ -135,52 +199,88 @@ document.addEventListener("DOMContentLoaded", () => {
             const serviceKey = serviceSelect?.value;
 
             if (!name || !phone || !address || !serviceKey) {
-                if (formStatus) {
-                    formStatus.textContent = currentLang === "ar"
-                        ? "من فضلك أكمل البيانات المطلوبة."
-                        : "Please complete all required fields.";
-                }
+                setFormStatus(currentLang === "ar"
+                    ? "من فضلك أكمل البيانات المطلوبة."
+                    : "Please complete all required fields.");
                 return;
             }
 
-            const submitButton = bookingForm.querySelector(".btn-submit");
-            const originalText = submitButton?.querySelector("span")?.textContent;
-
-            if (submitButton) {
-                submitButton.disabled = true;
-                const label = submitButton.querySelector("span");
-                if (label) label.textContent = currentLang === "ar" ? "جاري الإرسال..." : "Sending...";
+            if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.endsWith("/exec")) {
+                setFormStatus(currentLang === "ar"
+                    ? "خدمة استقبال الطلبات غير مُعدة بعد. تواصل معنا مباشرة."
+                    : "The request service is not configured yet. Please contact us directly.");
+                return;
             }
 
-            const formData = new URLSearchParams();
-            formData.append("name", name);
-            formData.append("phone", phone);
-            formData.append("address", address);
-            formData.append("service", serviceNames[currentLang][serviceKey] || serviceKey);
+            let responseFrame = document.querySelector(`iframe[name="${responseFrameName}"]`);
+            if (!responseFrame) {
+                responseFrame = document.createElement("iframe");
+                responseFrame.name = responseFrameName;
+                responseFrame.title = "Request submission response";
+                responseFrame.setAttribute("aria-hidden", "true");
+                responseFrame.tabIndex = -1;
+                responseFrame.style.cssText = "position:absolute;width:1px;height:1px;left:-10000px;border:0;visibility:hidden;";
+                document.body.appendChild(responseFrame);
+            }
 
-            const scriptURL = "https://script.google.com/macros/s/AKfycbyWSrDBZVp06uhp37oW8uI6QCl-0yN4F1TrFQ-XPsOmwsMi1nMpK_cycAy4hCQsUTOw_w/exec";
+            const requestId = (window.crypto && typeof window.crypto.randomUUID === "function")
+                ? window.crypto.randomUUID().replace(/-/g, "")
+                : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+
+            const postForm = document.createElement("form");
+            postForm.method = "POST";
+            postForm.action = APPS_SCRIPT_URL;
+            postForm.target = responseFrameName;
+            postForm.acceptCharset = "UTF-8";
+            postForm.style.display = "none";
+
+            const values = {
+                requestId,
+                name,
+                phone,
+                address,
+                service: serviceNames[currentLang][serviceKey] || serviceKey,
+                language: currentLang,
+                website: ""
+            };
+
+            Object.entries(values).forEach(([key, value]) => {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = key;
+                input.value = value;
+                postForm.appendChild(input);
+            });
+
+            setFormStatus(currentLang === "ar"
+                ? "جاري إرسال الطلب والتحقق من حفظه..."
+                : "Sending the request and verifying that it is saved...");
+            setSubmitBusy(true);
+
+            const timeoutId = window.setTimeout(() => {
+                if (!pendingSubmission || pendingSubmission.requestId !== requestId) return;
+                pendingSubmission = null;
+                setFormStatus(currentLang === "ar"
+                    ? "لم نتمكن من تأكيد استلام الرد. قد يكون الطلب وصل؛ راجع الشركة قبل إعادة الإرسال."
+                    : "We could not verify the response. The request may have arrived; check with the company before resubmitting.");
+                setSubmitBusy(false);
+            }, 25000);
+
+            pendingSubmission = { requestId, timeoutId };
 
             try {
-                await fetch(scriptURL, { method: "POST", body: formData });
-                bookingForm.reset();
-                if (formStatus) {
-                    formStatus.textContent = currentLang === "ar"
-                        ? "تم إرسال طلبك بنجاح. سنتواصل معك قريبًا."
-                        : "Your request was sent successfully. We will contact you soon.";
-                }
+                document.body.appendChild(postForm);
+                postForm.submit();
             } catch (error) {
-                console.error("Booking error:", error);
-                if (formStatus) {
-                    formStatus.textContent = currentLang === "ar"
-                        ? "تعذر الإرسال حاليًا. حاول مرة أخرى أو تواصل معنا مباشرة."
-                        : "We could not send the request right now. Please try again or contact us directly.";
-                }
+                console.error("Booking submission error:", error);
+                window.clearTimeout(timeoutId);
+                pendingSubmission = null;
+                setFormStatus(currentLang === "ar"
+                    ? "تعذر إرسال الطلب. حاول مرة أخرى أو تواصل معنا مباشرة."
+                    : "The request could not be submitted. Please try again or contact us directly.");
+                setSubmitBusy(false);
             } finally {
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    const label = submitButton.querySelector("span");
-                    if (label) label.textContent = originalText || (currentLang === "ar" ? "إرسال الطلب" : "Send request");
-                }
+                postForm.remove();
             }
         });
     }
