@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const progress = document.getElementById("scroll-progress");
     const bookingForm = document.getElementById("booking-form");
     const serviceSelect = document.getElementById("user_service");
-    const formStatus = document.getElementById("form-status");
     let toastElement = null;
     let toastState = null;
     let toastTimer = null;
@@ -218,22 +217,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 260);
     }
 
-    function setFormStatus(message, state = "") {
-        if (!formStatus) return;
-        formStatus.textContent = message || "";
-        formStatus.classList.remove("is-loading", "is-success", "is-warning", "is-error");
-        if (state) formStatus.classList.add("is-" + state);
-    }
-
-    function withRequestReference(message, requestId) {
-        const id = String(requestId || "").trim();
-        if (!id) return message;
-        return {
-            ar: message.ar + " رقم الطلب: " + id,
-            en: message.en + " Request ID: " + id
-        };
-    }
-
     function setSubmitBusy(isBusy, outcome = "idle") {
         const button = bookingForm?.querySelector(".btn-submit");
         if (!button) return;
@@ -309,7 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ar: "من فضلك أكمل البيانات المطلوبة.",
                     en: "Please complete all required fields."
                 };
-                setFormStatus(message[currentLang], "warning");
                 showToast("warning",
                     { ar: "فيه بيانات ناقصة", en: "Missing information" },
                     message,
@@ -324,7 +306,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ar: "اكتب بريد إلكتروني صحيح علشان نقدر نرد عليك.",
                     en: "Please enter a valid email address so we can reply to you."
                 };
-                setFormStatus(message[currentLang], "warning");
                 showToast("warning",
                     { ar: "راجع البريد الإلكتروني", en: "Check your email address" },
                     message,
@@ -359,7 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 ar: "بنرسل بياناتك وتفاصيل مشروعك إلى بريد الشركة...",
                 en: "Sending your details and project brief to the company email..."
             };
-            setFormStatus(loadingMessage[currentLang], "loading");
             showToast("loading", loadingTitle, loadingMessage, 0);
 
             // Keep the user informed if Google takes a few seconds to respond.
@@ -403,11 +383,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         ar: result.messageAr || "لم يتم إرسال الطلب إلى البريد. حاول مرة أخرى.",
                         en: result.messageEn || "The email could not be sent. Please try again."
                     };
-                    const identifiedMessage = withRequestReference(message, result.requestId || payload.requestId);
-                    setFormStatus(identifiedMessage[currentLang], "error");
                     showToast("error",
                         { ar: "لم يتم إرسال الطلب", en: "Request not submitted" },
-                        identifiedMessage,
+                        message,
                         7500
                     );
                     return;
@@ -415,11 +393,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (result.emailSent !== true) {
                     outcome = "warning";
-                    const message = withRequestReference({
+                    const message = {
                         ar: result.messageAr || "تعذر تأكيد إرسال الإيميل. حاول مرة أخرى أو تواصل معنا مباشرة.",
                         en: result.messageEn || "Email delivery could not be confirmed. Please try again or contact us directly."
-                    }, result.requestId || payload.requestId);
-                    setFormStatus(message[currentLang], "warning");
+                    };
                     showToast("warning",
                         { ar: "الإرسال غير مؤكد", en: "Delivery not confirmed" },
                         message,
@@ -429,11 +406,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     bookingForm.reset();
                     reusableRequest = null;
                     outcome = "success";
-                    const message = withRequestReference({
-                        ar: result.messageAr || "تم إرسال طلبك إلى بريد الشركة بنجاح. هنتواصل معاك قريبًا.",
-                        en: result.messageEn || "Your request has been emailed to the company successfully. We will contact you soon."
-                    }, result.requestId || payload.requestId);
-                    setFormStatus(message[currentLang], "success");
+                    const message = {
+                        ar: "تم إرسال طلبك بنجاح، وفريق السيسي هيتواصل معاك قريبًا.",
+                        en: "Your request has been sent successfully. The El Sisy team will contact you soon."
+                    };
                     showToast("success",
                         { ar: "تم إرسال طلبك بنجاح", en: "Request sent successfully" },
                         message,
@@ -452,11 +428,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         ar: error.message || "تعذر إرسال الطلب. حاول مرة أخرى.",
                         en: "The request could not be confirmed. Please try again."
                     };
-                const identifiedMessage = withRequestReference(message, payload.requestId);
-                setFormStatus(identifiedMessage[currentLang], "error");
                 showToast("error",
                     { ar: "تعذر تأكيد الطلب", en: "Could not confirm request" },
-                    identifiedMessage,
+                    message,
                     8500
                 );
             } finally {
