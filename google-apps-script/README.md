@@ -35,3 +35,17 @@ The website now waits for a response correlated with the exact request ID. It sh
 - **Row appears but no email:** check the final status column, authorize email sending by running `setupElSisy` and accepting all permission prompts, and check Gmail Spam/quotas.
 - **Permission error:** the Google account that runs the web app must have Editor access to the spreadsheet and must authorize the Apps Script.
 - Do not make the spreadsheet public. Only share it with the people who manage requests.
+
+
+## Vercel form API (important)
+
+The website now posts the form to `/api/submit` on the same Vercel deployment. This avoids relying on a cross-origin `postMessage` callback from a hidden Google iframe, which can cause the form to wait until timeout even when the script ran.
+
+Files involved:
+- `api/submit.js`: Vercel serverless function that forwards the request to the Apps Script Web App and checks the returned JSON.
+- `app.js`: sends the form to `/api/submit`.
+- `google-apps-script/Code.gs`: returns JSON from `doPost`.
+
+After pulling the latest `main` into the Vercel project, wait for the deployment to complete. Then update the Apps Script project with the latest `Code.gs` and deploy it as a **new version**. Test the live Vercel URL, not only localhost.
+
+If the website is still hosted only on GitHub Pages, `/api/submit` will not exist there; this serverless API requires the site to be deployed on Vercel (or another host configured to run compatible serverless functions).
