@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (outcome === "success") {
                 label.textContent = currentLang === "ar" ? "تم الإرسال بنجاح" : "Sent successfully";
             } else if (outcome === "warning") {
-                label.textContent = currentLang === "ar" ? "راجع البريد" : "Check delivery";
+                label.textContent = currentLang === "ar" ? "الإرسال غير مؤكد" : "Delivery not confirmed";
             } else if (outcome === "error") {
                 label.textContent = currentLang === "ar" ? "حاول مرة أخرى" : "Try again";
             } else {
