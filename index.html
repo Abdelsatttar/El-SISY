@@ -359,16 +359,17 @@
                 <div class="booking-copy">
                     <span class="section-kicker" data-i18n data-ar="ابدأ مشروعك" data-en="Start your project">ابدأ مشروعك</span>
                     <h2 data-i18n data-ar="خلينا نتكلم عن مشروعك." data-en="Let's talk about your project.">خلينا نتكلم عن مشروعك.</h2>
-                    <p data-i18n data-ar="ابعت بياناتك الأساسية وفريقنا يراجع طلبك للتواصل معك." data-en="Send your basic details and our team will review your request and contact you.">ابعت بياناتك الأساسية وفريقنا يراجع طلبك للتواصل معك.</p>
-                    <div class="booking-note"><i class="fa-solid fa-circle-check"></i><span data-i18n data-ar="استشارة مبدئية + فهم الاحتياج + تحديد الخطوة التالية" data-en="Initial consultation + needs review + next step">استشارة مبدئية + فهم الاحتياج + تحديد الخطوة التالية</span></div>
+                    <p data-i18n data-ar="ابعت بياناتك وشرح مختصر لمشروعك، وهنوصل طلبك مباشرة إلى بريد الشركة." data-en="Share your contact details and project brief. Your request will be sent directly to the company's email.">ابعت بياناتك وشرح مختصر لمشروعك، وهنوصل طلبك مباشرة إلى بريد الشركة.</p>
+                    <div class="booking-note"><i class="fa-solid fa-envelope-circle-check"></i><span data-i18n data-ar="بياناتك وتفاصيل مشروعك هتتبعت مباشرة لبريد الشركة." data-en="Your contact details and project brief go directly to the company's email.">بياناتك وتفاصيل مشروعك هتتبعت مباشرة لبريد الشركة.</span></div>
                 </div>
 
                 <form class="booking-form" id="booking-form">
-                    <label class="form-field"><span data-i18n data-ar="الاسم بالكامل" data-en="Full name">الاسم بالكامل</span><input type="text" id="user_name" placeholder="الاسم بالكامل" data-placeholder-ar="الاسم بالكامل" data-placeholder-en="Full name" required></label>
-                    <label class="form-field"><span data-i18n data-ar="رقم الهاتف" data-en="Phone number">رقم الهاتف</span><input type="tel" id="user_phone" placeholder="رقم الهاتف" data-placeholder-ar="رقم الهاتف" data-placeholder-en="Phone number" required></label>
-                    <label class="form-field full"><span data-i18n data-ar="العنوان" data-en="Address">العنوان</span><input type="text" id="user_address" placeholder="العنوان" data-placeholder-ar="العنوان" data-placeholder-en="Address" required></label>
+                    <label class="form-field"><span data-i18n data-ar="الاسم بالكامل" data-en="Full name">الاسم بالكامل</span><input type="text" id="user_name" name="name" autocomplete="name" placeholder="الاسم بالكامل" data-placeholder-ar="الاسم بالكامل" data-placeholder-en="Full name" maxlength="120" required></label>
+                    <label class="form-field"><span data-i18n data-ar="رقم الهاتف" data-en="Phone number">رقم الهاتف</span><input type="tel" id="user_phone" name="phone" autocomplete="tel" placeholder="رقم الهاتف" data-placeholder-ar="رقم الهاتف" data-placeholder-en="Phone number" maxlength="50" required></label>
+                    <label class="form-field"><span data-i18n data-ar="البريد الإلكتروني" data-en="Your email address">البريد الإلكتروني</span><input type="email" id="user_email" name="email" autocomplete="email" placeholder="name@example.com" data-placeholder-ar="اكتب بريدك الإلكتروني" data-placeholder-en="Enter your email address" maxlength="254" required></label>
+                    <label class="form-field"><span data-i18n data-ar="العنوان" data-en="Address">العنوان</span><input type="text" id="user_address" name="address" autocomplete="street-address" placeholder="العنوان" data-placeholder-ar="العنوان" data-placeholder-en="Address" maxlength="300" required></label>
                     <label class="form-field full"><span data-i18n data-ar="الخدمة المطلوبة" data-en="Requested service">الخدمة المطلوبة</span>
-                        <select id="user_service" required>
+                        <select id="user_service" name="service" required>
                             <option value="" disabled selected data-ar="اختر الخدمة المطلوبة" data-en="Choose a service">اختر الخدمة المطلوبة</option>
                             <option value="consulting" data-ar="الاستشارات الهندسية" data-en="Engineering Consulting">الاستشارات الهندسية</option>
                             <option value="design-build" data-ar="التصميم والتنفيذ" data-en="Design & Construction">التصميم والتنفيذ</option>
@@ -380,6 +381,8 @@
                             <option value="infrastructure" data-ar="أعمال البنية التحتية" data-en="Infrastructure Works">أعمال البنية التحتية</option>
                         </select>
                     </label>
+                    <label class="form-field full"><span data-i18n data-ar="تفاصيل المشروع" data-en="Project details">تفاصيل المشروع</span><textarea id="user_project_details" name="projectDetails" rows="5" maxlength="5000" placeholder="احكيلنا عن المشروع والموقع والمساحة أو المتطلبات الأساسية..." data-placeholder-ar="احكيلنا عن المشروع والموقع والمساحة أو المتطلبات الأساسية..." data-placeholder-en="Tell us about the project, location, size, and main requirements..." required></textarea></label>
+                    <p class="form-privacy-note full"><i class="fa-solid fa-lock"></i><span data-i18n data-ar="سيتم إرسال بياناتك وتفاصيل المشروع إلى بريد الشركة فقط." data-en="Your contact details and project brief will be sent only to the company email.">سيتم إرسال بياناتك وتفاصيل المشروع إلى بريد الشركة فقط.</span></p>
                     <button type="submit" class="main-btn full btn-submit"><span data-i18n data-ar="إرسال الطلب" data-en="Send request">إرسال الطلب</span><i class="fa-solid fa-arrow-left arrow-icon"></i></button>
                     <p class="form-status full" id="form-status" aria-live="polite"></p>
                 </form>
