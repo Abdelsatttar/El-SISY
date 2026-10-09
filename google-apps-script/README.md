@@ -49,3 +49,12 @@ Files involved:
 After pulling the latest `main` into the Vercel project, wait for the deployment to complete. Then update the Apps Script project with the latest `Code.gs` and deploy it as a **new version**. Test the live Vercel URL, not only localhost.
 
 If the website is still hosted only on GitHub Pages, `/api/submit` will not exist there; this serverless API requires the site to be deployed on Vercel (or another host configured to run compatible serverless functions).
+
+
+## Safe live diagnostic
+
+After the latest Vercel deployment is ready, open:
+
+`https://el-sisy-eg.vercel.app/api/submit`
+
+A successful response should be JSON with `"ok": true` and `"appsScript": "reachable"`. This GET check only verifies that the API can reach the Apps Script web app; it does not submit a customer request or send an email. A `502` means the active Apps Script deployment is not returning the expected health page, so verify the deployment URL and access setting before testing the form again.
