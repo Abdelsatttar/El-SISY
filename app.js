@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
             option.textContent = option.dataset[lang];
         });
 
-        const active = langToggle?.querySelector(".lang-active");
+        const active = langToggle?.querySelector(".lang-active") || langToggle?.querySelector("strong");
         if (active) active.textContent = lang.toUpperCase();
 
         document.title = lang === "ar"
