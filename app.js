@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (outcome === "success") {
                 label.textContent = currentLang === "ar" ? "تم الإرسال بنجاح" : "Sent successfully";
             } else if (outcome === "warning") {
-                label.textContent = currentLang === "ar" ? "تم الحفظ" : "Request saved";
+                label.textContent = currentLang === "ar" ? "راجع البريد" : "Check delivery";
             } else if (outcome === "error") {
                 label.textContent = currentLang === "ar" ? "حاول مرة أخرى" : "Try again";
             } else {
@@ -299,10 +299,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const name = document.getElementById("user_name")?.value.trim();
             const phone = document.getElementById("user_phone")?.value.trim();
+            const email = document.getElementById("user_email")?.value.trim();
             const address = document.getElementById("user_address")?.value.trim();
+            const projectDetails = document.getElementById("user_project_details")?.value.trim();
             const serviceKey = serviceSelect?.value;
 
-            if (!name || !phone || !address || !serviceKey) {
+            if (!name || !phone || !email || !address || !projectDetails || !serviceKey) {
                 const message = {
                     ar: "من فضلك أكمل البيانات المطلوبة.",
                     en: "Please complete all required fields."
@@ -316,11 +318,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                const message = {
+                    ar: "اكتب بريد إلكتروني صحيح علشان نقدر نرد عليك.",
+                    en: "Please enter a valid email address so we can reply to you."
+                };
+                setFormStatus(message[currentLang], "warning");
+                showToast("warning",
+                    { ar: "راجع البريد الإلكتروني", en: "Check your email address" },
+                    message,
+                    5500
+                );
+                document.getElementById("user_email")?.focus();
+                return;
+            }
+
             const values = {
                 name,
                 phone,
+                email,
                 address,
                 service: serviceNames[currentLang][serviceKey] || serviceKey,
+                projectDetails,
                 language: currentLang,
                 website: ""
             };
@@ -336,8 +356,8 @@ document.addEventListener("DOMContentLoaded", () => {
             setSubmitBusy(true);
             const loadingTitle = { ar: "بنستقبل طلبك", en: "Sending your request" };
             const loadingMessage = {
-                ar: "بنحفظ بياناتك ونتأكد من وصولها للشركة...",
-                en: "Saving your details and confirming delivery..."
+                ar: "بنرسل بياناتك وتفاصيل مشروعك إلى بريد الشركة...",
+                en: "Sending your details and project brief to the company email..."
             };
             setFormStatus(loadingMessage[currentLang], "loading");
             showToast("loading", loadingTitle, loadingMessage, 0);
@@ -380,8 +400,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (result.ok !== true) {
                     outcome = "error";
                     const message = {
-                        ar: result.messageAr || "لم يتم حفظ الطلب. حاول مرة أخرى.",
-                        en: result.messageEn || "The request was not saved. Please try again."
+                        ar: result.messageAr || "لم يتم إرسال الطلب إلى البريد. حاول مرة أخرى.",
+                        en: result.messageEn || "The email could not be sent. Please try again."
                     };
                     const identifiedMessage = withRequestReference(message, result.requestId || payload.requestId);
                     setFormStatus(identifiedMessage[currentLang], "error");
@@ -399,20 +419,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (result.emailSent !== true) {
                     outcome = "warning";
                     const message = withRequestReference({
-                        ar: result.messageAr || "تم حفظ الطلب، لكن تعذر تأكيد إشعار البريد الإلكتروني.",
-                        en: result.messageEn || "The request was saved, but the email notification could not be confirmed."
+                        ar: result.messageAr || "تعذر تأكيد إرسال الإيميل. حاول مرة أخرى أو تواصل معنا مباشرة.",
+                        en: result.messageEn || "Email delivery could not be confirmed. Please try again or contact us directly."
                     }, result.requestId || payload.requestId);
                     setFormStatus(message[currentLang], "warning");
                     showToast("warning",
-                        { ar: "تم حفظ الطلب مع تنبيه", en: "Request saved with a warning" },
+                        { ar: "الإرسال غير مؤكد", en: "Delivery not confirmed" },
                         message,
                         8500
                     );
                 } else {
                     outcome = "success";
                     const message = withRequestReference({
-                        ar: result.messageAr || "تم استلام طلبك وتسجيله بنجاح. هنتواصل معاك قريبًا.",
-                        en: result.messageEn || "Your request has been received and recorded. We will contact you soon."
+                        ar: result.messageAr || "تم إرسال طلبك إلى بريد الشركة بنجاح. هنتواصل معاك قريبًا.",
+                        en: result.messageEn || "Your request has been emailed to the company successfully. We will contact you soon."
                     }, result.requestId || payload.requestId);
                     setFormStatus(message[currentLang], "success");
                     showToast("success",
@@ -426,8 +446,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 outcome = "error";
                 const message = error.name === "AbortError"
                     ? {
-                        ar: "الاتصال أخد وقت طويل. ماقدرناش نأكد الحفظ؛ راجع الشيت قبل إعادة الإرسال.",
-                        en: "The request timed out. We could not confirm the save; check the sheet before retrying."
+                        ar: "الاتصال أخد وقت طويل وماقدرناش نأكد وصول الإيميل. استنى شوية أو تواصل مع الشركة قبل إعادة الإرسال.",
+                        en: "The request timed out and email delivery could not be confirmed. Wait a moment or contact the company before resubmitting."
                     }
                     : {
                         ar: error.message || "تعذر إرسال الطلب. حاول مرة أخرى.",
