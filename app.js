@@ -126,33 +126,140 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     
-    // Same-origin Vercel function proxies form requests to Apps Script.
-    const FORM_API_URL = "/api/submit";
-    let submissionInProgress = false;
-    let reusableRequest = null;
+    // Keep status notifications bilingual and synchronized with the language toggle.
+    let toastElement = null;
+    let toastState = null;
+    let toastTimer = null;
+    let toastHiddenTimer = null;
+    let buttonFeedbackTimer = null;
+
+    function ensureToast() {
+        if (toastElement) return toastElement;
+
+        toastElement = document.createElement("div");
+        toastElement.className = "site-toast";
+        toastElement.id = "site-toast";
+        toastElement.setAttribute("role", "status");
+        toastElement.setAttribute("aria-live", "polite");
+        toastElement.setAttribute("aria-atomic", "true");
+        toastElement.hidden = true;
+        toastElement.innerHTML = `
+            <span class="toast-icon" aria-hidden="true"><i class="fa-solid fa-spinner fa-spin"></i></span>
+            <span class="toast-copy">
+                <strong class="toast-title"></strong>
+                <span class="toast-message"></span>
+            </span>
+            <button class="toast-close" type="button" aria-label="Close notification"><i class="fa-solid fa-xmark"></i></button>
+            <span class="toast-progress" aria-hidden="true"><span></span></span>
+        `;
+        document.body.appendChild(toastElement);
+        toastElement.querySelector(".toast-close")?.addEventListener("click", hideToast);
+        return toastElement;
+    }
+
+    function localized(value) {
+        if (typeof value === "string") return value;
+        return value?.[currentLang] || value?.ar || value?.en || "";
+    }
+
+    function renderToast() {
+        if (!toastState || !toastElement) return;
+        const icons = {
+            loading: "fa-spinner fa-spin",
+            success: "fa-circle-check",
+            warning: "fa-triangle-exclamation",
+            error: "fa-circle-xmark"
+        };
+        const icon = toastElement.querySelector(".toast-icon i");
+        if (icon) icon.className = "fa-solid " + (icons[toastState.type] || icons.loading);
+        const title = toastElement.querySelector(".toast-title");
+        const message = toastElement.querySelector(".toast-message");
+        if (title) title.textContent = localized(toastState.title);
+        if (message) message.textContent = localized(toastState.message);
+        const close = toastElement.querySelector(".toast-close");
+        if (close) close.setAttribute("aria-label", currentLang === "ar" ? "إغلاق الإشعار" : "Close notification");
+    }
+
+    function showToast(type, title, message, duration = 6500) {
+        window.clearTimeout(toastTimer);
+        window.clearTimeout(toastHiddenTimer);
+        toastState = { type, title, message };
+        const toast = ensureToast();
+        toast.className = "site-toast toast-" + type;
+        toast.hidden = false;
+        toast.style.setProperty("--toast-duration", Math.max(duration, 1) + "ms");
+        const progress = toast.querySelector(".toast-progress");
+        if (progress) progress.hidden = duration <= 0;
+        renderToast();
+
+        window.requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+        if (duration > 0) {
+            toastTimer = window.setTimeout(hideToast, duration);
+        }
+    }
+
+    function hideToast() {
+        window.clearTimeout(toastTimer);
+        if (!toastElement) return;
+        toastElement.classList.remove("is-visible");
+        toastHiddenTimer = window.setTimeout(() => {
+            if (toastElement && !toastElement.classList.contains("is-visible")) {
+                toastElement.hidden = true;
+            }
+        }, 260);
+    }
 
     function setFormStatus(message) {
         if (formStatus) formStatus.textContent = message || "";
     }
 
-    function setSubmitBusy(isBusy) {
+    function setSubmitBusy(isBusy, outcome = "idle") {
         const button = bookingForm?.querySelector(".btn-submit");
         if (!button) return;
+        window.clearTimeout(buttonFeedbackTimer);
         button.disabled = isBusy;
         button.classList.toggle("is-submitting", isBusy);
+        button.classList.toggle("is-success", !isBusy && outcome === "success");
+        button.classList.toggle("is-warning", !isBusy && outcome === "warning");
+        button.classList.toggle("is-error", !isBusy && outcome === "error");
+
         const label = button.querySelector("span");
+        const icon = button.querySelector("i");
         if (label) {
-            label.textContent = isBusy
-                ? (currentLang === "ar" ? "جاري إرسال الطلب..." : "Sending request...")
-                : (currentLang === "ar" ? "إرسال الطلب" : "Send request");
+            if (isBusy) {
+                label.textContent = currentLang === "ar" ? "جاري الإرسال..." : "Sending...";
+            } else if (outcome === "success") {
+                label.textContent = currentLang === "ar" ? "تم الإرسال بنجاح" : "Sent successfully";
+            } else if (outcome === "warning") {
+                label.textContent = currentLang === "ar" ? "تم الحفظ" : "Request saved";
+            } else if (outcome === "error") {
+                label.textContent = currentLang === "ar" ? "حاول مرة أخرى" : "Try again";
+            } else {
+                label.textContent = currentLang === "ar" ? "إرسال الطلب" : "Send request";
+            }
+        }
+        if (icon) {
+            icon.className = "fa-solid " + (
+                isBusy ? "fa-spinner fa-spin" :
+                outcome === "success" ? "fa-check" :
+                outcome === "warning" ? "fa-triangle-exclamation" :
+                outcome === "error" ? "fa-rotate-right" : "fa-arrow-left arrow-icon"
+            );
+        }
+
+        if (!isBusy && outcome !== "idle") {
+            buttonFeedbackTimer = window.setTimeout(() => {
+                button.classList.remove("is-success", "is-warning", "is-error");
+                if (label) label.textContent = currentLang === "ar" ? "إرسال الطلب" : "Send request";
+                if (icon) icon.className = "fa-solid fa-arrow-left arrow-icon";
+            }, 3200);
         }
     }
 
-    function createRequestId() {
-        return (window.crypto && typeof window.crypto.randomUUID === "function")
-            ? window.crypto.randomUUID().replace(/-/g, "")
-            : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
-    }
+    const FORM_API_URL = "/api/submit";
+    let submissionInProgress = false;
+    let reusableRequest = null;
 
     if (bookingForm) {
         bookingForm.addEventListener("submit", async (event) => {
@@ -165,9 +272,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const serviceKey = serviceSelect?.value;
 
             if (!name || !phone || !address || !serviceKey) {
-                setFormStatus(currentLang === "ar"
-                    ? "من فضلك أكمل البيانات المطلوبة."
-                    : "Please complete all required fields.");
+                const message = {
+                    ar: "من فضلك أكمل البيانات المطلوبة.",
+                    en: "Please complete all required fields."
+                };
+                setFormStatus(message[currentLang]);
+                showToast("warning",
+                    { ar: "فيه بيانات ناقصة", en: "Missing information" },
+                    message,
+                    5000
+                );
                 return;
             }
 
@@ -181,25 +295,38 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             const signature = JSON.stringify(values);
 
-            // Reuse the same ID when retrying identical form data. Apps Script uses this
-            // ID to deduplicate requests if Google loses the response after saving it.
+            // Keep the request ID when retrying the same details, so retries stay deduplicated.
             if (!reusableRequest || reusableRequest.signature !== signature) {
-                reusableRequest = {
-                    signature,
-                    requestId: createRequestId()
-                };
+                reusableRequest = { signature, requestId: createRequestId() };
             }
-
             const payload = { ...values, requestId: reusableRequest.requestId };
 
             submissionInProgress = true;
             setSubmitBusy(true);
-            setFormStatus(currentLang === "ar"
-                ? "جاري إرسال الطلب..."
-                : "Sending your request...");
+            const loadingTitle = { ar: "بنستقبل طلبك", en: "Sending your request" };
+            const loadingMessage = {
+                ar: "بنحفظ بياناتك ونتأكد من وصولها للشركة...",
+                en: "Saving your details and confirming delivery..."
+            };
+            setFormStatus(loadingMessage[currentLang]);
+            showToast("loading", loadingTitle, loadingMessage, 0);
+
+            // Keep the user informed if Google takes a few seconds to respond.
+            const slowNoticeTimer = window.setTimeout(() => {
+                if (!submissionInProgress) return;
+                showToast("loading",
+                    { ar: "لسه بنأكد الطلب", en: "Still confirming your request" },
+                    {
+                        ar: "الاتصال بياخد وقت أطول من المعتاد. سيب الصفحة مفتوحة لحظات.",
+                        en: "This is taking a little longer than usual. Please keep this page open."
+                    },
+                    0
+                );
+            }, 6500);
 
             const controller = new AbortController();
             const timeoutId = window.setTimeout(() => controller.abort(), 35000);
+            let outcome = "idle";
 
             try {
                 const response = await fetch(FORM_API_URL, {
@@ -220,32 +347,71 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (result.ok !== true) {
-                    setFormStatus(currentLang === "ar"
-                        ? (result.messageAr || "لم يتم حفظ الطلب. حاول مرة أخرى.")
-                        : (result.messageEn || "The request was not saved. Please try again."));
+                    outcome = "error";
+                    const message = {
+                        ar: result.messageAr || "لم يتم حفظ الطلب. حاول مرة أخرى.",
+                        en: result.messageEn || "The request was not saved. Please try again."
+                    };
+                    setFormStatus(message[currentLang]);
+                    showToast("error",
+                        { ar: "لم يتم إرسال الطلب", en: "Request not submitted" },
+                        message,
+                        7500
+                    );
                     return;
                 }
 
                 bookingForm.reset();
                 reusableRequest = null;
-                setFormStatus(currentLang === "ar"
-                    ? (result.messageAr || "تم حفظ طلبك بنجاح.")
-                    : (result.messageEn || "Your request was saved successfully."));
+
+                if (result.emailSent === false) {
+                    outcome = "warning";
+                    const message = {
+                        ar: result.messageAr || "تم حفظ الطلب، لكن تعذر إرسال إشعار البريد الإلكتروني.",
+                        en: result.messageEn || "The request was saved, but the email notification could not be sent."
+                    };
+                    setFormStatus(message[currentLang]);
+                    showToast("warning",
+                        { ar: "تم حفظ الطلب مع تنبيه", en: "Request saved with a warning" },
+                        message,
+                        8500
+                    );
+                } else {
+                    outcome = "success";
+                    const message = {
+                        ar: result.messageAr || "تم حفظ طلبك وإشعار فريق الشركة. هنتواصل معاك قريبًا.",
+                        en: result.messageEn || "Your request was saved and the company was notified. We will contact you soon."
+                    };
+                    setFormStatus(message[currentLang]);
+                    showToast("success",
+                        { ar: "تم إرسال طلبك بنجاح", en: "Request sent successfully" },
+                        message,
+                        7500
+                    );
+                }
             } catch (error) {
                 console.error("Booking submission failed:", error);
-                if (error.name === "AbortError") {
-                    setFormStatus(currentLang === "ar"
-                        ? "استغرق الاتصال وقتًا أطول من المتوقع. لم نتمكن من تأكيد الحفظ؛ راجع الشيت قبل إعادة الإرسال. إعادة المحاولة بنفس البيانات ستستخدم رقم الطلب نفسه."
-                        : "The request timed out. Check the sheet before resubmitting; retrying the same details will reuse the same request ID.");
-                } else {
-                    setFormStatus(error.message || (currentLang === "ar"
-                        ? "تعذر إرسال الطلب. حاول مرة أخرى."
-                        : "Could not submit the request. Please try again."));
-                }
+                outcome = "error";
+                const message = error.name === "AbortError"
+                    ? {
+                        ar: "الاتصال أخد وقت طويل. ماقدرناش نأكد الحفظ؛ راجع الشيت قبل إعادة الإرسال.",
+                        en: "The request timed out. We could not confirm the save; check the sheet before retrying."
+                    }
+                    : {
+                        ar: error.message || "تعذر إرسال الطلب. حاول مرة أخرى.",
+                        en: "The request could not be confirmed. Please try again."
+                    };
+                setFormStatus(message[currentLang]);
+                showToast("error",
+                    { ar: "تعذر تأكيد الطلب", en: "Could not confirm request" },
+                    message,
+                    8500
+                );
             } finally {
                 window.clearTimeout(timeoutId);
+                window.clearTimeout(slowNoticeTimer);
                 submissionInProgress = false;
-                setSubmitBusy(false);
+                setSubmitBusy(false, outcome);
             }
         });
     }
