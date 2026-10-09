@@ -1,268 +1,192 @@
 /**
- * El Sisy website request handler.
+ * El Sisy — email-only project enquiry endpoint.
+ * No Google Sheets or database is used by this script.
  *
- * Setup:
- * 1. Run setupElSisy() once from the Apps Script editor and authorize it.
- * 2. Deploy as a Web App, executing as you, accessible to Anyone.
- * 3. If this is a new Apps Script deployment, update APPS_SCRIPT_URL in app.js.
+ * Deploy as a Web App:
+ *   Execute as: Me
+ *   Who has access: Anyone
+ *
+ * Run authorizeEmailService() once in the Apps Script editor and approve
+ * permissions. It sends one clearly-labelled test email to the company inbox.
  */
 
 const CONFIG = {
-  recipientEmail: "ahmedkartamo@gmail.com",
-  spreadsheetProperty: "EL_SISY_REQUESTS_SPREADSHEET_ID",
-  spreadsheetId: "1m8Bl21ob2XnxknEyMcgOxkwN10kqn3Odo_2RFz2xZX8",
-  sheetName: "طلبات العملاء"
+  recipientEmail: "elsisycontracting@gmail.com"
 };
 
-function setupElSisy() {
-  const properties = PropertiesService.getScriptProperties();
-  const spreadsheetId = CONFIG.spreadsheetId;
-  properties.setProperty(CONFIG.spreadsheetProperty, spreadsheetId);
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-
-  let sheet = spreadsheet.getSheetByName(CONFIG.sheetName);
-  if (!sheet) {
-    const firstSheet = spreadsheet.getSheets()[0];
-    if (firstSheet && firstSheet.getLastRow() === 0) {
-      firstSheet.setName(CONFIG.sheetName);
-      sheet = firstSheet;
-    } else {
-      sheet = spreadsheet.insertSheet(CONFIG.sheetName);
-    }
-  }
-
-  const headers = [
-    "وقت الاستلام",
-    "Request ID",
-    "اسم العميل",
-    "رقم الهاتف",
-    "العنوان",
-    "الخدمة المطلوبة",
-    "لغة النموذج",
-    "حالة إشعار البريد"
-  ];
-
-  if (sheet.getLastRow() === 0) {
-    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-  } else {
-    const currentHeaders = sheet.getRange(1, 1, 1, headers.length).getDisplayValues()[0];
-    if (currentHeaders.every(function (value) { return !value; })) {
-      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-    }
-  }
-
-  sheet.setFrozenRows(1);
-  sheet.getRange(1, 1, 1, headers.length)
-    .setFontWeight("bold")
-    .setBackground("#082743")
-    .setFontColor("#ffffff");
-  sheet.autoResizeColumns(1, headers.length);
-  sheet.setColumnWidth(5, 240);
-  sheet.setColumnWidth(6, 240);
-  sheet.setColumnWidth(8, 200);
-
-  Logger.log("Using the configured El Sisy spreadsheet: " + spreadsheet.getUrl());
-  Logger.log("Notification recipient: " + CONFIG.recipientEmail);
-  return spreadsheet.getUrl();
+function authorizeEmailService() {
+  MailApp.sendEmail({
+    to: CONFIG.recipientEmail,
+    subject: "El Sisy website — email setup test",
+    body: "This is a setup test confirming that the El Sisy website email service can send messages.",
+    name: "El Sisy Website"
+  });
+  Logger.log("A test email was sent to " + CONFIG.recipientEmail);
 }
 
 function doGet() {
   return HtmlService.createHtmlOutput(
-    '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="font:16px Arial,sans-serif;padding:32px;color:#082743">' +
-    '<h2>El Sisy request service</h2><p>The endpoint is online. Submit requests through the website form.</p></body></html>'
-  );
+    '<!doctype html><html><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>El Sisy email service</title></head>' +
+    '<body style="font:16px Arial,sans-serif;padding:30px;color:#082743">' +
+    '<h2>El Sisy email service is online</h2>' +
+    '<p>This endpoint sends project enquiries to the company email. It does not use Google Sheets.</p>' +
+    '</body></html>'
+  ).setTitle("El Sisy email service");
 }
 
 function doPost(e) {
   const params = (e && e.parameter) ? e.parameter : {};
-  const requestId = String(params.requestId || "").trim();
+  const requestId = cleanSingleLine_(params.requestId, 100);
   const language = params.language === "en" ? "en" : "ar";
-  const name = cleanText_(params.name, 120);
-  const phone = cleanText_(params.phone, 50);
-  const address = cleanText_(params.address, 300);
-  const service = cleanText_(params.service, 180);
-  const honeypot = cleanText_(params.website, 200);
+  const name = cleanSingleLine_(params.name, 120);
+  const phone = cleanSingleLine_(params.phone, 50);
+  const email = cleanSingleLine_(params.email, 254).toLowerCase();
+  const address = cleanSingleLine_(params.address, 300);
+  const service = cleanSingleLine_(params.service, 180);
+  const projectDetails = cleanMultiLine_(params.projectDetails, 5000);
+  const honeypot = cleanSingleLine_(params.website, 200);
 
   if (!/^[a-zA-Z0-9_-]{8,100}$/.test(requestId)) {
-    return renderResponse_({
-      requestId: requestId,
+    return jsonResponse_({
       ok: false,
       emailSent: false,
-      language: language,
+      requestId: requestId,
       messageAr: "تعذر التحقق من الطلب. حدّث الصفحة وحاول مرة أخرى.",
       messageEn: "We could not validate the request. Refresh the page and try again."
     });
   }
 
   if (honeypot) {
-    return renderResponse_({
-      requestId: requestId,
+    return jsonResponse_({
       ok: false,
       emailSent: false,
-      language: language,
+      requestId: requestId,
       messageAr: "تعذر إرسال الطلب. حاول مرة أخرى.",
       messageEn: "The request could not be sent. Please try again."
     });
   }
 
-  if (!name || !phone || !address || !service) {
-    return renderResponse_({
-      requestId: requestId,
+  if (!name || !phone || !email || !address || !service || !projectDetails) {
+    return jsonResponse_({
       ok: false,
       emailSent: false,
-      language: language,
-      messageAr: "من فضلك أكمل البيانات المطلوبة.",
+      requestId: requestId,
+      messageAr: "من فضلك أكمل كل البيانات المطلوبة.",
       messageEn: "Please complete all required fields."
     });
   }
 
-  let sheet;
-  let rowNumber;
-  let spreadsheet;
-  const lock = LockService.getScriptLock();
-
-  try {
-    lock.waitLock(10000);
-    spreadsheet = getRequestsSpreadsheet_();
-    sheet = getRequestsSheet_(spreadsheet);
-
-    const lastRow = sheet.getLastRow();
-    if (lastRow > 1) {
-      const ids = sheet.getRange(2, 2, lastRow - 1, 1).getDisplayValues().flat();
-      const existingIndex = ids.indexOf(requestId);
-      if (existingIndex !== -1) {
-        const existingRow = existingIndex + 2;
-        const previousEmailStatus = sheet.getRange(existingRow, 8).getDisplayValue();
-        const previousEmailSent = previousEmailStatus === "تم إرسال الإشعار";
-        return renderResponse_({
-          requestId: requestId,
-          ok: true,
-          emailSent: previousEmailSent,
-          language: language,
-          messageAr: previousEmailSent
-            ? "تم تسجيل هذا الطلب بالفعل وتم إرسال إشعار الشركة."
-            : "تم تسجيل هذا الطلب بالفعل، لكن حالة إشعار البريد لم تؤكد الإرسال.",
-          messageEn: previousEmailSent
-            ? "This request has already been recorded and the company was notified."
-            : "This request has already been recorded, but email notification is not confirmed."
-        });
-      }
-    }
-
-    sheet.appendRow([
-      new Date(),
-      safeSheetText_(requestId),
-      safeSheetText_(name),
-      safeSheetText_(phone),
-      safeSheetText_(address),
-      safeSheetText_(service),
-      language,
-      "جاري إرسال الإشعار"
-    ]);
-    rowNumber = sheet.getLastRow();
-  } catch (error) {
-    console.error("Unable to save El Sisy request: " + error);
-    return renderResponse_({
-      requestId: requestId,
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return jsonResponse_({
       ok: false,
       emailSent: false,
-      language: language,
-      messageAr: "لم نتمكن من حفظ طلبك. حاول مرة أخرى أو تواصل معنا مباشرة.",
-      messageEn: "We could not save your request. Please try again or contact us directly."
+      requestId: requestId,
+      messageAr: "البريد الإلكتروني غير صحيح.",
+      messageEn: "The email address is invalid."
     });
-  } finally {
-    try {
-      lock.releaseLock();
-    } catch (ignored) {}
   }
 
-  let emailSent = false;
-  let emailError = "";
+  const cache = CacheService.getScriptCache();
+  const lock = LockService.getScriptLock();
+  let lockAcquired = false;
 
   try {
-    const subject = "طلب جديد من موقع El Sisy: " + service;
+    // Avoid sending the same request twice when the API retries after a timeout.
+    lock.waitLock(12000);
+    lockAcquired = true;
+
+    const cacheKey = "elsisy_mail_" + requestId;
+    if (cache.get(cacheKey) === "SENT") {
+      return jsonResponse_({
+        ok: true,
+        emailSent: true,
+        alreadySent: true,
+        requestId: requestId,
+        messageAr: "تم إرسال طلبك بالفعل إلى بريد الشركة.",
+        messageEn: "Your request has already been emailed to the company."
+      });
+    }
+
+    const subject = "طلب مشروع جديد من موقع El Sisy - " + service;
+    const receivedAt = new Date().toLocaleString();
     const body = [
-      "وصل طلب جديد من موقع El Sisy.",
+      "طلب مشروع جديد من موقع El Sisy",
       "",
       "اسم العميل: " + name,
+      "بريد العميل: " + email,
       "رقم الهاتف: " + phone,
       "العنوان: " + address,
       "الخدمة المطلوبة: " + service,
-      "لغة النموذج: " + (language === "ar" ? "العربية" : "English"),
-      "وقت الاستلام: " + new Date().toLocaleString(),
       "",
+      "تفاصيل المشروع:",
+      projectDetails,
+      "",
+      "لغة النموذج: " + (language === "ar" ? "العربية" : "English"),
+      "وقت الاستلام: " + receivedAt,
       "رقم الطلب: " + requestId
     ].join("\n");
 
     const htmlBody =
-      '<div style="font-family:Arial,sans-serif;color:#10253a;line-height:1.8;max-width:640px">' +
-      '<h2 style="color:#082743">طلب جديد من موقع El Sisy</h2>' +
+      '<div style="font-family:Arial,sans-serif;color:#10253a;line-height:1.85;max-width:700px;margin:auto">' +
+      '<div style="padding:20px 24px;background:#082743;color:#fff;border-radius:14px 14px 0 0">' +
+      '<div style="font-size:12px;letter-spacing:2px;opacity:.8">EL SISY</div>' +
+      '<h2 style="margin:8px 0 0;font-size:22px">طلب مشروع جديد</h2></div>' +
+      '<div style="padding:22px 24px;border:1px solid #dfe8ee;border-top:0;border-radius:0 0 14px 14px">' +
+      '<p style="color:#5e7383;margin-top:0">وصلك استفسار جديد من نموذج الموقع.</p>' +
       '<table style="border-collapse:collapse;width:100%">' +
       emailRow_("اسم العميل", name) +
-      emailRow_("رقم الهاتف", phone) +
+      emailRow_("بريد العميل", '<a href="mailto:' + escapeHtml_(email) + '">' + escapeHtml_(email) + '</a>', true) +
+      emailRow_("رقم الهاتف", escapeHtml_(phone)) +
       emailRow_("العنوان", address) +
       emailRow_("الخدمة المطلوبة", service) +
+      emailRow_("تفاصيل المشروع", projectDetails, true) +
       emailRow_("لغة النموذج", language === "ar" ? "العربية" : "English") +
-      emailRow_("وقت الاستلام", new Date().toLocaleString()) +
+      emailRow_("وقت الاستلام", receivedAt) +
       emailRow_("رقم الطلب", requestId) +
-      '</table><p style="color:#6f8090">تم حفظ هذا الطلب في جدول طلبات El Sisy.</p></div>';
+      '</table><p style="font-size:12px;color:#748593;margin-bottom:0">يمكنك الرد مباشرة على هذه الرسالة للتواصل مع العميل.</p></div></div>';
 
     MailApp.sendEmail({
       to: CONFIG.recipientEmail,
       subject: subject,
       body: body,
       htmlBody: htmlBody,
+      replyTo: email,
       name: "El Sisy Website"
     });
-    emailSent = true;
-  } catch (error) {
-    emailError = String(error);
-    console.error("Request saved, but email notification failed: " + emailError);
-  }
 
-  try {
-    sheet.getRange(rowNumber, 8).setValue(emailSent ? "تم إرسال الإشعار" : "تم الحفظ - فشل الإشعار");
-  } catch (ignored) {}
+    // Cache is temporary anti-duplicate protection, not a project-request database.
+    try {
+      cache.put(cacheKey, "SENT", 21600);
+    } catch (cacheError) {
+      console.warn("The email was sent but the temporary deduplication cache failed.");
+    }
 
-  if (emailSent) {
-    return renderResponse_({
-      requestId: requestId,
+    return jsonResponse_({
       ok: true,
       emailSent: true,
-      language: language,
-      messageAr: "تم حفظ طلبك وإرسال إشعار للشركة. سنتواصل معك قريبًا.",
-      messageEn: "Your request was saved and the company was notified. We will contact you soon."
+      requestId: requestId,
+      messageAr: "تم إرسال طلبك إلى بريد الشركة بنجاح. هنتواصل معاك قريبًا.",
+      messageEn: "Your request has been emailed to the company successfully. We will contact you soon."
     });
+  } catch (error) {
+    console.error("El Sisy email delivery failed: " + String(error));
+    return jsonResponse_({
+      ok: false,
+      emailSent: false,
+      requestId: requestId,
+      messageAr: "تعذر إرسال الطلب إلى البريد الإلكتروني حاليًا. حاول مرة أخرى أو تواصل معنا مباشرة.",
+      messageEn: "The email could not be sent right now. Please try again or contact us directly."
+    });
+  } finally {
+    if (lockAcquired) {
+      try { lock.releaseLock(); } catch (ignored) {}
+    }
   }
-
-  return renderResponse_({
-    requestId: requestId,
-    ok: true,
-    emailSent: false,
-    language: language,
-    messageAr: "تم حفظ طلبك، لكن تعذر إرسال تنبيه البريد الإلكتروني. سنراجع الطلب.",
-    messageEn: "Your request was saved, but the email notification could not be sent. The request is recorded."
-  });
 }
 
-function getRequestsSpreadsheet_() {
-  const id = PropertiesService.getScriptProperties().getProperty(CONFIG.spreadsheetProperty);
-  if (!id) {
-    throw new Error("Run setupElSisy() once before accepting requests.");
-  }
-  return SpreadsheetApp.openById(id);
-}
-
-function getRequestsSheet_(spreadsheet) {
-  let sheet = spreadsheet.getSheetByName(CONFIG.sheetName);
-  if (!sheet) {
-    throw new Error("Requests sheet not found. Run setupElSisy() again.");
-  }
-  return sheet;
-}
-
-function cleanText_(value, maxLength) {
+function cleanSingleLine_(value, maxLength) {
   return String(value || "")
     .replace(/[\u0000-\u001F\u007F]/g, " ")
     .replace(/\s+/g, " ")
@@ -270,15 +194,19 @@ function cleanText_(value, maxLength) {
     .slice(0, maxLength);
 }
 
-function safeSheetText_(value) {
-  const text = String(value || "");
-  return /^[=+\-@]/.test(text) ? "'" + text : text;
+function cleanMultiLine_(value, maxLength) {
+  return String(value || "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, " ")
+    .trim()
+    .slice(0, maxLength);
 }
 
-function emailRow_(label, value) {
-  return '<tr><th style="text-align:left;vertical-align:top;padding:9px;border:1px solid #dfe8ee;background:#f3f7fa;width:170px">' +
-    escapeHtml_(label) + '</th><td style="padding:9px;border:1px solid #dfe8ee">' +
-    escapeHtml_(value) + '</td></tr>';
+function emailRow_(label, value, isHtml) {
+  const displayValue = isHtml ? String(value) : escapeHtml_(String(value || "")).replace(/\n/g, "<br>");
+  return '<tr><th style="text-align:left;vertical-align:top;padding:10px;border:1px solid #dfe8ee;background:#f3f7fa;width:165px">' +
+    escapeHtml_(label) + '</th><td style="padding:10px;border:1px solid #dfe8ee;overflow-wrap:anywhere">' +
+    displayValue + '</td></tr>';
 }
 
 function escapeHtml_(value) {
@@ -290,21 +218,7 @@ function escapeHtml_(value) {
     .replace(/'/g, "&#39;");
 }
 
-function renderResponse_(payload) {
-  // Return HTML containing a machine-readable JSON object instead of ContentService JSON.
-  // ContentService responses redirect to script.googleusercontent.com and can currently
-  // intermittently return an HTML 404 (ppConfig) instead of the intended JSON response.
-  const serialized = JSON.stringify(payload).replace(/</g, "\\u003c");
-  const fallbackMessage = payload.messageAr || payload.messageEn || "Request processed.";
-  const html =
-    '<!doctype html><html><head><meta charset="utf-8">' +
-    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>El Sisy request status</title>' +
-    '<style>body{font-family:Arial,sans-serif;padding:18px;color:#082743}</style></head>' +
-    '<body><p>' + escapeHtml_(fallbackMessage) + '</p>' +
-    '<script>var result=' + serialized + ';</script>' +
-    '</body></html>';
-
-  return HtmlService.createHtmlOutput(html)
-    .setTitle("El Sisy request status");
+function jsonResponse_(payload) {
+  return ContentService.createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
 }
