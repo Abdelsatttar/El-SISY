@@ -291,7 +291,20 @@ function escapeHtml_(value) {
 }
 
 function renderResponse_(payload) {
-  return ContentService
-    .createTextOutput(JSON.stringify(payload))
-    .setMimeType(ContentService.MimeType.JSON);
+  // Return HTML containing a machine-readable JSON object instead of ContentService JSON.
+  // ContentService responses redirect to script.googleusercontent.com and can currently
+  // intermittently return an HTML 404 (ppConfig) instead of the intended JSON response.
+  const serialized = JSON.stringify(payload).replace(/</g, "\\u003c");
+  const fallbackMessage = payload.messageAr || payload.messageEn || "Request processed.";
+  const html =
+    '<!doctype html><html><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>El Sisy request status</title>' +
+    '<style>body{font-family:Arial,sans-serif;padding:18px;color:#082743}</style></head>' +
+    '<body><p>' + escapeHtml_(fallbackMessage) + '</p>' +
+    '<script>var result=' + serialized + ';</script>' +
+    '</body></html>';
+
+  return HtmlService.createHtmlOutput(html)
+    .setTitle("El Sisy request status");
 }
