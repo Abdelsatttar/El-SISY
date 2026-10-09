@@ -75,6 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     langToggle?.addEventListener("click", () => {
         updateLanguage(currentLang === "ar" ? "en" : "ar");
+        // Language switching must not overwrite the button's active sending label.
+        const submitButton = bookingForm?.querySelector(".btn-submit");
+        if (submitButton?.disabled) {
+            const label = submitButton.querySelector("span");
+            if (label) label.textContent = currentLang === "ar" ? "جاري الإرسال..." : "Sending...";
+        }
     });
 
     function closeMenu() {
@@ -212,8 +218,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 260);
     }
 
-    function setFormStatus(message) {
-        if (formStatus) formStatus.textContent = message || "";
+    function setFormStatus(message, state = "") {
+        if (!formStatus) return;
+        formStatus.textContent = message || "";
+        formStatus.classList.remove("is-loading", "is-success", "is-warning", "is-error");
+        if (state) formStatus.classList.add("is-" + state);
+    }
+
+    function withRequestReference(message, requestId) {
+        const id = String(requestId || "").trim();
+        if (!id) return message;
+        return {
+            ar: message.ar + " رقم الطلب: " + id,
+            en: message.en + " Request ID: " + id
+        };
     }
 
     function setSubmitBusy(isBusy, outcome = "idle") {
@@ -221,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!button) return;
         window.clearTimeout(buttonFeedbackTimer);
         button.disabled = isBusy;
+        button.setAttribute("aria-busy", String(isBusy));
         button.classList.toggle("is-submitting", isBusy);
         button.classList.toggle("is-success", !isBusy && outcome === "success");
         button.classList.toggle("is-warning", !isBusy && outcome === "warning");
@@ -278,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ar: "من فضلك أكمل البيانات المطلوبة.",
                     en: "Please complete all required fields."
                 };
-                setFormStatus(message[currentLang]);
+                setFormStatus(message[currentLang], "warning");
                 showToast("warning",
                     { ar: "فيه بيانات ناقصة", en: "Missing information" },
                     message,
@@ -310,7 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ar: "بنحفظ بياناتك ونتأكد من وصولها للشركة...",
                 en: "Saving your details and confirming delivery..."
             };
-            setFormStatus(loadingMessage[currentLang]);
+            setFormStatus(loadingMessage[currentLang], "loading");
             showToast("loading", loadingTitle, loadingMessage, 0);
 
             // Keep the user informed if Google takes a few seconds to respond.
@@ -327,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 6500);
 
             const controller = new AbortController();
-            const timeoutId = window.setTimeout(() => controller.abort(), 35000);
+            const timeoutId = window.setTimeout(() => controller.abort(), 24000);
             let outcome = "idle";
 
             try {
@@ -354,10 +373,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         ar: result.messageAr || "لم يتم حفظ الطلب. حاول مرة أخرى.",
                         en: result.messageEn || "The request was not saved. Please try again."
                     };
-                    setFormStatus(message[currentLang]);
+                    const identifiedMessage = withRequestReference(message, result.requestId || payload.requestId);
+                    setFormStatus(identifiedMessage[currentLang], "error");
                     showToast("error",
                         { ar: "لم يتم إرسال الطلب", en: "Request not submitted" },
-                        message,
+                        identifiedMessage,
                         7500
                     );
                     return;
@@ -366,13 +386,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 bookingForm.reset();
                 reusableRequest = null;
 
-                if (result.emailSent === false) {
+                if (result.emailSent !== true) {
                     outcome = "warning";
-                    const message = {
-                        ar: result.messageAr || "تم حفظ الطلب، لكن تعذر إرسال إشعار البريد الإلكتروني.",
-                        en: result.messageEn || "The request was saved, but the email notification could not be sent."
-                    };
-                    setFormStatus(message[currentLang]);
+                    const message = withRequestReference({
+                        ar: result.messageAr || "تم حفظ الطلب، لكن تعذر تأكيد إشعار البريد الإلكتروني.",
+                        en: result.messageEn || "The request was saved, but the email notification could not be confirmed."
+                    }, result.requestId || payload.requestId);
+                    setFormStatus(message[currentLang], "warning");
                     showToast("warning",
                         { ar: "تم حفظ الطلب مع تنبيه", en: "Request saved with a warning" },
                         message,
@@ -380,11 +400,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
                 } else {
                     outcome = "success";
-                    const message = {
-                        ar: result.messageAr || "تم حفظ طلبك وإشعار فريق الشركة. هنتواصل معاك قريبًا.",
-                        en: result.messageEn || "Your request was saved and the company was notified. We will contact you soon."
-                    };
-                    setFormStatus(message[currentLang]);
+                    const message = withRequestReference({
+                        ar: result.messageAr || "تم استلام طلبك وتسجيله بنجاح. هنتواصل معاك قريبًا.",
+                        en: result.messageEn || "Your request has been received and recorded. We will contact you soon."
+                    }, result.requestId || payload.requestId);
+                    setFormStatus(message[currentLang], "success");
                     showToast("success",
                         { ar: "تم إرسال طلبك بنجاح", en: "Request sent successfully" },
                         message,
@@ -403,10 +423,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         ar: error.message || "تعذر إرسال الطلب. حاول مرة أخرى.",
                         en: "The request could not be confirmed. Please try again."
                     };
-                setFormStatus(message[currentLang]);
+                const identifiedMessage = withRequestReference(message, payload.requestId);
+                setFormStatus(identifiedMessage[currentLang], "error");
                 showToast("error",
                     { ar: "تعذر تأكيد الطلب", en: "Could not confirm request" },
-                    message,
+                    identifiedMessage,
                     8500
                 );
             } finally {
