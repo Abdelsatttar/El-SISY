@@ -278,6 +278,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function createRequestId() {
+        // A stable unique reference lets the server safely deduplicate retries.
+        if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+            return "elsisy_" + crypto.randomUUID().replace(/-/g, "");
+        }
+
+        return "elsisy_" + Date.now().toString(36) + "_" +
+            Math.random().toString(36).slice(2, 14);
+    }
+
     const FORM_API_URL = "/api/submit";
     let submissionInProgress = false;
     let reusableRequest = null;
