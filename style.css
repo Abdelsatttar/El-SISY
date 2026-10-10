@@ -267,9 +267,9 @@ img{max-width:100%;display:block}
     .project-fact{grid-template-columns:32px minmax(0,1fr);padding:9px}
 }
 @keyframes projectCardReveal{
-    0%{opacity:0;transform:translateY(28px) scale(.965);filter:blur(3px)}
-    65%{opacity:1;transform:translateY(-3px) scale(1.005);filter:blur(0)}
-    100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+    0%{opacity:0;translate:0 28px;scale:.965;filter:blur(3px)}
+    65%{opacity:1;translate:0 -3px;scale:1.005;filter:blur(0)}
+    100%{opacity:1;translate:0 0;scale:1;filter:blur(0)}
 }
 @media(prefers-reduced-motion:reduce){
     .projects-track{scroll-behavior:auto}
