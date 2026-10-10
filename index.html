@@ -240,40 +240,252 @@
 
         <section id="projects" class="section projects-section">
             <div class="section-heading centered reveal reveal-up">
-                <span class="section-kicker" data-i18n data-ar="مشروعاتنا" data-en="Our projects">مشروعاتنا</span>
-                <h2 data-i18n data-ar="نماذج من الأعمال الحالية." data-en="Selected projects from the current portfolio.">نماذج من الأعمال الحالية.</h2>
+                <span class="section-kicker" data-i18n data-ar="نماذج من الأعمال" data-en="Selected Projects">نماذج من الأعمال</span>
+                <h2 data-i18n data-ar="مشروعات حقيقية من أعمالنا." data-en="Real projects delivered by our team.">مشروعات حقيقية من أعمالنا.</h2>
+                <p data-i18n data-ar="محطات رفع وشبكات صرف صحي ومياه شرب نفذناها في أسيوط والمنوفية والمنيا والبحيرة، مع عرض الحالة والتكلفة والتواريخ المتاحة لكل مشروع." data-en="Lift stations, wastewater networks and drinking-water lines across Assiut, Menoufia, Minya and Beheira, with each project's status, value and available timeline.">محطات رفع وشبكات صرف صحي ومياه شرب نفذناها في أسيوط والمنوفية والمنيا والبحيرة، مع عرض الحالة والتكلفة والتواريخ المتاحة لكل مشروع.</p>
             </div>
 
-            <div class="projects-grid">
-                <article class="project-card reveal reveal-up">
-                    <div class="project-visual project-factory"><div class="project-number">01</div><i class="fa-solid fa-industry"></i><div class="project-grid"></div></div>
+            <div class="projects-slider-wrap reveal reveal-up" id="projects-slider">
+                <div class="projects-slider-toolbar">
+                    <span class="projects-slider-hint" data-i18n data-ar="اسحب لاستعراض باقي المشروعات" data-en="Swipe to explore more projects">اسحب لاستعراض باقي المشروعات</span>
+                    <div class="projects-slider-controls">
+                        <button class="project-slider-btn" type="button" id="projects-prev" aria-label="المشروع السابق">
+                            <i class="fa-solid fa-chevron-right" id="projects-prev-icon"></i>
+                            <span class="sr-only" data-i18n data-ar="المشروع السابق" data-en="Previous project">المشروع السابق</span>
+                        </button>
+                        <span class="projects-slider-count" aria-live="polite"><strong id="projects-current-index">1</strong><span> / </span><span id="projects-total-count">8</span></span>
+                        <button class="project-slider-btn" type="button" id="projects-next" aria-label="المشروع التالي">
+                            <i class="fa-solid fa-chevron-left" id="projects-next-icon"></i>
+                            <span class="sr-only" data-i18n data-ar="المشروع التالي" data-en="Next project">المشروع التالي</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="projects-track" id="projects-track" aria-label="Projects carousel">
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 01">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.16%20AM.jpeg" alt="أعمال تركيب خطوط الصرف والمواسير الخرسانية بكوم إنجاشا" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">01</span>
+                        <span class="project-status status-completed" data-i18n data-ar="منتهي وتم التشغيل" data-en="Completed & operational">منتهي وتم التشغيل</span>
+                    </div>
                     <div class="project-details">
-                        <span class="project-meta" data-i18n data-ar="مصنع • العين السخنة" data-en="Factory • Ain Sokhna">مصنع • العين السخنة</span>
-                        <h3>Pivot Factory</h3>
-                        <p data-i18n data-ar="مشروع صناعي مدرج ضمن الأعمال الحالية للموقع." data-en="An industrial project listed in the current website portfolio.">مشروع صناعي مدرج ضمن الأعمال الحالية للموقع.</p>
-                        <span class="year-pill">2023</span>
+                        <span class="project-meta" data-i18n data-ar="صرف صحي • أسيوط" data-en="Wastewater • Assiut">صرف صحي • أسيوط</span>
+                        <h3 data-i18n data-ar="محطة رفع وشبكات صرف صحي — كوم إنجاشا" data-en="Kom Engasha Lift Station & Sewer Networks">محطة رفع وشبكات صرف صحي — كوم إنجاشا</h3>
+                        <p data-i18n data-ar="إنشاء محطة رفع وشبكات الصرف الصحي بقرية كوم إنجاشا، مركز ديروط، محافظة أسيوط. تم الانتهاء من الأعمال وبدء التشغيل." data-en="Construction of a lift station and sewer networks in Kom Engasha village, Dayrout, Assiut. The project is complete and operational.">إنشاء محطة رفع وشبكات الصرف الصحي بقرية كوم إنجاشا، مركز ديروط، محافظة أسيوط. تم الانتهاء من الأعمال وبدء التشغيل.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="قرية كوم إنجاشا، ديروط، أسيوط" data-en="Kom Engasha, Dayrout, Assiut">قرية كوم إنجاشا، ديروط، أسيوط</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="70 مليون جنيه" data-en="EGP 70 million">70 مليون جنيه</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="استلام: يونيو 2022 • التشغيل: 2024" data-en="Site received: Jun 2022 • Operational: 2024">استلام: يونيو 2022 • التشغيل: 2024</strong></div>
+                            </div>
+                        </div>
                     </div>
                 </article>
 
-                <article class="project-card reveal reveal-up">
-                    <div class="project-visual project-water"><div class="project-number">02</div><i class="fa-solid fa-water"></i><div class="project-grid"></div></div>
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 02">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.16%20AM%20%281%29.jpeg" alt="أعمال تركيب خطوط مواسير مياه وصرف في موقع تنفيذ" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">02</span>
+                        <span class="project-status status-completed" data-i18n data-ar="منتهي وتم التسليم" data-en="Completed & handed over">منتهي وتم التسليم</span>
+                    </div>
                     <div class="project-details">
-                        <span class="project-meta" data-i18n data-ar="مرافق • كوم أمبو" data-en="Utilities • Kom Ombo">مرافق • كوم أمبو</span>
-                        <h3>Kom Ombo — Aswan</h3>
-                        <p data-i18n data-ar="مشروع مرافق مدرج ضمن بيانات الموقع الحالية." data-en="A utilities project retained from the current site data.">مشروع مرافق مدرج ضمن بيانات الموقع الحالية.</p>
-                        <span class="year-pill">2024</span>
+                        <span class="project-meta" data-i18n data-ar="محطات وشبكات • المنوفية" data-en="Stations & networks • Menoufia">محطات وشبكات • المنوفية</span>
+                        <h3 data-i18n data-ar="محطتا رفع وشبكات صرف — المقاطع ومشيرف" data-en="Lift Stations & Sewer Networks — Al-Maqata and Mesherf">محطتا رفع وشبكات صرف — المقاطع ومشيرف</h3>
+                        <p data-i18n data-ar="إنشاء محطتي رفع وشبكات صرف صحي بقريتي المقاطع ومشيرف، مركز الباجور، محافظة المنوفية. تم الانتهاء من المشروع وتسليمه." data-en="Construction of two lift stations and sewer networks in Al-Maqata and Mesherf villages, El-Bagour, Menoufia. The project was completed and handed over.">إنشاء محطتي رفع وشبكات صرف صحي بقريتي المقاطع ومشيرف، مركز الباجور، محافظة المنوفية. تم الانتهاء من المشروع وتسليمه.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="المقاطع ومشيرف، الباجور، المنوفية" data-en="Al-Maqata & Mesherf, El-Bagour, Menoufia">المقاطع ومشيرف، الباجور، المنوفية</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="80 مليون جنيه" data-en="EGP 80 million">80 مليون جنيه</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="استلام: 2018 • التسليم: 2020" data-en="Site received: 2018 • Handover: 2020">استلام: 2018 • التسليم: 2020</strong></div>
+                            </div>
+                        </div>
                     </div>
                 </article>
 
-                <article class="project-card reveal reveal-up">
-                    <div class="project-visual project-res"><div class="project-number">03</div><i class="fa-solid fa-building"></i><div class="project-grid"></div></div>
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 03">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.17%20AM%20%281%29.jpeg" alt="أعمال إنشاء خرسانة محطة رفع أثناء التنفيذ" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">03</span>
+                        <span class="project-status status-ongoing" data-i18n data-ar="قيد التنفيذ • أكثر من 70%" data-en="In progress • Over 70%">قيد التنفيذ • أكثر من 70%</span>
+                    </div>
                     <div class="project-details">
-                        <span class="project-meta" data-i18n data-ar="سكني • مباني" data-en="Residential • Buildings">سكني • مباني</span>
-                        <h3>Residential Apartments</h3>
-                        <p data-i18n data-ar="مشروع سكني موجود ضمن البيانات السابقة للموقع." data-en="A residential project retained from the previous website data.">مشروع سكني موجود ضمن البيانات السابقة للموقع.</p>
-                        <span class="year-pill">2020</span>
+                        <span class="project-meta" data-i18n data-ar="قيد التنفيذ • أسيوط" data-en="In progress • Assiut">قيد التنفيذ • أسيوط</span>
+                        <h3 data-i18n data-ar="محطة رفع وشبكات صرف — بني غالب" data-en="Bani Ghaleb Lift Station & Sewer Networks">محطة رفع وشبكات صرف — بني غالب</h3>
+                        <p data-i18n data-ar="إنشاء محطة رفع وشبكات بقرية بني غالب، مركز أسيوط، محافظة أسيوط. وصلت نسبة التنفيذ إلى أكثر من 70%، وما زالت الأعمال مستمرة." data-en="Construction of a lift station and networks in Bani Ghaleb, Assiut. Progress has exceeded 70%, and work is ongoing.">إنشاء محطة رفع وشبكات بقرية بني غالب، مركز أسيوط، محافظة أسيوط. وصلت نسبة التنفيذ إلى أكثر من 70%، وما زالت الأعمال مستمرة.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="قرية بني غالب، مركز أسيوط" data-en="Bani Ghaleb, Assiut">قرية بني غالب، مركز أسيوط</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="أكثر من 200 مليون جنيه (تقديري)" data-en="Over EGP 200 million (estimated)">أكثر من 200 مليون جنيه (تقديري)</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="استلام: 2021 • العمل مستمر" data-en="Site received: 2021 • Ongoing">استلام: 2021 • العمل مستمر</strong></div>
+                            </div>
+                        </div>
                     </div>
                 </article>
+
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 04">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.17%20AM.jpeg" alt="محطة رفع وخطوط طرد ومحابس بعد التنفيذ" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">04</span>
+                        <span class="project-status status-completed" data-i18n data-ar="منتهي وتم التسليم" data-en="Completed & handed over">منتهي وتم التسليم</span>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="محطة رفع • المنيا" data-en="Lift station • Minya">محطة رفع • المنيا</span>
+                        <h3 data-i18n data-ar="محطة رفع الصرف الرئيسية — شارونة" data-en="Sharona Main Village Sewer Lift Station">محطة رفع الصرف الرئيسية — شارونة</h3>
+                        <p data-i18n data-ar="إنشاء محطة رفع صرف صحي بقرية شارونة الرئيسية، مركز مغاغة، محافظة المنيا. تم الانتهاء من المشروع وتسليمه." data-en="Construction of the main wastewater lift station in Sharona village, Maghagha, Minya. The project has been completed and handed over.">إنشاء محطة رفع صرف صحي بقرية شارونة الرئيسية، مركز مغاغة، محافظة المنيا. تم الانتهاء من المشروع وتسليمه.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="شارونة الرئيسية، مغاغة، المنيا" data-en="Main Sharona, Maghagha, Minya">شارونة الرئيسية، مغاغة، المنيا</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="40 مليون جنيه (تقديري)" data-en="EGP 40 million (estimated)">40 مليون جنيه (تقديري)</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="استلام: سبتمبر 2025 • التسليم: يوليو 2026" data-en="Site received: Sep 2025 • Handover: Jul 2026">استلام: سبتمبر 2025 • التسليم: يوليو 2026</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 05">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.17%20AM%20%284%29.jpeg" alt="محطة رفع صرف صحي ومواسير ومحابس" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">05</span>
+                        <span class="project-status status-ongoing" data-i18n data-ar="قيد التنفيذ" data-en="In progress">قيد التنفيذ</span>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="قيد التنفيذ • البحيرة" data-en="In progress • Beheira">قيد التنفيذ • البحيرة</span>
+                        <h3 data-i18n data-ar="محطة رفع وشبكات صرف — أورين" data-en="Orin Lift Station & Sewer Networks">محطة رفع وشبكات صرف — أورين</h3>
+                        <p data-i18n data-ar="إنشاء محطة رفع وشبكات صرف صحي بقرية أورين، مركز شبراخيت، محافظة البحيرة. بدأ التنفيذ بعد استلام الموقع في 2024 والأعمال مستمرة." data-en="Construction of a lift station and sewer networks in Orin village, Shubrakhit, Beheira. Work began after site handover in 2024 and is ongoing.">إنشاء محطة رفع وشبكات صرف صحي بقرية أورين، مركز شبراخيت، محافظة البحيرة. بدأ التنفيذ بعد استلام الموقع في 2024 والأعمال مستمرة.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="قرية أورين، شبراخيت، البحيرة" data-en="Orin, Shubrakhit, Beheira">قرية أورين، شبراخيت، البحيرة</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="90 مليون جنيه (تقديري)" data-en="EGP 90 million (estimated)">90 مليون جنيه (تقديري)</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="استلام الموقع: 2024 • العمل مستمر" data-en="Site received: 2024 • Ongoing">استلام الموقع: 2024 • العمل مستمر</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 06">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.17%20AM%20%282%29.jpeg" alt="شبكة مواسير ومحابس مياه داخل موقع مرافق" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">06</span>
+                        <span class="project-status status-ongoing" data-i18n data-ar="مراحل بعقود سنوية" data-en="Annual contract phases">مراحل بعقود سنوية</span>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="مياه شرب • المنوفية" data-en="Drinking water • Menoufia">مياه شرب • المنوفية</span>
+                        <h3 data-i18n data-ar="إحلال وتجديد وتدعيم خطوط مياه الشرب" data-en="Renewal & Strengthening of Drinking Water Lines">إحلال وتجديد وتدعيم خطوط مياه الشرب</h3>
+                        <p data-i18n data-ar="إحلال وتجديد ومد وتدعيم خطوط مياه الشرب بمراكز محافظة المنوفية، من خلال مراحل تنفيذ بعقود سنوية متتابعة على مدار عدة سنوات." data-en="Renewal, extension and strengthening of drinking water lines across Menoufia's districts, delivered in phases under successive annual contracts over multiple years.">إحلال وتجديد ومد وتدعيم خطوط مياه الشرب بمراكز محافظة المنوفية، من خلال مراحل تنفيذ بعقود سنوية متتابعة على مدار عدة سنوات.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="مراكز محافظة المنوفية" data-en="Districts across Menoufia">مراكز محافظة المنوفية</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="القيمة حسب كل عقد سنوي" data-en="Value varies by annual contract">القيمة حسب كل عقد سنوي</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="بداية الأعمال: 2016 • عقود سنوية متتابعة" data-en="Works began: 2016 • Successive annual contracts">بداية الأعمال: 2016 • عقود سنوية متتابعة</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 07">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.16%20AM.jpeg" alt="أعمال تنفيذ شبكات الصرف الصحي وتركيب المواسير" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">07</span>
+                        <span class="project-status status-completed" data-i18n data-ar="منتهي" data-en="Completed">منتهي</span>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="شبكات صرف • المنوفية" data-en="Sewer networks • Menoufia">شبكات صرف • المنوفية</span>
+                        <h3 data-i18n data-ar="استكمالات شبكات الصرف — شنوان وكفر شنوان" data-en="Sewer Network Extensions — Shanwan & Kafr Shanwan">استكمالات شبكات الصرف — شنوان وكفر شنوان</h3>
+                        <p data-i18n data-ar="مد وتدعيم واستكمال شبكات الصرف الصحي بقريتي شنوان وكفر شنوان، مركز شبين الكوم، محافظة المنوفية." data-en="Extension, reinforcement and completion of sewer networks in Shanwan and Kafr Shanwan villages, Shebin El-Kom, Menoufia.">مد وتدعيم واستكمال شبكات الصرف الصحي بقريتي شنوان وكفر شنوان، مركز شبين الكوم، محافظة المنوفية.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="شنوان وكفر شنوان، شبين الكوم" data-en="Shanwan & Kafr Shanwan, Shebin El-Kom">شنوان وكفر شنوان، شبين الكوم</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="لم تُذكر قيمة المشروع" data-en="Project value not provided">لم تُذكر قيمة المشروع</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="البداية: 2018 • الانتهاء: 2019" data-en="Started: 2018 • Completed: 2019">البداية: 2018 • الانتهاء: 2019</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card project-slide reveal reveal-up" role="group" aria-label="Project 08">
+                    <div class="project-visual">
+                        <img src="image/WhatsApp%20Image%202026-10-10%20at%203.31.17%20AM%20%283%29.jpeg" alt="أعمال مرافق وصرف صحي ومحطة معالجة" loading="lazy" decoding="async" width="1200" height="675">
+                        <div class="project-image-shade"></div>
+                        <span class="project-number">08</span>
+                        <span class="project-status status-completed" data-i18n data-ar="منتهي" data-en="Completed">منتهي</span>
+                    </div>
+                    <div class="project-details">
+                        <span class="project-meta" data-i18n data-ar="صرف صحي • المنوفية" data-en="Wastewater • Menoufia">صرف صحي • المنوفية</span>
+                        <h3 data-i18n data-ar="مشروع الصرف الصحي — قرية بشتامي" data-en="Beshtami Village Wastewater Project">مشروع الصرف الصحي — قرية بشتامي</h3>
+                        <p data-i18n data-ar="تنفيذ مشروع الصرف الصحي بقرية بشتامي، مركز قويسنا، محافظة المنوفية، خلال عامي 2018 و2019." data-en="Wastewater project in Beshtami village, Quesna, Menoufia, carried out between 2018 and 2019.">تنفيذ مشروع الصرف الصحي بقرية بشتامي، مركز قويسنا، محافظة المنوفية، خلال عامي 2018 و2019.</p>
+                        <div class="project-facts">
+                            <div class="project-fact">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div><span data-i18n data-ar="الموقع" data-en="Location">الموقع</span><strong data-i18n data-ar="قرية بشتامي، قويسنا، المنوفية" data-en="Beshtami, Quesna, Menoufia">قرية بشتامي، قويسنا، المنوفية</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-solid fa-coins"></i>
+                                <div><span data-i18n data-ar="قيمة المشروع" data-en="Project value">قيمة المشروع</span><strong data-i18n data-ar="لم تُذكر قيمة المشروع" data-en="Project value not provided">لم تُذكر قيمة المشروع</strong></div>
+                            </div>
+                            <div class="project-fact">
+                                <i class="fa-regular fa-calendar"></i>
+                                <div><span data-i18n data-ar="المدة والتواريخ" data-en="Timeline">المدة والتواريخ</span><strong data-i18n data-ar="البداية: 2018 • الانتهاء: 2019" data-en="Started: 2018 • Completed: 2019">البداية: 2018 • الانتهاء: 2019</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                </div>
+                <div class="projects-slider-progress" aria-hidden="true"><span id="projects-slider-progress-bar"></span></div>
             </div>
         </section>
 
