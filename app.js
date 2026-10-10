@@ -59,6 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
             option.textContent = option.dataset[lang];
         });
 
+        document.querySelectorAll(".project-slide").forEach((slide) => {
+            slide.dir = lang === "ar" ? "rtl" : "ltr";
+        });
+        document.getElementById("projects-prev")?.setAttribute(
+            "aria-label", lang === "ar" ? "المشروع السابق" : "Previous project"
+        );
+        document.getElementById("projects-next")?.setAttribute(
+            "aria-label", lang === "ar" ? "المشروع التالي" : "Next project"
+        );
+
         const active = langToggle?.querySelector(".lang-active") || langToggle?.querySelector("strong");
         if (active) active.textContent = lang.toUpperCase();
 
@@ -81,6 +91,70 @@ document.addEventListener("DOMContentLoaded", () => {
             if (label) label.textContent = currentLang === "ar" ? "جاري الإرسال..." : "Sending...";
         }
     });
+
+    // Responsive projects carousel: arrow controls, native touch swipe and progress.
+    const projectsTrack = document.getElementById("projects-track");
+    const projectSlides = projectsTrack ? Array.from(projectsTrack.querySelectorAll(".project-slide")) : [];
+    const projectsPrev = document.getElementById("projects-prev");
+    const projectsNext = document.getElementById("projects-next");
+    const projectsCurrentIndex = document.getElementById("projects-current-index");
+    const projectsTotalCount = document.getElementById("projects-total-count");
+    const projectsProgressBar = document.getElementById("projects-slider-progress-bar");
+
+    function getProjectScrollStep() {
+        if (!projectsTrack || !projectSlides.length) return 0;
+        const firstSlideWidth = projectSlides[0].getBoundingClientRect().width;
+        const trackStyles = window.getComputedStyle(projectsTrack);
+        const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || "0") || 0;
+        return firstSlideWidth + gap;
+    }
+
+    function updateProjectSliderState() {
+        if (!projectsTrack || !projectSlides.length) return;
+        const maxScroll = Math.max(0, projectsTrack.scrollWidth - projectsTrack.clientWidth);
+        const step = getProjectScrollStep();
+        const current = step > 0
+            ? Math.min(projectSlides.length, Math.max(1, Math.round(projectsTrack.scrollLeft / step) + 1))
+            : 1;
+
+        if (projectsCurrentIndex) projectsCurrentIndex.textContent = String(current).padStart(2, "0");
+        if (projectsTotalCount) projectsTotalCount.textContent = String(projectSlides.length).padStart(2, "0");
+        if (projectsProgressBar) {
+            const progressPercent = maxScroll > 0 ? (projectsTrack.scrollLeft / maxScroll) * 100 : 100;
+            projectsProgressBar.style.width = Math.max(0, Math.min(100, progressPercent)) + "%";
+        }
+    }
+
+    function moveProjects(direction) {
+        if (!projectsTrack || !projectSlides.length) return;
+        const step = getProjectScrollStep();
+        if (!step) return;
+        const maxScroll = Math.max(0, projectsTrack.scrollWidth - projectsTrack.clientWidth);
+        if (maxScroll <= 2) return;
+
+        const currentScroll = projectsTrack.scrollLeft;
+        const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+
+        if (direction > 0 && currentScroll >= maxScroll - 4) {
+            projectsTrack.scrollTo({ left: 0, behavior });
+        } else if (direction < 0 && currentScroll <= 4) {
+            projectsTrack.scrollTo({ left: maxScroll, behavior });
+        } else {
+            projectsTrack.scrollBy({ left: direction * step, behavior });
+        }
+    }
+
+    projectsPrev?.addEventListener("click", () => moveProjects(-1));
+    projectsNext?.addEventListener("click", () => moveProjects(1));
+    projectsTrack?.addEventListener("scroll", updateProjectSliderState, { passive: true });
+    window.addEventListener("resize", updateProjectSliderState, { passive: true });
+    projectSlides.forEach((slide, index) => {
+        slide.dir = currentLang === "ar" ? "rtl" : "ltr";
+        slide.setAttribute("aria-label", currentLang === "ar"
+            ? "المشروع " + String(index + 1).padStart(2, "0")
+            : "Project " + String(index + 1).padStart(2, "0"));
+    });
+    updateProjectSliderState();
 
     function closeMenu() {
         navLinks?.classList.remove("active");
