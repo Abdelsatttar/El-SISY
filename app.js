@@ -68,6 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("projects-next")?.setAttribute(
             "aria-label", lang === "ar" ? "المشروع التالي" : "Next project"
         );
+        const prevIcon = document.getElementById("projects-prev-icon");
+        const nextIcon = document.getElementById("projects-next-icon");
+        if (prevIcon) {
+            prevIcon.className = "fa-solid " + (lang === "ar" ? "fa-chevron-right" : "fa-chevron-left");
+        }
+        if (nextIcon) {
+            nextIcon.className = "fa-solid " + (lang === "ar" ? "fa-chevron-left" : "fa-chevron-right");
+        }
 
         const active = langToggle?.querySelector(".lang-active") || langToggle?.querySelector("strong");
         if (active) active.textContent = lang.toUpperCase();
@@ -92,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Responsive projects carousel: arrow controls, native touch swipe and progress.
+    // Responsive projects carousel: intro animation, auto-advance, arrows and touch swipe.
     const projectsTrack = document.getElementById("projects-track");
     const projectSlides = projectsTrack ? Array.from(projectsTrack.querySelectorAll(".project-slide")) : [];
     const projectsPrev = document.getElementById("projects-prev");
@@ -100,6 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectsCurrentIndex = document.getElementById("projects-current-index");
     const projectsTotalCount = document.getElementById("projects-total-count");
     const projectsProgressBar = document.getElementById("projects-slider-progress-bar");
+    const projectsReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    let projectsHovered = false;
+    let projectsFocused = false;
+    let projectsInView = false;
+    let projectsUserInteracted = false;
+    let projectsAutoTimer = null;
 
     function getProjectScrollStep() {
         if (!projectsTrack || !projectSlides.length) return 0;
@@ -125,15 +140,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function moveProjects(direction) {
+    function moveProjects(direction, fromUser = false) {
         if (!projectsTrack || !projectSlides.length) return;
+        if (fromUser) stopProjectAutoplay();
         const step = getProjectScrollStep();
         if (!step) return;
         const maxScroll = Math.max(0, projectsTrack.scrollWidth - projectsTrack.clientWidth);
         if (maxScroll <= 2) return;
 
         const currentScroll = projectsTrack.scrollLeft;
-        const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+        const behavior = projectsReducedMotion.matches ? "auto" : "smooth";
 
         if (direction > 0 && currentScroll >= maxScroll - 4) {
             projectsTrack.scrollTo({ left: 0, behavior });
@@ -144,16 +160,78 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    projectsPrev?.addEventListener("click", () => moveProjects(-1));
-    projectsNext?.addEventListener("click", () => moveProjects(1));
+    function stopProjectAutoplay() {
+        projectsUserInteracted = true;
+        if (projectsAutoTimer !== null) {
+            window.clearInterval(projectsAutoTimer);
+            projectsAutoTimer = null;
+        }
+    }
+
+    function startProjectAutoplay() {
+        if (projectsAutoTimer !== null || projectsUserInteracted || projectsReducedMotion.matches || !projectSlides.length) return;
+        projectsAutoTimer = window.setInterval(() => {
+            if (document.hidden || !projectsInView || projectsHovered || projectsFocused || projectsUserInteracted) return;
+            moveProjects(1, false);
+        }, 6500);
+    }
+
+    projectsPrev?.addEventListener("click", () => moveProjects(-1, true));
+    projectsNext?.addEventListener("click", () => moveProjects(1, true));
     projectsTrack?.addEventListener("scroll", updateProjectSliderState, { passive: true });
     window.addEventListener("resize", updateProjectSliderState, { passive: true });
+
+    projectsTrack?.addEventListener("pointerenter", () => { projectsHovered = true; });
+    projectsTrack?.addEventListener("pointerleave", () => { projectsHovered = false; });
+    projectsTrack?.addEventListener("focusin", () => { projectsFocused = true; });
+    projectsTrack?.addEventListener("focusout", (event) => {
+        if (!projectsTrack.contains(event.relatedTarget)) projectsFocused = false;
+    });
+
+    // A manual swipe, drag, wheel or keyboard scroll permanently pauses automatic movement.
+    ["pointerdown", "touchstart", "wheel"].forEach((eventName) => {
+        projectsTrack?.addEventListener(eventName, stopProjectAutoplay, { passive: true, once: true });
+    });
+    projectsTrack?.addEventListener("keydown", (event) => {
+        if (["ArrowLeft", "ArrowRight", "Home", "End", "PageUp", "PageDown", " "].includes(event.key)) {
+            stopProjectAutoplay();
+        }
+    });
+
     projectSlides.forEach((slide, index) => {
         slide.dir = currentLang === "ar" ? "rtl" : "ltr";
+        slide.style.setProperty("--project-order", String(index));
         slide.setAttribute("aria-label", currentLang === "ar"
             ? "المشروع " + String(index + 1).padStart(2, "0")
             : "Project " + String(index + 1).padStart(2, "0"));
     });
+
+    if (projectsTrack && "IntersectionObserver" in window) {
+        const projectsVisibilityObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                projectsInView = entry.isIntersecting;
+            });
+            if (projectsInView) startProjectAutoplay();
+        }, { threshold: 0.12 });
+        projectsVisibilityObserver.observe(projectsTrack);
+    } else {
+        projectsInView = true;
+        startProjectAutoplay();
+    }
+
+    projectsReducedMotion.addEventListener?.("change", () => {
+        if (projectsReducedMotion.matches && projectsAutoTimer !== null) {
+            window.clearInterval(projectsAutoTimer);
+            projectsAutoTimer = null;
+        } else if (!projectsReducedMotion.matches) {
+            startProjectAutoplay();
+        }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) startProjectAutoplay();
+    });
+
     updateProjectSliderState();
 
     function closeMenu() {
