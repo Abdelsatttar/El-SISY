@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Responsive projects carousel: intro animation, auto-advance, arrows and touch swipe.
     const projectsTrack = document.getElementById("projects-track");
+    const projectsSliderWrap = document.getElementById("projects-slider");
     const projectSlides = projectsTrack ? Array.from(projectsTrack.querySelectorAll(".project-slide")) : [];
     const projectsPrev = document.getElementById("projects-prev");
     const projectsNext = document.getElementById("projects-next");
@@ -181,11 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
     projectsTrack?.addEventListener("scroll", updateProjectSliderState, { passive: true });
     window.addEventListener("resize", updateProjectSliderState, { passive: true });
 
-    projectsTrack?.addEventListener("pointerenter", () => { projectsHovered = true; });
-    projectsTrack?.addEventListener("pointerleave", () => { projectsHovered = false; });
-    projectsTrack?.addEventListener("focusin", () => { projectsFocused = true; });
-    projectsTrack?.addEventListener("focusout", (event) => {
-        if (!projectsTrack.contains(event.relatedTarget)) projectsFocused = false;
+    projectsSliderWrap?.addEventListener("pointerenter", () => { projectsHovered = true; });
+    projectsSliderWrap?.addEventListener("pointerleave", () => { projectsHovered = false; });
+    projectsSliderWrap?.addEventListener("focusin", () => { projectsFocused = true; });
+    projectsSliderWrap?.addEventListener("focusout", (event) => {
+        if (!projectsSliderWrap.contains(event.relatedTarget)) projectsFocused = false;
     });
 
     // A manual swipe, drag, wheel or keyboard scroll permanently pauses automatic movement.
