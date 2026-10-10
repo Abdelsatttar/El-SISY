@@ -229,6 +229,8 @@ img{max-width:100%;display:block}
 .status-completed:before{background:#83e6ad;box-shadow:0 0 0 3px rgba(131,230,173,.13)}
 .status-ongoing{background:rgba(107,68,13,.82)}
 .status-ongoing:before{background:#ffd277;box-shadow:0 0 0 3px rgba(255,210,119,.15)}
+.status-phased{background:rgba(8,66,91,.82)}
+.status-phased:before{background:#7de1e6;box-shadow:0 0 0 3px rgba(125,225,230,.15)}
 .project-details{padding:22px;display:flex;flex:1;flex-direction:column;gap:0;min-width:0}
 .project-meta{display:inline-flex;align-self:flex-start;max-width:100%;color:var(--blue);font-size:.64rem;font-weight:900;letter-spacing:.1px}
 .project-details h3{font-size:1.07rem;line-height:1.65;color:var(--navy);margin:9px 0 9px;font-weight:900}
